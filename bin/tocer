@@ -1,0 +1,8 @@
+#!/usr/bin/ruby
+
+require "tocer"
+require "tocer/cli"
+require "tocer/identity"
+
+Process.setproctitle Tocer::Identity.version_label
+Tocer::CLI.start
