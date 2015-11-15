@@ -15,10 +15,20 @@ module Tocer
       super args, options, config
     end
 
+    desc "-g, [--generate=GENERATE]", "Generate table of contents."
+    map %w(-g --generate) => :generate
+    def generate file_path
+      writer = Writer.new file_path
+      writer.write
+      say "Generated table of contents: #{file_path}."
+    end
+
     desc "-e, [--edit]", "Edit #{Tocer::Identity.label} settings in default editor."
     map %w(-e --edit) => :edit
     def edit
-      `#{editor} $HOME/#{Tocer::Identity.file_name}`
+      resource_file = File.join ENV["HOME"], Tocer::Identity.file_name
+      info "Editing: #{resource_file}..."
+      `#{editor} #{resource_file}`
     end
 
     desc "-v, [--version]", "Show #{Tocer::Identity.label} version."
