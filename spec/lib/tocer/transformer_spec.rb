@@ -91,14 +91,6 @@ describe Tocer::Transformer do
       end
     end
 
-    context "with dots (.)" do
-      let(:text) { "# 1.2" }
-
-      it "removes dots" do
-        expect(subject.url).to eq("12")
-      end
-    end
-
     context "with dashes (-)" do
       let(:text) { "# Example-" }
 
@@ -115,19 +107,27 @@ describe Tocer::Transformer do
       end
     end
 
-    context "with pluses (+)" do
-      let(:text) { "# Example+" }
+    context "with dots (.)" do
+      let(:text) { "# 1.2" }
 
-      it "allows pluses" do
-        expect(subject.url).to eq("example+")
+      it "removes dots" do
+        expect(subject.url).to eq("12")
       end
     end
 
     context "with ampersands (&)" do
       let(:text) { "# Ex&mple" }
 
-      it "allows ampersands" do
-        expect(subject.url).to eq("ex&mple")
+      it "removes ampersands" do
+        expect(subject.url).to eq("exmple")
+      end
+    end
+
+    context "with pluses (+)" do
+      let(:text) { "# Example+" }
+
+      it "removes pluses" do
+        expect(subject.url).to eq("example")
       end
     end
   end

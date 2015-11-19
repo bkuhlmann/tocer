@@ -20,7 +20,7 @@ module Tocer
     end
 
     def url
-      label.downcase.gsub(/\s/, "-").gsub(/[^\w\-\+\&]+/, "")
+      label.downcase.gsub(/\s/, "-").gsub(/[^\w\-]+/, "")
     end
 
     def transform
