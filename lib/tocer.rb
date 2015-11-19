@@ -1,3 +1,4 @@
+require "tocer/transformers/text"
 require "tocer/builder"
 require "tocer/commenter"
 require "tocer/header"
