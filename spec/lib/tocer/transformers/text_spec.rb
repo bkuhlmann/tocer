@@ -85,5 +85,13 @@ describe Tocer::Transformers::Text do
         expect(subject.transform).to eq("- [Example](#example)")
       end
     end
+
+    context "with URL suffix" do
+      let(:markdown) { "# Example" }
+
+      it "answers non-indented bullet link" do
+        expect(subject.transform(url_suffix: 1)).to eq("- [Example](#example-1)")
+      end
+    end
   end
 end

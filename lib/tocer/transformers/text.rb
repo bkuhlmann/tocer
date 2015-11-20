@@ -1,7 +1,11 @@
+require "refinements/array_extensions"
+
 module Tocer
   module Transformers
     # Transforms a Markdown header (plain text) into a table of contents link.
     class Text
+      using Refinements::ArrayExtensions
+
       def initialize text, header: Header
         @header = header.new text
       end
@@ -14,8 +18,9 @@ module Tocer
         label.downcase.gsub(/\s/, "-").gsub(/[^\w\-]+/, "")
       end
 
-      def transform
-        "#{indented_bullet}[#{label}](##{url})"
+      def transform url_suffix: ""
+        modified_url = [url, url_suffix.to_s].compress.join "-"
+        "#{indented_bullet}[#{label}](##{modified_url})"
       end
 
       private
