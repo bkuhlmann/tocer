@@ -43,7 +43,21 @@ describe Tocer::Builder do
       "\n"
     end
 
-    context "when headers exist" do
+    context "when plain headers exist" do
+      it "builds the table of contents" do
+        expect(subject.build).to eq(toc)
+      end
+    end
+
+    context "when linked headers exist" do
+      let :lines do
+        [
+          "# [Overview](https://overview.example.com)\n",
+          "# [Features](https://features.example.com)\n",
+          "# [History](https://history.example.com)\n"
+        ]
+      end
+
       it "builds the table of contents" do
         expect(subject.build).to eq(toc)
       end
