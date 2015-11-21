@@ -17,6 +17,8 @@ Tocer (a.k.a. Table of Contenter) is command line interface for generating table
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Usage](#usage)
+  - [Command Line Interface (CLI)](#command-line-interface-cli)
+  - [Customization](#customization)
 - [Tests](#tests)
 - [Versioning](#versioning)
 - [Code of Conduct](#code-of-conduct)
@@ -56,6 +58,8 @@ For an insecure install, type the following (not recommended):
 
 # Usage
 
+## Command Line Interface (CLI)
+
 From the command line, type: `tocer help`
 
     tocer -e, [--edit]               # Edit Tocer settings in default editor.
@@ -66,8 +70,8 @@ From the command line, type: `tocer help`
 To add Tocer support, add the following at the correct position within your Markdown files:
 
 ```
-<!-- Tocer[start]: Auto-generated, don't remove. -->
-<!-- Tocer[finish]: Auto-generated, don't remove. -->
+<!-- Tocer[start] -->
+<!-- Tocer[finish] -->
 ```
 
 Alternatively, you can run `tocer -g <file_path>` on a file that does not have Tocer support and it will prepend the above
@@ -76,6 +80,25 @@ to your file, complete with an auto-generated table of contents.
 In the case that Tocer has already auto-generated a table of contents for a Markdown file, the existing table of
 contents has become stale, or placement of the table of contents has changed you can re-run Tocer on that file to auto-
 update it with new table of contents.
+
+## Customization
+
+If desired, this gem supports global customization via the `~/.tocerrc` file. Order of precedence is determined in the
+following order (with the last one taking top priority):
+
+0. Global `~/.tocerrc`.
+0. CLI option. Example: `tocer --generate README.md --label "Custom Label"`
+
+Any setting provided to the CLI during runtime would trump the global setting. The global setting is the weakest of all
+but great for situations where custom settings should be applied to *all* projects.
+
+The `~/.tocerrc` uses the following default settings:
+
+    :label: "# Table of Contents"
+
+Each `~/.tocerrc` setting can be configured as follows:
+
+- `label`: The header label for the table of contents. Default: "# Table of Contents".
 
 # Tests
 
