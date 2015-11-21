@@ -9,17 +9,36 @@ describe Tocer::CLI do
     let(:cli) { -> { described_class.start command_line } }
 
     shared_examples_for "a generate command" do
-      let(:options) { ["test.md"] }
       let(:writer) { instance_spy Tocer::Writer }
-      before { allow(Tocer::Writer).to receive(:new).with("test.md").and_return(writer) }
 
-      it "generates new table of contents" do
-        cli.call
-        expect(writer).to have_received(:write)
+      context "without custom label" do
+        let(:label) { "# Table of Contents" }
+        let(:options) { ["test.md"] }
+        before { allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer) }
+
+        it "generates new table of contents" do
+          cli.call
+          expect(writer).to have_received(:write)
+        end
+
+        it "prints status" do
+          expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+        end
       end
 
-      it "prints status" do
-        expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+      context "with custom label" do
+        let(:label) { "# Index" }
+        let(:options) { ["test.md", "--label", label] }
+        before { allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer) }
+
+        it "generates new table of contents" do
+          cli.call
+          expect(writer).to have_received(:write)
+        end
+
+        it "prints status" do
+          expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+        end
       end
     end
 
