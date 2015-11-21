@@ -43,13 +43,33 @@ describe Tocer::Builder do
       "\n"
     end
 
-    context "when plain headers exist" do
+    context "with custom label" do
+      let(:lines) { ["# Section 1\n", "# Section 2\n"] }
+      let :toc do
+        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
+        "\n" \
+        "# Overview\n" \
+        "\n" \
+        "- [Section 1](#section-1)\n" \
+        "- [Section 2](#section-2)\n" \
+        "\n" \
+        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
+        "\n"
+      end
+      subject { described_class.new lines, label: "# Overview" }
+
       it "builds the table of contents" do
         expect(subject.build).to eq(toc)
       end
     end
 
-    context "when linked headers exist" do
+    context "with plain headers" do
+      it "builds the table of contents" do
+        expect(subject.build).to eq(toc)
+      end
+    end
+
+    context "with embedded link headers" do
       let :lines do
         [
           "# [Overview](https://overview.example.com)\n",
@@ -63,7 +83,7 @@ describe Tocer::Builder do
       end
     end
 
-    context "when duplicate anchors exist" do
+    context "with duplicate anchors" do
       let :lines do
         [
           "# General\n",

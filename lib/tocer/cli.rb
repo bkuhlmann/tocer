@@ -17,6 +17,7 @@ module Tocer
 
     desc "-g, [--generate=GENERATE]", "Generate table of contents."
     map %w(-g --generate) => :generate
+    method_option :label, aliases: "-l", desc: "Customize label", type: :string, default: "# Table of Contents"
     def generate file_path
       writer = Writer.new file_path
       writer.write
