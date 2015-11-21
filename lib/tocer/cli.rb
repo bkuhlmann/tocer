@@ -13,14 +13,15 @@ module Tocer
 
     def initialize args = [], options = {}, config = {}
       super args, options, config
+      @configuration = Configuration.new
     end
 
     desc "-g, [--generate=GENERATE]", "Generate table of contents."
     map %w(-g --generate) => :generate
     method_option :label, aliases: "-l", desc: "Custom label", type: :string, default: "# Table of Contents"
     def generate file_path
-      writer = Writer.new file_path, label: options[:label]
-      writer.write
+      update_configuration! options
+      Writer.new(file_path, label: configuration.label).write
       say "Generated table of contents: #{file_path}."
     end
 
@@ -42,6 +43,15 @@ module Tocer
     map %w(-h --help) => :help
     def help task = nil
       say && super
+    end
+
+    private
+
+    attr_reader :configuration
+
+    def update_configuration! options
+      return if options[:label] == "# Table of Contents"
+      configuration.label = options[:label]
     end
   end
 end
