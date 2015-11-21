@@ -1,10 +1,10 @@
 module Tocer
   # Builds a table of contents for a Markdown document.
   class Builder
-    def initialize lines, label: "# Table of Contents", commenter: Commenter
+    def initialize lines, label: "# Table of Contents", comment_block: Elements::CommentBlock
       @lines = lines
       @label = label
-      @commenter = commenter.new
+      @comment_block = comment_block.new
       @url_count = Hash.new { |hash, key| hash[key] = 0 }
     end
 
@@ -15,15 +15,15 @@ module Tocer
     def build
       return "" if headers.empty?
 
-      content = "#{commenter.start}\n\n"
+      content = "#{comment_block.start}\n\n"
       content << "#{label}\n\n"
       content << headers_as_links.join("\n")
-      content << "\n\n#{commenter.finish}\n\n"
+      content << "\n\n#{comment_block.finish}\n\n"
     end
 
     private
 
-    attr_reader :lines, :label, :commenter, :url_count
+    attr_reader :lines, :label, :comment_block, :url_count
 
     def acquire_transfomer header
       case

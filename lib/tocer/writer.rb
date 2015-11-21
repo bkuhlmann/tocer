@@ -1,11 +1,11 @@
 module Tocer
   # Writes table of contents to a Markdown document.
   class Writer
-    def initialize file_path, builder: Builder, commenter: Commenter
+    def initialize file_path, builder: Builder, comment_block: Elements::CommentBlock
       @file_path = file_path
       @file_lines = File.open(file_path).to_a
       @builder = builder
-      setup_indexes commenter.new, @file_lines
+      setup_indexes comment_block.new, @file_lines
     end
 
     def write
@@ -15,11 +15,11 @@ module Tocer
 
     private
 
-    attr_reader :file_path, :file_lines, :start_index, :finish_index, :builder, :commenter
+    attr_reader :file_path, :file_lines, :start_index, :finish_index, :builder, :comment_block
 
-    def setup_indexes commenter, lines
-      @start_index = commenter.start_index lines
-      @finish_index = commenter.finish_index lines
+    def setup_indexes comment_block, lines
+      @start_index = comment_block.start_index lines
+      @finish_index = comment_block.finish_index lines
     end
 
     def content lines

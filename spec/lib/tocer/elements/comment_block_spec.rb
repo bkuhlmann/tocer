@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Tocer::Commenter do
+describe Tocer::Elements::CommentBlock do
   subject { described_class.new }
 
   describe "#start" do
