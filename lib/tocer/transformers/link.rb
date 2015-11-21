@@ -6,7 +6,7 @@ module Tocer
     class Link
       using Refinements::ArrayExtensions
 
-      def initialize text, header: Header
+      def initialize text, header: Parsers::Header
         @header = header.new text
       end
 

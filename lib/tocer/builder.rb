@@ -9,7 +9,7 @@ module Tocer
     end
 
     def headers
-      lines.select { |line| line.start_with? Header.punctuation }
+      lines.select { |line| line.start_with? Parsers::Header.punctuation }
     end
 
     def build

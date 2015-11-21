@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Tocer::Header do
+describe Tocer::Parsers::Header do
   subject { described_class.new markdown }
 
   describe "#prefix" do

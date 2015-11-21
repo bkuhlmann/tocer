@@ -6,7 +6,7 @@ module Tocer
     class Text
       using Refinements::ArrayExtensions
 
-      def initialize text, header: Header
+      def initialize text, header: Parsers::Header
         @header = header.new text
       end
 
