@@ -1,10 +1,11 @@
 module Tocer
-  # Builds table of contents for a document in Markdown.
+  # Builds a table of contents for a Markdown document.
   class Builder
     def initialize lines, label: "# Table of Contents", commenter: Commenter
       @lines = lines
       @label = label
       @commenter = commenter.new
+      @url_count = Hash.new { |hash, key| hash[key] = 0 }
     end
 
     def headers
@@ -22,15 +23,26 @@ module Tocer
 
     private
 
-    attr_reader :lines, :label, :commenter
+    attr_reader :lines, :label, :commenter, :url_count
 
-    def transform header
+    def acquire_transfomer header
       case
         when header =~ /\[.+\]\(.+\)/
-          Transformers::Link.new(header).transform
+          Transformers::Link.new header
         else
-          Transformers::Text.new(header).transform
+          Transformers::Text.new header
       end
+    end
+
+    def url_suffix url
+      url_count[url].zero? ? "" : url_count[url]
+    end
+
+    def transform header
+      transformer = acquire_transfomer header
+      link = transformer.transform url_suffix: url_suffix(transformer.url)
+      url_count[transformer.url] += 1
+      link
     end
 
     def headers_as_links

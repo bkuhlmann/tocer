@@ -63,6 +63,32 @@ describe Tocer::Builder do
       end
     end
 
+    context "when duplicate anchors exist" do
+      let :lines do
+        [
+          "# General\n",
+          "# General\n",
+          "# General\n"
+        ]
+      end
+      let :toc do
+        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
+        "\n" \
+        "# Table of Contents\n" \
+        "\n" \
+        "- [General](#general)\n" \
+        "- [General](#general-1)\n" \
+        "- [General](#general-2)\n" \
+        "\n" \
+        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
+        "\n"
+      end
+
+      it "builds the table of contents" do
+        expect(subject.build).to eq(toc)
+      end
+    end
+
     context "when headers don't exist" do
       let(:lines) { [] }
 
