@@ -6,7 +6,7 @@ describe Tocer::CLI do
     let(:version) { "0.1.0" }
     let(:options) { [] }
     let(:command_line) { Array(command).concat options }
-    let(:results) { -> { described_class.start command_line } }
+    let(:cli) { -> { described_class.start command_line } }
 
     shared_examples_for "a generate command" do
       let(:options) { ["test.md"] }
@@ -14,12 +14,12 @@ describe Tocer::CLI do
       before { allow(Tocer::Writer).to receive(:new).with("test.md").and_return(writer) }
 
       it "generates new table of contents" do
-        results.call
+        cli.call
         expect(writer).to have_received(:write)
       end
 
       it "prints status" do
-        expect(&results).to output("Generated table of contents: test.md.\n").to_stdout
+        expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
       end
     end
 
@@ -29,7 +29,7 @@ describe Tocer::CLI do
       it "edits resource file", :temp_dir do
         ClimateControl.modify EDITOR: %(printf "%s\n") do
           Dir.chdir(temp_dir) do
-            expect(&results).to output(/info\s+Editing\:\s#{file_path}\.\.\./).to_stdout
+            expect(&cli).to output(/info\s+Editing\:\s#{file_path}\.\.\./).to_stdout
           end
         end
       end
@@ -37,21 +37,13 @@ describe Tocer::CLI do
 
     shared_examples_for "a version command" do
       it "prints version" do
-        expect(&results).to output(/Tocer\s#{Tocer::Identity.version}\n/).to_stdout
+        expect(&cli).to output(/#{Tocer::Identity.label}\s#{Tocer::Identity.version}\n/).to_stdout
       end
     end
 
     shared_examples_for "a help command" do
-      it "prints help text" do
-        text = /
-          \nTocer\s#{Tocer::Identity.version}\scommands\:\n
-          .+\-e\,\s\[\-\-edit\].+Edit\sTocer\ssettings\sin\sdefault\seditor\.\n
-          .+\-g\,\s\[\-\-generate\=GENERATE\].+Generate\stable\sof\scontents\.\n
-          .+\-h\,\s\[\-\-help\=HELP\].+Show\sthis\smessage\sor\sget\shelp\sfor\sa\scommand\.\n
-          .+\-v\,\s\[\-\-version\].+Show\sTocer\sversion\.\n
-        /x
-
-        expect(&results).to output(text).to_stdout
+      it "prints usage" do
+        expect(&cli).to output(/#{Tocer::Identity.label}\s#{Tocer::Identity.version}\scommands:\n/).to_stdout
       end
     end
 
@@ -86,24 +78,18 @@ describe Tocer::CLI do
     end
 
     describe "--help" do
-      skip "Fix Travis CI first." do
-        let(:command) { "--help" }
-        it_behaves_like "a help command"
-      end
+      let(:command) { "--help" }
+      it_behaves_like "a help command"
     end
 
     describe "-h" do
-      skip "Fix Travis CI first." do
-        let(:command) { "-h" }
-        it_behaves_like "a help command"
-      end
+      let(:command) { "-h" }
+      it_behaves_like "a help command"
     end
 
     context "with no command" do
-      skip "Fix Travis CI first." do
-        let(:command) { nil }
-        it_behaves_like "a help command"
-      end
+      let(:command) { nil }
+      it_behaves_like "a help command"
     end
   end
 end
