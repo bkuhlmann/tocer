@@ -13,7 +13,7 @@ module Tocer
       end
 
       def start_index collection
-        index collection, start
+        index collection, start_id
       end
 
       def finish
@@ -21,7 +21,7 @@ module Tocer
       end
 
       def finish_index collection
-        index collection, finish
+        index collection, finish_id
       end
 
       private
@@ -32,8 +32,8 @@ module Tocer
         "<!-- #{id}: #{message} -->"
       end
 
-      def index collection, text
-        collection.index { |line| line =~ /#{Regexp.escape text}/ }
+      def index collection, id
+        collection.index { |line| line =~ /\<\!\-\-.*#{Regexp.escape id}.*\-\-\>/ }
       end
     end
   end

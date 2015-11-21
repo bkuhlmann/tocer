@@ -21,6 +21,14 @@ describe Tocer::Elements::CommentBlock do
     it "answers start comment index" do
       expect(subject.start_index(collection)).to eq(0)
     end
+
+    context "when comment doesn't match" do
+      let(:collection) { ["<!-- START: Different -->", "Line 1", "Line 2"] }
+
+      it "answers start comment index" do
+        expect(subject.start_index(collection)).to eq(0)
+      end
+    end
   end
 
   describe "#finish" do
@@ -35,11 +43,19 @@ describe Tocer::Elements::CommentBlock do
   end
 
   describe "#finish_index" do
-    subject { described_class.new finish_id: "FINISH", message: "Test" }
     let(:collection) { ["Line 1", "Line 2", "<!-- FINISH: Test -->"] }
+    subject { described_class.new finish_id: "FINISH", message: "Test" }
 
-    it "answers start comment index" do
+    it "answers finish comment index" do
       expect(subject.finish_index(collection)).to eq(2)
+    end
+
+    context "when comment doesn't match" do
+      let(:collection) { ["Line 1", "Line 2", "<!-- FINISH: Different -->"] }
+
+      it "answers finish comment index" do
+        expect(subject.finish_index(collection)).to eq(2)
+      end
     end
   end
 end
