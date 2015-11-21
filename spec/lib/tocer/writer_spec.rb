@@ -8,7 +8,7 @@ describe Tocer::Writer do
     before { FileUtils.cp fixture_path, test_path }
 
     context "when table of contents exists and is empty" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "fixtures", "toc-empty.md" }
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-empty.md" }
       let :contents do
         "# Introduction\n" \
         "\n" \
@@ -38,7 +38,7 @@ describe Tocer::Writer do
     end
 
     context "when table of contents exists" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "fixtures", "toc-existing.md" }
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-existing.md" }
       let :contents do
         "# Introduction\n" \
         "\n" \
@@ -68,7 +68,7 @@ describe Tocer::Writer do
     end
 
     context "when table of contents doesn't exist" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "fixtures", "toc-missing.md" }
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-missing.md" }
       let :contents do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \
