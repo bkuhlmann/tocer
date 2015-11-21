@@ -28,6 +28,29 @@ describe Tocer::Writer do
     end
     before { FileUtils.cp fixture_path, test_path }
 
+    context "when using a custom label" do
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-missing.md" }
+      let :contents do
+        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
+        "\n" \
+        "# Index\n" \
+        "\n" \
+        "- [One](#one)\n" \
+        "- [Two](#two)\n" \
+        "\n" \
+        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
+        "\n" \
+        "# One\n" \
+        "# Two\n"
+      end
+      subject { described_class.new test_path, label: "# Index" }
+
+      it "uses custom label for table of contents" do
+        subject.write
+        expect(File.open(test_path, "r").to_a.join).to eq(contents)
+      end
+    end
+
     context "when table of contents exists and is empty" do
       let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-empty.md" }
 

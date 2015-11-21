@@ -1,9 +1,10 @@
 module Tocer
   # Writes table of contents to a Markdown document.
   class Writer
-    def initialize file_path, builder: Builder, comment_block: Elements::CommentBlock
+    def initialize file_path, label: "# Table of Contents", builder: Builder, comment_block: Elements::CommentBlock
       @file_path = file_path
       @file_lines = File.open(file_path).to_a
+      @label = label
       @builder = builder
       setup_indexes comment_block.new, @file_lines
     end
@@ -15,7 +16,7 @@ module Tocer
 
     private
 
-    attr_reader :file_path, :file_lines, :start_index, :finish_index, :builder, :comment_block
+    attr_reader :file_path, :file_lines, :label, :start_index, :finish_index, :builder, :comment_block
 
     def setup_indexes comment_block, lines
       @start_index = comment_block.start_index lines
@@ -23,7 +24,7 @@ module Tocer
     end
 
     def content lines
-      builder.new(lines).build
+      builder.new(lines, label: label).build
     end
 
     def remove_toc lines
