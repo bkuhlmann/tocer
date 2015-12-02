@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/tocer.svg)](https://codeclimate.com/github/bkuhlmann/tocer)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/tocer/coverage.svg)](https://codeclimate.com/github/bkuhlmann/tocer)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/tocer.svg)](https://gemnasium.com/bkuhlmann/tocer)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/tocer.svg)](http://travis-ci.org/bkuhlmann/tocer)
+[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/tocer.svg)](https://travis-ci.org/bkuhlmann/tocer)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Tocer (a.k.a. Table of Contenter) is command line interface for generating table of contents for Markdown files.
@@ -40,13 +40,13 @@ Tocer (a.k.a. Table of Contenter) is command line interface for generating table
 # Requirements
 
 0. A UNIX-based system.
-0. [MRI 2.x.x](http://www.ruby-lang.org).
+0. [MRI 2.x.x](https://www.ruby-lang.org).
 
 # Setup
 
 For a secure install, type the following (recommended):
 
-    gem cert --add <(curl -Ls http://www.my-website.com/gem-public.pem)
+    gem cert --add <(curl -Ls https://www.my-website.com/gem-public.pem)
     gem install tocer --trust-policy MediumSecurity
 
 NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification while
