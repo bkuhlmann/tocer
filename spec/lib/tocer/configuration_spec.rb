@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Tocer::Configuration, :temp_dir do
+RSpec.describe Tocer::Configuration, :temp_dir do
   subject { described_class.new }
 
   describe "#label" do

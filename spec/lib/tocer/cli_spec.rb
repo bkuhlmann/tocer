@@ -1,7 +1,7 @@
 require "spec_helper"
 require "tocer/cli"
 
-describe Tocer::CLI do
+RSpec.describe Tocer::CLI do
   describe ".start" do
     let(:version) { "0.1.0" }
     let(:options) { [] }

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Tocer::Writer do
+RSpec.describe Tocer::Writer do
   subject { described_class.new test_path }
 
   describe "#write", :temp_dir do

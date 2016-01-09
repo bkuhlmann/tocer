@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Tocer::Builder do
+RSpec.describe Tocer::Builder do
   let :lines do
     [
       "# Overview\n",

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Tocer::Transformers::Text do
+RSpec.describe Tocer::Transformers::Text do
   subject { described_class.new markdown }
 
   describe "#label" do
