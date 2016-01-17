@@ -40,7 +40,7 @@ Tocer (a.k.a. Table of Contenter) is command line interface for generating table
 # Requirements
 
 0. A UNIX-based system.
-0. [MRI 2.x.x](https://www.ruby-lang.org).
+0. [Ruby 2.3.x](https://www.ruby-lang.org).
 
 # Setup
 
