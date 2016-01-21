@@ -1,3 +1,9 @@
+# v2.1.0 (2016-01-20)
+
+- Fixed secure gem install issues.
+- Added Gemsmith development support.
+- Added frozen string literals to Ruby source files.
+
 # v2.0.0 (2016-01-17)
 
 - Fixed README URLs to use HTTPS schemes where possible.
