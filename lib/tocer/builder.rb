@@ -17,10 +17,12 @@ module Tocer
     def build
       return "" if headers.empty?
 
-      content = "#{comment_block.start}\n\n"
-      content << "#{label}\n\n"
-      content << headers_as_links.join("\n")
-      content << "\n\n#{comment_block.finish}\n\n"
+      [
+        "#{comment_block.start}\n\n",
+        "#{label}\n\n",
+        headers_as_links.join("\n"),
+        "\n\n#{comment_block.finish}\n\n"
+      ].join
     end
 
     private
