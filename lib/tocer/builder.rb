@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tocer
   # Builds a table of contents for a Markdown document.
   class Builder

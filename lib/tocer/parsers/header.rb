@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tocer
   module Parsers
     # Represents a Markdown header.

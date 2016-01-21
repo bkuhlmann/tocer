@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tocer
   # Writes table of contents to a Markdown document.
   class Writer

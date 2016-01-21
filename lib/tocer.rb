@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "tocer/elements/comment_block"
 require "tocer/parsers/header"
 require "tocer/transformers/link"

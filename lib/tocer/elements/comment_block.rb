@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Tocer
   module Elements
     # Represents a table of contents start and finish comment block.

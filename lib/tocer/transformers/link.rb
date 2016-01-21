@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "refinements/array_extensions"
 
 module Tocer
