@@ -27,7 +27,7 @@ module Tocer
       say "Generated table of contents: #{file_path}."
     end
 
-    desc "-e, [--edit]", "Edit #{Tocer::Identity.label} settings in default editor."
+    desc "-e, [--edit]", "Edit gem settings in default editor."
     map %w(-e --edit) => :edit
     def edit
       resource_file = File.join ENV["HOME"], Tocer::Identity.file_name
@@ -35,7 +35,7 @@ module Tocer
       `#{editor} #{resource_file}`
     end
 
-    desc "-v, [--version]", "Show #{Tocer::Identity.label} version."
+    desc "-v, [--version]", "Show gem version."
     map %w(-v --version) => :version
     def version
       say Tocer::Identity.version_label
