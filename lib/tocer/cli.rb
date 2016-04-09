@@ -19,7 +19,7 @@ module Tocer
     end
 
     desc "-g, [--generate=GENERATE]", "Generate table of contents."
-    map %w(-g --generate) => :generate
+    map %w[-g --generate] => :generate
     method_option :label, aliases: "-l", desc: "Custom label", type: :string, default: "# Table of Contents"
     def generate file_path
       update_configuration! options
@@ -28,7 +28,7 @@ module Tocer
     end
 
     desc "-e, [--edit]", "Edit gem settings in default editor."
-    map %w(-e --edit) => :edit
+    map %w[-e --edit] => :edit
     def edit
       resource_file = File.join ENV["HOME"], Tocer::Identity.file_name
       info "Editing: #{resource_file}..."
@@ -36,15 +36,15 @@ module Tocer
     end
 
     desc "-v, [--version]", "Show gem version."
-    map %w(-v --version) => :version
+    map %w[-v --version] => :version
     def version
       say Tocer::Identity.version_label
     end
 
     desc "-h, [--help=HELP]", "Show this message or get help for a command."
-    map %w(-h --help) => :help
+    map %w[-h --help] => :help
     def help task = nil
-      say && super
+      say and super
     end
 
     private
