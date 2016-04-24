@@ -1,3 +1,16 @@
+# v2.2.0 (2016-04-24)
+
+- Fixed README gem certificate install instructions.
+- Fixed contributing guideline links.
+- Added GitHub issue and pull request templates.
+- Added Rubocop Style/SignalException cop style.
+- Added bond, wirb, hirb, and awesome_print development dependencies.
+- Updated GitHub issue and pull request templates.
+- Updated README secure gem install documentation.
+- Updated Rubocop PercentLiteralDelimiters and AndOr styles.
+- Updated to Code of Conduct, Version 1.4.0.
+- Removed gem label from CLI edit and version descriptions
+
 # v2.1.0 (2016-01-20)
 
 - Fixed secure gem install issues.

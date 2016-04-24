@@ -62,10 +62,10 @@ For an insecure install, type the following (not recommended):
 
 From the command line, type: `tocer help`
 
-    tocer -e, [--edit]               # Edit Tocer settings in default editor.
+    tocer -e, [--edit]               # Edit gem settings in default editor.
     tocer -g, [--generate=GENERATE]  # Generate table of contents.
     tocer -h, [--help=HELP]          # Show this message or get help for a command.
-    tocer -v, [--version]            # Show Tocer version.
+    tocer -v, [--version]            # Show gem version.
 
 To add Tocer support, add the following at the correct position within your Markdown files:
 
