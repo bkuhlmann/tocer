@@ -30,11 +30,10 @@ module Tocer
     attr_reader :lines, :label, :comment_block, :url_count
 
     def acquire_transfomer header
-      case
-        when header =~ /\[.+\]\(.+\)/
-          Transformers::Link.new header
-        else
-          Transformers::Text.new header
+      if header =~ /\[.+\]\(.+\)/
+        Transformers::Link.new header
+      else
+        Transformers::Text.new header
       end
     end
 
