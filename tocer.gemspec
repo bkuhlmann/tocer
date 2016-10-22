@@ -11,7 +11,6 @@ Gem::Specification.new do |spec|
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://github.com/bkuhlmann/tocer"
   spec.summary = "A command line interface for generating table of contents for Markdown files."
-  spec.description = "A command line interface for generating table of contents for Markdown files."
   spec.license = "MIT"
 
   if File.exist?(Gem.default_key_path) && File.exist?(Gem.default_cert_path)
