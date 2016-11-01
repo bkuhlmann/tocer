@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "refinements/array_extensions"
+require "refinements/arrays"
 
 module Tocer
   module Transformers
     # Transforms a Markdown header (embedded link) into a table of contents link.
     class Link
-      using Refinements::ArrayExtensions
+      using Refinements::Arrays
 
       def initialize text, header: Parsers::Header
         @header = header.new text

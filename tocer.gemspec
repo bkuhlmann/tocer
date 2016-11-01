@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = "~> 2.3"
   spec.add_dependency "thor", "~> 0.19"
   spec.add_dependency "thor_plus", "~> 3.1"
-  spec.add_dependency "refinements", "~> 2.2"
+  spec.add_dependency "refinements", "~> 3.0"
   spec.add_development_dependency "rake", "~> 11.0"
   spec.add_development_dependency "gemsmith", "~> 7.7"
   spec.add_development_dependency "pry", "~> 0.10"
@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
   spec.add_development_dependency "climate_control", "~> 0.0"
-  spec.add_development_dependency "rubocop", "~> 0.44"
+  spec.add_development_dependency "rubocop", "~> 0.45"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 0.6"
 
   spec.files = Dir["lib/**/*"]
