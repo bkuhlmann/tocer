@@ -4,6 +4,7 @@ require "yaml"
 require "thor"
 require "thor/actions"
 require "thor_plus/actions"
+require "runcom"
 
 module Tocer
   # The Command Line Interface (CLI) for the gem.
@@ -15,15 +16,15 @@ module Tocer
 
     def initialize args = [], options = {}, config = {}
       super args, options, config
-      @configuration = Configuration.new
+      @configuration = Runcom::Configuration.new file_name: Tocer::Identity.file_name
     end
 
     desc "-g, [--generate=GENERATE]", "Generate table of contents."
     map %w[-g --generate] => :generate
     method_option :label, aliases: "-l", desc: "Custom label", type: :string, default: "# Table of Contents"
     def generate file_path
-      update_configuration! options
-      Writer.new(file_path, label: configuration.label).write
+      settings = configuration.merge label: options[:label]
+      Writer.new(file_path, label: settings.fetch(:label)).write
       say "Generated table of contents: #{file_path}."
     end
 
@@ -33,6 +34,17 @@ module Tocer
       resource_file = File.join ENV["HOME"], Tocer::Identity.file_name
       info "Editing: #{resource_file}..."
       `#{editor} #{resource_file}`
+    end
+
+    desc "-c, [--config]", "Manage gem configuration."
+    map %w[-c --config] => :config
+    method_option :edit, aliases: "-e", desc: "Edit gem configuration.", type: :boolean, default: false
+    method_option :info, aliases: "-i", desc: "Print gem configuration info.", type: :boolean, default: false
+    def config
+      if options.edit? then `#{editor} #{configuration.computed_path}`
+      elsif options.info? then say("Using: #{configuration.computed_path}.")
+      else help(:config)
+      end
     end
 
     desc "-v, [--version]", "Show gem version."
@@ -50,10 +62,5 @@ module Tocer
     private
 
     attr_reader :configuration
-
-    def update_configuration! options
-      return if options[:label] == "# Table of Contents"
-      configuration.label = options[:label]
-    end
   end
 end

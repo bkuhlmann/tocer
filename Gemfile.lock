@@ -3,6 +3,7 @@ PATH
   specs:
     tocer (2.2.0)
       refinements (~> 3.0)
+      runcom (~> 0.1)
       thor (~> 0.19)
       thor_plus (~> 3.1)
 
@@ -112,6 +113,8 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
+    runcom (0.1.0)
+      refinements (~> 3.0)
     shellany (0.0.1)
     simplecov (0.12.0)
       docile (~> 1.1.0)

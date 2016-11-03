@@ -60,6 +60,27 @@ RSpec.describe Tocer::CLI do
       end
     end
 
+    shared_examples_for "a config command", :temp_dir do
+      let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
+      before { FileUtils.touch configuration_path }
+
+      context "with info option" do
+        let(:options) { %w[-i] }
+
+        it "prints configuration path" do
+          Dir.chdir(temp_dir) do
+            expect(&cli).to output("Using: #{configuration_path}.\n").to_stdout
+          end
+        end
+      end
+
+      context "with no options" do
+        it "prints help text" do
+          expect(&cli).to output(/Manage gem configuration./).to_stdout
+        end
+      end
+    end
+
     shared_examples_for "a version command" do
       it "prints version" do
         expect(&cli).to output(/#{Tocer::Identity.label}\s#{Tocer::Identity.version}\n/).to_stdout
@@ -90,6 +111,16 @@ RSpec.describe Tocer::CLI do
     describe "-e" do
       let(:command) { "-e" }
       it_behaves_like "an edit command"
+    end
+
+    describe "--config" do
+      let(:command) { "--config" }
+      it_behaves_like "a config command"
+    end
+
+    describe "-c" do
+      let(:command) { "-c" }
+      it_behaves_like "a config command"
     end
 
     describe "--version" do
