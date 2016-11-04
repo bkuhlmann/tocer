@@ -103,16 +103,6 @@ RSpec.describe Tocer::CLI do
       it_behaves_like "a generate command"
     end
 
-    describe "--edit" do
-      let(:command) { "--edit" }
-      it_behaves_like "an edit command"
-    end
-
-    describe "-e" do
-      let(:command) { "-e" }
-      it_behaves_like "an edit command"
-    end
-
     describe "--config" do
       let(:command) { "--config" }
       it_behaves_like "a config command"
