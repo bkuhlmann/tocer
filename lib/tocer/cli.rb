@@ -14,17 +14,20 @@ module Tocer
 
     package_name Tocer::Identity.version_label
 
+    def self.defaults
+      {label: "# Table of Contents"}
+    end
+
     def initialize args = [], options = {}, config = {}
       super args, options, config
-      @configuration = Runcom::Configuration.new file_name: Tocer::Identity.file_name
+      @configuration = Runcom::Configuration.new file_name: Tocer::Identity.file_name, defaults: self.class.defaults
     end
 
     desc "-g, [--generate=GENERATE]", "Generate table of contents."
     map %w[-g --generate] => :generate
-    method_option :label, aliases: "-l", desc: "Custom label", type: :string, default: "# Table of Contents"
+    method_option :label, aliases: "-l", desc: "Custom label", type: :string, default: defaults.fetch(:label)
     def generate file_path
-      settings = configuration.merge label: options[:label]
-      Writer.new(file_path, label: settings.fetch(:label)).write
+      Writer.new(file_path, label: compute_label(options[:label])).write
       say "Generated table of contents: #{file_path}."
     end
 
@@ -54,5 +57,10 @@ module Tocer
     private
 
     attr_reader :configuration
+
+    def compute_label label
+      configured_label = configuration.to_h.fetch :label
+      label == self.class.defaults.fetch(:label) ? configured_label : label
+    end
   end
 end

@@ -13,7 +13,7 @@ RSpec.describe Tocer::CLI do
     shared_examples_for "a generate command" do
       let(:writer) { instance_spy Tocer::Writer }
 
-      context "without custom label", :temp_dir do
+      context "without default label", :temp_dir do
         let(:label) { "# Table of Contents" }
         let(:options) { ["test.md"] }
         before { allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer) }
@@ -44,6 +44,22 @@ RSpec.describe Tocer::CLI do
 
         it "prints status" do
           expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+        end
+      end
+
+      context "with configured label", :temp_dir do
+        let(:label) { "# Index" }
+        let(:options) { ["test.md"] }
+        let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
+        before do
+          File.open(configuration_path, "w") { |file| file.write %(:label: "#{label}") }
+        end
+
+        it "uses local label" do
+          Dir.chdir(temp_dir) do
+            allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer)
+            cli.call
+          end
         end
       end
     end
