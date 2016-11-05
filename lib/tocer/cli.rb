@@ -23,12 +23,12 @@ module Tocer
       @configuration = Runcom::Configuration.new file_name: Tocer::Identity.file_name, defaults: self.class.defaults
     end
 
-    desc "-g, [--generate=GENERATE]", "Generate table of contents."
+    desc "-g, [--generate=PATH]", "Generate table of contents."
     map %w[-g --generate] => :generate
     method_option :label, aliases: "-l", desc: "Custom label", type: :string, default: defaults.fetch(:label)
-    def generate file_path
-      Writer.new(file_path, label: compute_label(options[:label])).write
-      say "Generated table of contents: #{file_path}."
+    def generate path
+      Writer.new(path, label: compute_label(options[:label])).write
+      say "Generated table of contents: #{path}."
     end
 
     desc "-c, [--config]", "Manage gem configuration."
@@ -48,7 +48,7 @@ module Tocer
       say Tocer::Identity.version_label
     end
 
-    desc "-h, [--help=HELP]", "Show this message or get help for a command."
+    desc "-h, [--help=COMMAND]", "Show this message or get help for a command."
     map %w[-h --help] => :help
     def help task = nil
       say and super
