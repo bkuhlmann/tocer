@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    tocer (2.2.0)
+    tocer (3.0.0)
       refinements (~> 3.0)
-      runcom (~> 0.1)
+      runcom (~> 0.2)
       thor (~> 0.19)
       thor_plus (~> 4.0)
 
@@ -97,7 +97,7 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
-    runcom (0.1.0)
+    runcom (0.2.0)
       refinements (~> 3.0)
     shellany (0.0.1)
     simplecov (0.12.0)

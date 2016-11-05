@@ -1,3 +1,29 @@
+# v3.0.0 (2016-11-05)
+
+- Fixed Rakefile to safely load Gemsmith tasks.
+- Fixed calculation of label precedence.
+- Added Runcom CLI configuration support.
+- Added frozen string literal pragma.
+- Updated CLI command option documentation.
+- Updated README versioning documentation.
+- Updated RSpec temp directory to use Bundler root path.
+- Updated gemspec with conservative versions.
+- Updated to Gemsmith 7.7.0.
+- Updated to RSpec 3.5.0.
+- Updated to Refinements 3.0.0.
+- Updated to Rubocop 0.44.
+- Updated to Ruby 2.3.1.
+- Updated to Thor+ 4.0.0.
+- Removed CHANGELOG.md (use CHANGES.md instead).
+- Removed Rake console task.
+- Removed `--edit` option (use `--config` instead).
+- Removed gemspec description.
+- Removed native configuration support in favor of Runcom.
+- Removed rb-fsevent development dependency from gemspec.
+- Removed terminal notifier gems from gemspec.
+- Refactored RSpec spec helper configuration.
+- Refactored gemspec to use default security keys.
+
 # v2.2.0 (2016-04-24)
 
 - Fixed README gem certificate install instructions.

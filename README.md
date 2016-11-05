@@ -7,7 +7,8 @@
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/tocer.svg)](https://travis-ci.org/bkuhlmann/tocer)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
-Tocer (a.k.a. Table of Contenter) is command line interface for generating table of contents for Markdown files.
+Tocer (a.k.a. Table of Contenter) is command line interface for generating table of contents for
+Markdown files.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -49,8 +50,9 @@ For a secure install, type the following (recommended):
     gem cert --add <(curl --location --silent https://www.alchemists.io/gem-public.pem)
     gem install tocer --trust-policy MediumSecurity
 
-NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification while
-allowing the installation of unsigned dependencies since they are beyond the scope of this gem.
+NOTE: A HighSecurity trust policy would be best but MediumSecurity enables signed gem verification
+while allowing the installation of unsigned dependencies since they are beyond the scope of this
+gem.
 
 For an insecure install, type the following (not recommended):
 
@@ -62,10 +64,10 @@ For an insecure install, type the following (not recommended):
 
 From the command line, type: `tocer help`
 
-    tocer -e, [--edit]               # Edit gem settings in default editor.
-    tocer -g, [--generate=GENERATE]  # Generate table of contents.
-    tocer -h, [--help=HELP]          # Show this message or get help for a command.
-    tocer -v, [--version]            # Show gem version.
+    tocer -c, [--config]         # Manage gem configuration.
+    tocer -g, [--generate=PATH]  # Generate table of contents.
+    tocer -h, [--help=COMMAND]   # Show this message or get help for a command.
+    tocer -v, [--version]        # Show gem version.
 
 To add Tocer support, add the following at the correct position within your Markdown files:
 
@@ -74,23 +76,24 @@ To add Tocer support, add the following at the correct position within your Mark
 <!-- Tocer[finish] -->
 ```
 
-Alternatively, you can run `tocer -g <file_path>` on a file that does not have Tocer support and it will prepend the above
-to your file, complete with an auto-generated table of contents.
+Alternatively, you can run `tocer -g <file_path>` on a file that does not have Tocer support and it
+will prepend the above to your file, complete with an auto-generated table of contents.
 
-In the case that Tocer has already auto-generated a table of contents for a Markdown file, the existing table of
-contents has become stale, or placement of the table of contents has changed you can re-run Tocer on that file to auto-
-update it with new table of contents.
+In the case that Tocer has already auto-generated a table of contents for a Markdown file, the
+existing table of contents has become stale, or placement of the table of contents has changed you
+can re-run Tocer on that file to auto-update it with new table of contents.
 
 ## Customization
 
-If desired, this gem supports global customization via the `~/.tocerrc` file. Order of precedence is determined in the
-following order (with the last one taking top priority):
+If desired, this gem supports global customization via the `~/.tocerrc` file. Order of precedence is
+determined in the following order (with the last one taking top priority):
 
 0. Global `~/.tocerrc`.
 0. CLI option. Example: `tocer --generate README.md --label "Custom Label"`
 
-Any setting provided to the CLI during runtime would trump the global setting. The global setting is the weakest of all
-but great for situations where custom settings should be applied to *all* projects.
+Any setting provided to the CLI during runtime would trump the global setting. The global setting is
+the weakest of all but great for situations where custom settings should be applied to *all*
+projects.
 
 The `~/.tocerrc` uses the following default settings:
 
@@ -116,8 +119,8 @@ Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 
 # Code of Conduct
 
-Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By participating in this project
-you agree to abide by its terms.
+Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By
+participating in this project you agree to abide by its terms.
 
 # Contributions
 
@@ -135,4 +138,5 @@ Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
 
 # Credits
 
-Developed by [Brooke Kuhlmann](https://www.alchemists.io) at [Alchemists](https://www.alchemists.io).
+Developed by [Brooke Kuhlmann](https://www.alchemists.io) at
+[Alchemists](https://www.alchemists.io).
