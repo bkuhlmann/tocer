@@ -1,0 +1,12 @@
+---
+DuplicateMethodCall:
+  exclude:
+  - Tocer::Builder#transform
+  - Tocer::Builder#url_suffix
+UtilityFunction:
+  exclude:
+  - Tocer::Builder#acquire_transfomer
+  - Tocer::Elements::CommentBlock#index
+TooManyInstanceVariables:
+  exclude:
+  - Tocer::Writer
