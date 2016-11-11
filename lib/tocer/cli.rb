@@ -14,20 +14,21 @@ module Tocer
 
     package_name Tocer::Identity.version_label
 
-    def self.defaults
-      {label: "# Table of Contents"}
+    def self.configuration
+      Runcom::Configuration.new file_name: Identity.file_name, defaults: {
+        label: "# Table of Contents"
+      }
     end
 
     def initialize args = [], options = {}, config = {}
       super args, options, config
-      @configuration = Runcom::Configuration.new file_name: Tocer::Identity.file_name, defaults: self.class.defaults
     end
 
     desc "-g, [--generate=PATH]", "Generate table of contents."
     map %w[-g --generate] => :generate
-    method_option :label, aliases: "-l", desc: "Custom label", type: :string, default: defaults.fetch(:label)
+    method_option :label, aliases: "-l", desc: "Label", type: :string, default: configuration.to_h.fetch(:label)
     def generate path
-      Writer.new(path, label: compute_label(options[:label])).write
+      Writer.new(path, label: options.label).write
       say "Generated table of contents: #{path}."
     end
 
@@ -36,8 +37,10 @@ module Tocer
     method_option :edit, aliases: "-e", desc: "Edit gem configuration.", type: :boolean, default: false
     method_option :info, aliases: "-i", desc: "Print gem configuration info.", type: :boolean, default: false
     def config
-      if options.edit? then `#{editor} #{configuration.computed_path}`
-      elsif options.info? then say("Using: #{configuration.computed_path}.")
+      path = self.class.configuration.computed_path
+
+      if options.edit? then `#{editor} #{path}`
+      elsif options.info? then say("Using: #{path}.")
       else help(:config)
       end
     end
@@ -56,11 +59,9 @@ module Tocer
 
     private
 
-    attr_reader :configuration
-
     def compute_label label
-      configured_label = configuration.to_h.fetch :label
-      label == self.class.defaults.fetch(:label) ? configured_label : label
+      configured_label = self.class.configuration.to_h.fetch :label
+      label == configured_label ? label : configured_label
     end
   end
 end

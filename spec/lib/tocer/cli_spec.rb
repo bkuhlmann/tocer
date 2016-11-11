@@ -8,7 +8,12 @@ RSpec.describe Tocer::CLI do
     let(:version) { "0.1.0" }
     let(:options) { [] }
     let(:command_line) { Array(command).concat options }
-    let(:cli) { -> { described_class.start command_line } }
+    let :cli do
+      lambda do
+        load "tocer/cli.rb" # Ensures clean Thor `.method_option` evaluation per spec.
+        described_class.start command_line
+      end
+    end
 
     shared_examples_for "a generate command" do
       let(:writer) { instance_spy Tocer::Writer }
@@ -32,18 +37,22 @@ RSpec.describe Tocer::CLI do
         end
       end
 
-      context "with custom label" do
+      context "with custom label", :temp_dir do
         let(:label) { "# Index" }
         let(:options) { ["test.md", "--label", label] }
         before { allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer) }
 
         it "generates new table of contents" do
-          cli.call
-          expect(writer).to have_received(:write)
+          ClimateControl.modify HOME: temp_dir do
+            cli.call
+            expect(writer).to have_received(:write)
+          end
         end
 
         it "prints status" do
-          expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+          ClimateControl.modify HOME: temp_dir do
+            expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+          end
         end
       end
 
@@ -56,9 +65,11 @@ RSpec.describe Tocer::CLI do
         end
 
         it "uses local label" do
-          Dir.chdir(temp_dir) do
-            allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer)
-            cli.call
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir(temp_dir) do
+              allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer)
+              cli.call
+            end
           end
         end
       end
