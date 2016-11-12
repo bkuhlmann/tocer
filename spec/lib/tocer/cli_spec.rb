@@ -96,7 +96,7 @@ RSpec.describe Tocer::CLI do
 
         it "prints configuration path" do
           Dir.chdir(temp_dir) do
-            expect(&cli).to output("Using: #{configuration_path}.\n").to_stdout
+            expect(&cli).to output("#{configuration_path}\n").to_stdout
           end
         end
       end
