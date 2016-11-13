@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "yaml"
 require "thor"
 require "thor/actions"
 require "thor_plus/actions"
@@ -12,7 +11,7 @@ module Tocer
     include Thor::Actions
     include ThorPlus::Actions
 
-    package_name Tocer::Identity.version_label
+    package_name Identity.version_label
 
     def self.configuration
       Runcom::Configuration.new file_name: Identity.file_name, defaults: {
@@ -54,7 +53,7 @@ module Tocer
     desc "-v, [--version]", "Show gem version."
     map %w[-v --version] => :version
     def version
-      say Tocer::Identity.version_label
+      say Identity.version_label
     end
 
     desc "-h, [--help=COMMAND]", "Show this message or get help for a command."

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "tocer/cli"
 
 RSpec.describe Tocer::CLI do
   describe ".start" do
