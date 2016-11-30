@@ -16,14 +16,30 @@ RSpec.describe Tocer::Builder do
   subject { described_class.new lines }
 
   describe "#headers" do
-    context "when headers exist" do
+    context "with header lines" do
       it "answers headers" do
         expect(subject.headers).to contain_exactly("# Overview\n", "# Features\n", "# History\n")
       end
     end
 
-    context "when headers don't exist" do
+    context "with empty lines" do
       let(:lines) { [] }
+
+      it "answers an empty array" do
+        expect(subject.headers).to be_empty
+      end
+    end
+
+    context "with commented code block lines" do
+      let :lines do
+        [
+          "```",
+          "# This is a comment.",
+          "class Example",
+          "end",
+          "```"
+        ]
+      end
 
       it "answers an empty array" do
         expect(subject.headers).to be_empty
