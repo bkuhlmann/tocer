@@ -42,7 +42,6 @@ module Tocer
       files = runner.files
 
       runner.run
-
       return if files.empty?
 
       say "Processed table of contents for:"
@@ -84,6 +83,7 @@ module Tocer
 
     def build_configuration path, label, whitelist
       if Pathname(path).file?
+        warn "[DEPRECATION]: File paths are deprecated, use directory paths instead."
         self.class.configuration.merge label: label, whitelist: [path]
       else
         self.class.configuration.merge label: label, whitelist: whitelist

@@ -130,6 +130,14 @@ RSpec.describe Tocer::CLI do
       context "with file path", :temp_dir do
         let(:options) { ["test.md"] }
 
+        it "prints deprecation warning" do
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir temp_dir do
+              expect(&cli).to output(/DEPRECATION/).to_stdout
+            end
+          end
+        end
+
         it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
