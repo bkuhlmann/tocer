@@ -15,7 +15,8 @@ module Tocer
 
     def self.configuration
       Runcom::Configuration.new file_name: Identity.file_name, defaults: {
-        label: "# Table of Contents"
+        label: "# Table of Contents",
+        whitelist: %w[.md]
       }
     end
 
@@ -25,10 +26,27 @@ module Tocer
 
     desc "-g, [--generate=PATH]", "Generate table of contents."
     map %w[-g --generate] => :generate
-    method_option :label, aliases: "-l", desc: "Label", type: :string, default: configuration.to_h.fetch(:label)
+    method_option :label,
+                  aliases: "-l",
+                  desc: "Label",
+                  type: :string,
+                  default: configuration.to_h.fetch(:label)
+    method_option :whitelist,
+                  aliases: "-w",
+                  desc: "File whitelist",
+                  type: :array,
+                  default: configuration.to_h.fetch(:whitelist)
     def generate path
-      Writer.new(path, label: options.label).write
-      say "Generated table of contents: #{path}."
+      configuration = build_configuration path, options.label, options.whitelist
+      runner = build_runner path, configuration
+      files = runner.files
+
+      runner.run
+
+      return if files.empty?
+
+      say "Processed table of contents for:"
+      files.each { |file| say "  #{file}" }
     end
 
     desc "-c, [--config]", %(Manage gem configuration ("#{configuration.computed_path}").)
@@ -64,9 +82,20 @@ module Tocer
 
     private
 
-    def compute_label label
-      configured_label = self.class.configuration.to_h.fetch :label
-      label == configured_label ? label : configured_label
+    def build_configuration path, label, whitelist
+      if Pathname(path).file?
+        self.class.configuration.merge label: label, whitelist: [path]
+      else
+        self.class.configuration.merge label: label, whitelist: whitelist
+      end
+    end
+
+    def build_runner path, configuration
+      if Pathname(path).file?
+        Runner.new ".", configuration: configuration
+      else
+        Runner.new path, configuration: configuration
+      end
     end
   end
 end

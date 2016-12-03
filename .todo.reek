@@ -3,6 +3,7 @@ DuplicateMethodCall:
   exclude:
   - Tocer::Builder#transform
   - Tocer::Builder#url_suffix
+  - Tocer::CLI#build_configuration
 TooManyInstanceVariables:
   exclude:
   - Tocer::Builder
@@ -11,3 +12,7 @@ UtilityFunction:
   exclude:
   - Tocer::Builder#acquire_transfomer
   - Tocer::Elements::CommentBlock#index
+TooManyStatements:
+  exclude:
+  - initialize
+  - Tocer::CLI#generate

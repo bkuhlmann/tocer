@@ -4,7 +4,6 @@ require "spec_helper"
 
 RSpec.describe Tocer::CLI do
   describe ".start" do
-    let(:version) { "0.1.0" }
     let(:options) { [] }
     let(:command_line) { Array(command).concat options }
     let :cli do
@@ -15,59 +14,139 @@ RSpec.describe Tocer::CLI do
     end
 
     shared_examples_for "a generate command" do
-      let(:writer) { instance_spy Tocer::Writer }
+      let(:fixture_file) { File.join Bundler.root, "spec", "support", "fixtures", "toc-missing.md" }
+      let(:test_file) { File.join temp_dir, "test.md" }
+      let(:contents) { IO.read test_file }
+      before { FileUtils.cp fixture_file, test_file }
 
-      context "without default label", :temp_dir do
-        let(:label) { "# Table of Contents" }
-        let(:options) { ["test.md"] }
-        before { allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer) }
+      context "with defaults", :temp_dir do
+        let(:options) { ["."] }
 
-        it "generates new table of contents" do
+        it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
-            cli.call
-            expect(writer).to have_received(:write)
+            Dir.chdir temp_dir do
+              cli.call
+              expect(contents.include?("# Table of Contents")).to eq(true)
+            end
           end
         end
 
-        it "prints status" do
+        it "prints files processed" do
           ClimateControl.modify HOME: temp_dir do
-            expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+            Dir.chdir temp_dir do
+              message = "Processed table of contents for:\n" \
+                        "  ./test.md\n"
+              expect(&cli).to output(message).to_stdout
+            end
           end
         end
       end
 
       context "with custom label", :temp_dir do
         let(:label) { "# Index" }
-        let(:options) { ["test.md", "--label", label] }
-        before { allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer) }
+        let(:options) { [".", "--label", label] }
 
-        it "generates new table of contents" do
+        it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
-            cli.call
-            expect(writer).to have_received(:write)
-          end
-        end
-
-        it "prints status" do
-          ClimateControl.modify HOME: temp_dir do
-            expect(&cli).to output("Generated table of contents: test.md.\n").to_stdout
+            Dir.chdir temp_dir do
+              cli.call
+              expect(contents.include?(label)).to eq(true)
+            end
           end
         end
       end
 
       context "with configured label", :temp_dir do
-        let(:label) { "# Index" }
-        let(:options) { ["test.md"] }
+        let(:label) { "# Local" }
+        let(:options) { ["."] }
         let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
         before do
           File.open(configuration_path, "w") { |file| file.write %(:label: "#{label}") }
         end
 
-        it "uses local label" do
+        it "uses configured label" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir(temp_dir) do
-              allow(Tocer::Writer).to receive(:new).with("test.md", label: label).and_return(writer)
               cli.call
+              expect(contents.include?(label)).to eq(true)
+            end
+          end
+        end
+      end
+
+      context "with custom whitelist", :temp_dir do
+        let(:options) { [".", "--whitelist", [".txt"]] }
+        let(:test_file) { File.join temp_dir, "test.txt" }
+        before { FileUtils.touch File.join(temp_dir, "test.md") }
+
+        it "generates table of contents" do
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir temp_dir do
+              cli.call
+              expect(contents.include?("# Table of Contents")).to eq(true)
+            end
+          end
+        end
+
+        it "prints files processed" do
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir temp_dir do
+              message = "Processed table of contents for:\n" \
+                        "  ./test.txt\n"
+              expect(&cli).to output(message).to_stdout
+            end
+          end
+        end
+      end
+
+      context "with configured whitelist", :temp_dir do
+        let(:test_file) { File.join temp_dir, "test.local" }
+        let(:options) { ["."] }
+        let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
+        before do
+          File.open(configuration_path, "w") { |file| file.write %(:whitelist: [test.local]) }
+        end
+
+        it "uses configured whitelist" do
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir(temp_dir) do
+              cli.call
+              expect(contents.include?("# Table of Contents")).to eq(true)
+            end
+          end
+        end
+
+        it "prints files processed" do
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir temp_dir do
+              message = "Processed table of contents for:\n" \
+                        "  ./test.local\n"
+              expect(&cli).to output(message).to_stdout
+            end
+          end
+        end
+      end
+
+      context "with file path", :temp_dir do
+        let(:options) { ["test.md"] }
+
+        it "generates table of contents" do
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir temp_dir do
+              cli.call
+              expect(contents.include?("# Table of Contents")).to eq(true)
+            end
+          end
+        end
+      end
+
+      context "with no files to process", :temp_dir do
+        let(:options) { ["invalid.md"] }
+
+        it "prints nothing" do
+          ClimateControl.modify HOME: temp_dir do
+            Dir.chdir temp_dir do
+              expect(&cli).to_not output.to_stdout
             end
           end
         end
