@@ -46,7 +46,7 @@ module Tocer
     end
 
     def prepend_toc
-      content(file_lines) << file_lines.join
+      content(file_lines).dup << file_lines.join
     end
   end
 end
