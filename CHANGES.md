@@ -1,3 +1,15 @@
+# v3.2.0 (2016-12-03)
+
+- Fixed frozen string issue with prepending of table of contents.
+- Fixed issue with code comments showing up in table of contents.
+- Added `--generate` deprecation warning when using file paths.
+- Added `Gemfile.lock` to `.gitignore`.
+- Added multi-file table of content generation support.
+- Added table of contents runner.
+- Updated Travis CI configuration to rely fully on defaults.
+- Updated to Ruby 2.3.3.
+- Refactored header punctuation to be a constant.
+
 # v3.1.1 (2016-11-13)
 
 - Fixed gem requirements order.

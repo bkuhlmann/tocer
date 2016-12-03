@@ -35,8 +35,11 @@ Markdown files.
 - Supports Markdown ATX-style headers. Example: `# Header`.
     - Does not support header suffixes. Example: `# Header #`.
     - Does not support header prefixes without spaces. Example: `#Header`.
+- Supports table of contents generation for single or multiple files.
+- Supports custom label. Default: "# Table of Contents".
+- Supports whitelist filtering. Default: ".md".
 - Prepends table of contents to Markdown documents that don't have table of contents.
-- Replaces/updates Markdown documents that have existing table of contents.
+- Rebuilds Markdown documents that have existing table of contents.
 
 # Requirements
 
@@ -62,22 +65,30 @@ For an insecure install, type the following (not recommended):
 
 ## Command Line Interface (CLI)
 
-From the command line, type: `tocer help`
+From the command line, type: `tocer --help`
 
     tocer -c, [--config]         # Manage gem configuration.
     tocer -g, [--generate=PATH]  # Generate table of contents.
     tocer -h, [--help=COMMAND]   # Show this message or get help for a command.
     tocer -v, [--version]        # Show gem version.
 
-To add Tocer support, add the following at the correct position within your Markdown files:
+For specific `--generate` options, run `tocer --help --generate` to see the following:
+
+    -l, [--label=LABEL]              # Label
+                                     # Default: # Table of Contents
+    -w, [--whitelist=one two three]  # File whitelist
+                                     # Default: [".md"]
+
+To generate the table of contents at a specific position within your Markdown files, add the
+following lines to your file(s) prior to generation:
 
 ```
 <!-- Tocer[start] -->
 <!-- Tocer[finish] -->
 ```
 
-Alternatively, you can run `tocer -g <file_path>` on a file that does not have Tocer support and it
-will prepend the above to your file, complete with an auto-generated table of contents.
+Alternatively, you can run `tocer -g <directory>` on files that do not have Tocer support and it
+will prepend the above to your file(s), complete with an auto-generated table of contents.
 
 In the case that Tocer has already auto-generated a table of contents for a Markdown file, the
 existing table of contents has become stale, or placement of the table of contents has changed you
@@ -88,20 +99,40 @@ can re-run Tocer on that file to auto-update it with new table of contents.
 If desired, this gem supports global customization via the `~/.tocerrc` file. Order of precedence is
 determined in the following order (with the last one taking top priority):
 
-0. Global `~/.tocerrc`.
-0. CLI option. Example: `tocer --generate README.md --label "Custom Label"`
+0. Global: `~/.tocerrc`.
+0. Local: `<project_root>/.tocerrc`.
+0. CLI: `tocer --generate . --label "## Custom Label" --whitelist README.md`
 
-Any setting provided to the CLI during runtime would trump the global setting. The global setting is
+Any settings provided to the CLI during runtime will trump the global setting. The global setting is
 the weakest of all but great for situations where custom settings should be applied to *all*
 projects.
 
 The `~/.tocerrc` uses the following default settings:
 
     :label: "# Table of Contents"
+    :whitelist: [".md"]
 
 Each `~/.tocerrc` setting can be configured as follows:
 
 - `label`: The header label for the table of contents. Default: "# Table of Contents".
+- `whitelist`: The list of *included* files. Default: ".md".
+
+There are multiple ways the *whitelist* can be defined. Here are some examples:
+
+    # Use an empty array to include *all* files.
+    :whitelist: []
+
+    # Use an array of wildcards for groups of files with similar extensions:
+    :whitelist:
+      - .md
+      - .mkd
+      - .markdown
+
+    # Use a mix of wild cards and relative paths to customized as necessary:
+    :whitelist:
+      - README.md
+      - docs/*.md
+      - .markdown
 
 # Tests
 
