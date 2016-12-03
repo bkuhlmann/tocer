@@ -4,16 +4,14 @@ module Tocer
   module Parsers
     # Represents a Markdown header.
     class Header
-      def self.punctuation
-        "#"
-      end
+      PUNCTUATION = "#"
 
       def initialize markdown
         @markdown = markdown
       end
 
       def prefix
-        String markdown[/#{self.class.punctuation}{1,}/]
+        String markdown[/#{PUNCTUATION}{1,}/]
       end
 
       def content

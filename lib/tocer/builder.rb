@@ -16,7 +16,7 @@ module Tocer
     def headers
       lines.select do |line|
         toggle_code_block line
-        line.start_with?(Parsers::Header.punctuation) && !code_block
+        line.start_with?(Parsers::Header::PUNCTUATION) && !code_block
       end
     end
 
