@@ -7,7 +7,7 @@
 [![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/tocer.svg)](https://travis-ci.org/bkuhlmann/tocer)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
-Tocer (a.k.a. Table of Contenter) is command line interface for generating table of contents for
+Tocer (a.k.a. Table of Contenter) is a command line interface for generating table of contents for
 Markdown files.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
