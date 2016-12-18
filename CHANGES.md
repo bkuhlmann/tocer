@@ -1,3 +1,11 @@
+# v3.3.0 (2016-12-18)
+
+- Fixed README overview description typo.
+- Fixed Rakefile support for RSpec, Reek, Rubocop, and SCSS Lint.
+- Updated to Gemsmith 8.2.x.
+- Updated to Rake 12.x.x.
+- Updated to Rubocop 0.46.x.
+
 # v3.2.0 (2016-12-03)
 
 - Fixed frozen string issue with prepending of table of contents.
