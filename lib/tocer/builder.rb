@@ -42,7 +42,7 @@ module Tocer
     end
 
     def acquire_transfomer header
-      if header =~ /\[.+\]\(.+\)/
+      if header.match?(/\[.+\]\(.+\)/)
         Transformers::Link.new header
       else
         Transformers::Text.new header
