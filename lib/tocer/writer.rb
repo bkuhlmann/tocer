@@ -3,6 +3,7 @@
 module Tocer
   # Writes table of contents to a Markdown document.
   class Writer
+    # rubocop:disable Metrics/ParameterLists
     def initialize file_path, label: "# Table of Contents", builder: Builder, comment_block: Elements::CommentBlock
       @file_path = file_path
       @file_lines = File.open(file_path).to_a
