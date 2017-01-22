@@ -4,7 +4,11 @@ module Tocer
   # Writes table of contents to a Markdown document.
   class Writer
     # rubocop:disable Metrics/ParameterLists
-    def initialize file_path, label: "# Table of Contents", builder: Builder, comment_block: Elements::CommentBlock
+    def initialize file_path,
+                   label: "# Table of Contents",
+                   builder: Builder,
+                   comment_block: Elements::CommentBlock
+
       @file_path = file_path
       @file_lines = File.open(file_path).to_a
       @label = label
@@ -19,7 +23,13 @@ module Tocer
 
     private
 
-    attr_reader :file_path, :file_lines, :label, :start_index, :finish_index, :builder, :comment_block
+    attr_reader :file_path,
+                :file_lines,
+                :label,
+                :start_index,
+                :finish_index,
+                :builder,
+                :comment_block
 
     def setup_indexes comment_block, lines
       @start_index = comment_block.start_index lines

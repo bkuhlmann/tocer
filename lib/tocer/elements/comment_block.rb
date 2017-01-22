@@ -4,7 +4,10 @@ module Tocer
   module Elements
     # Represents a table of contents start and finish comment block.
     class CommentBlock
-      def initialize start_id: "Tocer[start]", finish_id: "Tocer[finish]", message: "Auto-generated, don't remove."
+      def initialize start_id: "Tocer[start]",
+                     finish_id: "Tocer[finish]",
+                     message: "Auto-generated, don't remove."
+
         @start_id = start_id
         @finish_id = finish_id
         @message = message

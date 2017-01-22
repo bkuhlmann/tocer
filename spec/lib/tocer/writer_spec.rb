@@ -72,7 +72,9 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents uses comments without auto-generated messages" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-without_comment_messages.md" }
+      let :fixture_path do
+        File.join Dir.pwd, "spec", "support", "fixtures", "toc-without_comment_messages.md"
+      end
 
       it "replaces existing table of contents with new table of contents" do
         subject.write
