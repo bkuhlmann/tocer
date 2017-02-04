@@ -2,7 +2,7 @@ language: ruby
 env:
   global:
   - secure: FVbHnXiFzU/007XlQ1wzJHAGl+AffW1AWDIfoD5uPjTYJHT1IXZGahHGoOUoFDosIGfzJCQxyJiOJUP1e/GbqgrY0hhQPG2skWVdxtsri2toENNe9RB4dEVXhBnie3XVw9UVtkTclejivX+RtOxofnzHV04dvlkGdRJeQDDMOoXSchoYOB+RCA5FCEN8Pxxhq6tSIHoWhA1RdVsZPpOlFlSf3lOLMvrjmV9QVDG/bY3IqdNfQ/TYNcW+ilDr/ECUVIf8gavZOX7YGoLfwx7T67cluticMo3efGXN+WXS8KaLHqCQf3DCIF9yacLCZQU3XSt38UxUeTNhAahM+Mt0bwnGDBcVUYhd0FkHHcnoTtTDtbb5biq8QkGhostR7ZjTbp17bmFWj+nspnIWa0b0Ua1mRxsF25tv1NnavNNR4m1kfYvtfyGvif1HDk+hFjd4DiXl22bv2DegTI8Qu0C2B7gYMzUyR5EYkNoKlhYNKekkYDOBxBGTAxwXYhFShSYiLDG03RC5Vs6Cey50N6FRdrA/pCc3AVOrOSDQZy2gdueQoVfNyv+p9goYtqpgj+JwyV/r5MQq4foKB3TFFCGUyMVh+LTmiD5tYYA5CTq6kneZsbMRO6dwqc4ERP1dpaZ/sMJSpdknW6YtJ1eeuGbyXuljED0t7LUgKoB5+bZ0r5c=
-before_install: gem update --system && gem update && gem cleanup
+before_install: gem update --system
 after_script: bundle exec codeclimate-test-reporter
 notifications:
   email: false
