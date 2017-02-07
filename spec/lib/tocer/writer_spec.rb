@@ -49,7 +49,7 @@ RSpec.describe Tocer::Writer do
 
       it "uses custom label for table of contents" do
         subject.write
-        expect(File.open(test_path, "r").to_a.join).to eq(contents)
+        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe Tocer::Writer do
 
       it "replaces existing table of contents with new table of contents" do
         subject.write
-        expect(File.open(test_path, "r").to_a.join).to eq(contents)
+        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe Tocer::Writer do
 
       it "replaces existing table of contents with new table of contents" do
         subject.write
-        expect(File.open(test_path, "r").to_a.join).to eq(contents)
+        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
 
@@ -78,7 +78,7 @@ RSpec.describe Tocer::Writer do
 
       it "replaces existing table of contents with new table of contents" do
         subject.write
-        expect(File.open(test_path, "r").to_a.join).to eq(contents)
+        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
 
@@ -100,7 +100,7 @@ RSpec.describe Tocer::Writer do
 
       it "inserts table of contents to top of file" do
         subject.write
-        expect(File.open(test_path, "r").to_a.join).to eq(contents)
+        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
   end

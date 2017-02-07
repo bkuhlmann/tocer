@@ -10,7 +10,7 @@ module Tocer
                    comment_block: Elements::CommentBlock
 
       @file_path = file_path
-      @file_lines = File.open(file_path).to_a
+      @file_lines = File.open(file_path, &:to_a)
       @label = label
       @builder = builder
       setup_indexes comment_block.new, @file_lines
