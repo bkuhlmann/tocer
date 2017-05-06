@@ -20,8 +20,6 @@ RSpec.describe Tocer::CLI do
       before { FileUtils.cp fixture_file, test_file }
 
       context "with defaults", :temp_dir do
-        let(:options) { ["."] }
-
         it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
@@ -44,7 +42,7 @@ RSpec.describe Tocer::CLI do
 
       context "with custom label", :temp_dir do
         let(:label) { "# Index" }
-        let(:options) { [".", "--label", label] }
+        let(:options) { ["--label", label] }
 
         it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
@@ -58,7 +56,6 @@ RSpec.describe Tocer::CLI do
 
       context "with configured label", :temp_dir do
         let(:label) { "# Local" }
-        let(:options) { ["."] }
         let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
         before do
           File.open(configuration_path, "w") { |file| file.write %(:label: "#{label}") }
@@ -75,7 +72,7 @@ RSpec.describe Tocer::CLI do
       end
 
       context "with custom whitelist", :temp_dir do
-        let(:options) { [".", "--whitelist", [".txt"]] }
+        let(:options) { ["--whitelist", ["*.txt"]] }
         let(:test_file) { File.join temp_dir, "test.txt" }
         before { FileUtils.touch File.join(temp_dir, "test.md") }
 
@@ -101,7 +98,6 @@ RSpec.describe Tocer::CLI do
 
       context "with configured whitelist", :temp_dir do
         let(:test_file) { File.join temp_dir, "test.local" }
-        let(:options) { ["."] }
         let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
         before do
           File.open(configuration_path, "w") { |file| file.write %(:whitelist: [test.local]) }

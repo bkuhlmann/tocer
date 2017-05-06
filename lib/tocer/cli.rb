@@ -16,7 +16,7 @@ module Tocer
     def self.configuration
       Runcom::Configuration.new file_name: Identity.file_name, defaults: {
         label: "# Table of Contents",
-        whitelist: %w[.md]
+        whitelist: %w[*.md]
       }
     end
 
