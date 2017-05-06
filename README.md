@@ -37,7 +37,7 @@ Markdown files.
     - Does not support header prefixes without spaces. Example: `#Header`.
 - Supports table of contents generation for single or multiple files.
 - Supports custom label. Default: "# Table of Contents".
-- Supports whitelist filtering. Default: ".md".
+- Supports whitelist filtering. Default: "README.md".
 - Prepends table of contents to Markdown documents that don't have table of contents.
 - Rebuilds Markdown documents that have existing table of contents.
 
@@ -77,7 +77,7 @@ For specific `--generate` options, run `tocer --help --generate` to see the foll
     -l, [--label=LABEL]              # Label
                                      # Default: # Table of Contents
     -w, [--whitelist=one two three]  # File whitelist
-                                     # Default: [".md"]
+                                     # Default: ["README.md"]
 
 To generate the table of contents at a specific position within your Markdown files, add the
 following lines to your file(s) prior to generation:
@@ -88,7 +88,8 @@ following lines to your file(s) prior to generation:
 ```
 
 Alternatively, you can run `tocer -g <directory>` on files that do not have Tocer support and it
-will prepend the above to your file(s), complete with an auto-generated table of contents.
+will prepend the table of contents to your file(s), complete with an auto-generated table of
+contents.
 
 In the case that Tocer has already auto-generated a table of contents for a Markdown file, the
 existing table of contents has become stale, or placement of the table of contents has changed you
@@ -101,38 +102,41 @@ determined in the following order (with the last one taking top priority):
 
 0. Global: `~/.tocerrc`.
 0. Local: `<project_root>/.tocerrc`.
-0. CLI: `tocer --generate . --label "## Custom Label" --whitelist README.md`
+0. CLI: `tocer --generate . --label "## Custom Label" --whitelist CHANGES.md`
 
-Any settings provided to the CLI during runtime will trump the global setting. The global setting is
-the weakest of all but great for situations where custom settings should be applied to *all*
-projects.
+Settings provided to the CLI during runtime will trump the global setting. The global settings are
+weakest of all but great for situations where custom settings should be applied to *all* projects.
 
-The `~/.tocerrc` uses the following default settings:
+The `~/.tocerrc` file uses the following default settings:
 
     :label: "# Table of Contents"
-    :whitelist: [".md"]
+    :whitelist: ["README.md"]
 
 Each `~/.tocerrc` setting can be configured as follows:
 
 - `label`: The header label for the table of contents. Default: "# Table of Contents".
-- `whitelist`: The list of *included* files. Default: ".md".
+- `whitelist`: The list of *included* files. Default: "*.md".
 
 There are multiple ways the *whitelist* can be defined. Here are some examples:
 
-    # Use an empty array to include *all* files.
+    # Use an empty array to ignore all files (a key with with no value would work too).
     :whitelist: []
 
     # Use an array of wildcards for groups of files with similar extensions:
     :whitelist:
-      - .md
-      - .mkd
-      - .markdown
+      - *.md
+      - *.mkd
+      - *.markdown
 
-    # Use a mix of wild cards and relative paths to customized as necessary:
+    # Use a mix of wild cards and relative names/paths to customized as necessary:
     :whitelist:
       - README.md
       - docs/*.md
-      - .markdown
+      - *.markdown
+
+    # Use a recursive glob to traverse and update all sub-directories:
+    :whitelist:
+      - **/*.md
 
 # Tests
 

@@ -15,7 +15,7 @@ RSpec.describe Tocer::CLI do
 
     shared_examples_for "a generate command" do
       let(:fixture_file) { File.join Bundler.root, "spec", "support", "fixtures", "toc-missing.md" }
-      let(:test_file) { File.join temp_dir, "test.md" }
+      let(:test_file) { File.join temp_dir, "README.md" }
       let(:contents) { IO.read test_file }
       before { FileUtils.cp fixture_file, test_file }
 
@@ -33,7 +33,7 @@ RSpec.describe Tocer::CLI do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
               message = "Processed table of contents for:\n" \
-                        "  ./test.md\n"
+                        "  ./README.md\n"
               expect(&cli).to output(message).to_stdout
             end
           end
