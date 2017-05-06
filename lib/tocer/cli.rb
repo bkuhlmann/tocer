@@ -36,6 +36,7 @@ module Tocer
                   desc: "File whitelist",
                   type: :array,
                   default: configuration.to_h.fetch(:whitelist)
+    # :reek:TooManyStatements
     def generate path = "."
       configuration = self.class.configuration.merge label: options.label,
                                                      whitelist: options.whitelist

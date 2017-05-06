@@ -15,6 +15,16 @@ RSpec.describe Tocer::Builder do
   end
   subject { described_class.new lines }
 
+  describe ".transformer" do
+    it "answers link transformer for link header" do
+      expect(described_class.transformer("# [Test](#test)")).to be_a(Tocer::Transformers::Link)
+    end
+
+    it "answers text transformer for plain text header" do
+      expect(described_class.transformer("# Test")).to be_a(Tocer::Transformers::Text)
+    end
+  end
+
   describe "#headers" do
     context "with header lines" do
       it "answers headers" do

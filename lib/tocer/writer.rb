@@ -2,6 +2,7 @@
 
 module Tocer
   # Writes table of contents to a Markdown document.
+  # :reek:TooManyInstanceVariables
   class Writer
     # rubocop:disable Metrics/ParameterLists
     def initialize file_path,

@@ -2,8 +2,17 @@
 
 module Tocer
   # Builds a table of contents for a Markdown document.
+  # :reek:TooManyInstanceVariables
   class Builder
     CODE_BLOCK_PUNCTUATION = "```"
+
+    def self.transformer header
+      if header.match?(/\[.+\]\(.+\)/)
+        Transformers::Link.new header
+      else
+        Transformers::Text.new header
+      end
+    end
 
     def initialize lines, label: "# Table of Contents", comment_block: Elements::CommentBlock
       @lines = lines
@@ -41,22 +50,16 @@ module Tocer
       self.code_block = !code_block
     end
 
-    def acquire_transfomer header
-      if header.match?(/\[.+\]\(.+\)/)
-        Transformers::Link.new header
-      else
-        Transformers::Text.new header
-      end
-    end
-
     def url_suffix url
-      url_count[url].zero? ? "" : url_count[url]
+      count = url_count[url]
+      count.zero? ? "" : count
     end
 
     def transform header
-      transformer = acquire_transfomer header
-      link = transformer.transform url_suffix: url_suffix(transformer.url)
-      url_count[transformer.url] += 1
+      transformer = self.class.transformer header
+      url = transformer.url
+      link = transformer.transform url_suffix: url_suffix(url)
+      url_count[url] += 1
       link
     end
 

@@ -4,6 +4,10 @@ module Tocer
   module Elements
     # Represents a table of contents start and finish comment block.
     class CommentBlock
+      def self.index lines, id
+        lines.index { |line| line =~ /\<\!\-\-.*#{Regexp.escape id}.*\-\-\>/ }
+      end
+
       def initialize start_id: "Tocer[start]",
                      finish_id: "Tocer[finish]",
                      message: "Auto-generated, don't remove."
@@ -18,7 +22,7 @@ module Tocer
       end
 
       def start_index collection
-        index collection, start_id
+        self.class.index collection, start_id
       end
 
       def finish
@@ -26,7 +30,7 @@ module Tocer
       end
 
       def finish_index collection
-        index collection, finish_id
+        self.class.index collection, finish_id
       end
 
       private
@@ -35,10 +39,6 @@ module Tocer
 
       def comment id, message
         "<!-- #{id}: #{message} -->"
-      end
-
-      def index collection, id
-        collection.index { |line| line =~ /\<\!\-\-.*#{Regexp.escape id}.*\-\-\>/ }
       end
     end
   end

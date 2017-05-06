@@ -5,6 +5,22 @@ require "spec_helper"
 RSpec.describe Tocer::Elements::CommentBlock do
   subject { described_class.new }
 
+  describe ".index" do
+    it "answers nil for empty lines" do
+      expect(described_class.index([], "test")).to eq(nil)
+    end
+
+    it "answers index for matching lines" do
+      lines = ["one", "<!-- two -->", "three"]
+      expect(described_class.index(lines, "two")).to eq(1)
+    end
+
+    it "answers nil for non-matching lines" do
+      lines = ["one", "<!-- two -->", "three"]
+      expect(described_class.index(lines, "bogus")).to eq(nil)
+    end
+  end
+
   describe "#start" do
     it "answers default start comment" do
       expect(subject.start).to eq("<!-- Tocer[start]: Auto-generated, don't remove. -->")
