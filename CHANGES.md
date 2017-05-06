@@ -1,3 +1,28 @@
+# v5.0.0 (2017-05-06)
+
+- Fixed (partial) Reek issues.
+- Fixed Rubocop Style/AutoResourceCleanup issues.
+- Fixed Travis CI configuration to not update gems.
+- Fixed comment block index calculation.
+- Fixed whitelist wildcard usage.
+- Added code quality Rake task.
+- Added default path for table of content generation.
+- Updated Guardfile to always run RSpec with documentation format.
+- Updated README semantic versioning order.
+- Updated RSpec configuration to output documentation when running.
+- Updated RSpec spec helper to enable color output.
+- Updated Rubocop configuration.
+- Updated Rubocop to import from global configuration.
+- Updated contributing documentation.
+- Updated default whitelist to: `"README.md"`.
+- Updated gem dependencies.
+- Updated to Gemsmith 9.0.0.
+- Updated to Ruby 2.4.1.
+- Removed Code Climate code comment checks.
+- Removed `.bundle` directory from `.gitignore`.
+- Removed file path support from `--generate` option.
+- Refactored comment block collection as lines.
+
 # v4.0.0 (2017-01-22)
 
 - Updated Rubocop Metrics/LineLength to 100 characters.
