@@ -5,7 +5,7 @@ require "pathname"
 module Tocer
   # Generates/updates Table of Contents for files in given path.
   class Runner
-    def initialize path = "", configuration: {}, writer: Writer
+    def initialize path = ".", configuration: {}, writer: Writer
       @path = Pathname path
       @configuration = configuration
       @writer = writer

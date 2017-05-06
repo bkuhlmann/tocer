@@ -36,7 +36,7 @@ module Tocer
                   desc: "File whitelist",
                   type: :array,
                   default: configuration.to_h.fetch(:whitelist)
-    def generate path
+    def generate path = "."
       configuration = build_configuration path, options.label, options.whitelist
       runner = build_runner path, configuration
       files = runner.files
