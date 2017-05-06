@@ -127,29 +127,17 @@ RSpec.describe Tocer::CLI do
         end
       end
 
-      context "with file path", :temp_dir do
-        let(:options) { ["test.md"] }
+      context "with no files to process", :temp_dir do
+        let(:options) { ["invalid.md"] }
 
-        it "prints deprecation warning" do
-          ClimateControl.modify HOME: temp_dir do
-            Dir.chdir temp_dir do
-              expect(&cli).to output(/DEPRECATION/).to_stdout
-            end
-          end
-        end
-
-        it "generates table of contents" do
+        it "does not generate table of contents" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
               cli.call
-              expect(contents.include?("# Table of Contents")).to eq(true)
+              expect(contents.include?("# Table of Contents")).to eq(false)
             end
           end
         end
-      end
-
-      context "with no files to process", :temp_dir do
-        let(:options) { ["invalid.md"] }
 
         it "prints nothing" do
           ClimateControl.modify HOME: temp_dir do

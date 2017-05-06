@@ -37,12 +37,13 @@ module Tocer
                   type: :array,
                   default: configuration.to_h.fetch(:whitelist)
     def generate path = "."
-      configuration = build_configuration path, options.label, options.whitelist
-      runner = build_runner path, configuration
+      configuration = self.class.configuration.merge label: options.label,
+                                                     whitelist: options.whitelist
+      runner = Runner.new path, configuration: configuration
       files = runner.files
 
-      runner.run
       return if files.empty?
+      runner.run
 
       say "Processed table of contents for:"
       files.each { |file| say "  #{file}" }
@@ -77,25 +78,6 @@ module Tocer
     map %w[-h --help] => :help
     def help task = nil
       say and super
-    end
-
-    private
-
-    def build_configuration path, label, whitelist
-      if Pathname(path).file?
-        warn "[DEPRECATION]: File paths are deprecated, use directory paths instead."
-        self.class.configuration.merge label: label, whitelist: [path]
-      else
-        self.class.configuration.merge label: label, whitelist: whitelist
-      end
-    end
-
-    def build_runner path, configuration
-      if Pathname(path).file?
-        Runner.new ".", configuration: configuration
-      else
-        Runner.new path, configuration: configuration
-      end
     end
   end
 end
