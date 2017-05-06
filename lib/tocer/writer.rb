@@ -18,7 +18,7 @@ module Tocer
     end
 
     def write
-      body = start_index ? replace_toc : prepend_toc
+      body = start_index.zero? ? prepend_toc : replace_toc
       File.open(file_path, "w") { |file| file.write body }
     end
 

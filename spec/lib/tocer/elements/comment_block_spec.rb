@@ -7,7 +7,7 @@ RSpec.describe Tocer::Elements::CommentBlock do
 
   describe ".index" do
     it "answers nil for empty lines" do
-      expect(described_class.index([], "test")).to eq(nil)
+      expect(described_class.index([], "test")).to eq(0)
     end
 
     it "answers index for matching lines" do
@@ -17,7 +17,7 @@ RSpec.describe Tocer::Elements::CommentBlock do
 
     it "answers nil for non-matching lines" do
       lines = ["one", "<!-- two -->", "three"]
-      expect(described_class.index(lines, "bogus")).to eq(nil)
+      expect(described_class.index(lines, "bogus")).to eq(0)
     end
   end
 
