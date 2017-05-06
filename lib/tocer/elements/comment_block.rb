@@ -21,16 +21,16 @@ module Tocer
         comment start_id, message
       end
 
-      def start_index collection
-        self.class.index collection, start_id
+      def start_index lines
+        self.class.index lines, start_id
       end
 
       def finish
         comment finish_id, message
       end
 
-      def finish_index collection
-        self.class.index collection, finish_id
+      def finish_index lines
+        self.class.index lines, finish_id
       end
 
       private
