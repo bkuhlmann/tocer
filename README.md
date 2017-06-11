@@ -4,7 +4,7 @@
 [![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/tocer.svg)](https://codeclimate.com/github/bkuhlmann/tocer)
 [![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/tocer/coverage.svg)](https://codeclimate.com/github/bkuhlmann/tocer)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/tocer.svg)](https://gemnasium.com/bkuhlmann/tocer)
-[![Travis CI Status](https://secure.travis-ci.org/bkuhlmann/tocer.svg)](https://travis-ci.org/bkuhlmann/tocer)
+[![Circle CI Status](https://circleci.com/gh/bkuhlmann/tocer.svg?style=svg)](https://circleci.com/gh/bkuhlmann/tocer)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Tocer (a.k.a. Table of Contenter) is a command line interface for generating table of contents for
