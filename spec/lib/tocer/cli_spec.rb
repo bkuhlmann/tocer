@@ -6,12 +6,7 @@ RSpec.describe Tocer::CLI do
   describe ".start" do
     let(:options) { [] }
     let(:command_line) { Array(command).concat options }
-    let :cli do
-      lambda do
-        load "tocer/cli.rb" # Ensures clean Thor `.method_option` evaluation per spec.
-        described_class.start command_line
-      end
-    end
+    let(:cli) { -> { described_class.start command_line } }
 
     shared_examples_for "a generate command" do
       let(:fixture_file) { File.join Bundler.root, "spec", "support", "fixtures", "toc-missing.md" }
@@ -54,23 +49,6 @@ RSpec.describe Tocer::CLI do
         end
       end
 
-      context "with configured label", :temp_dir do
-        let(:label) { "# Local" }
-        let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
-        before do
-          File.open(configuration_path, "w") { |file| file.write %(:label: "#{label}") }
-        end
-
-        it "uses configured label" do
-          ClimateControl.modify HOME: temp_dir do
-            Dir.chdir(temp_dir) do
-              cli.call
-              expect(contents.include?(label)).to eq(true)
-            end
-          end
-        end
-      end
-
       context "with custom whitelist", :temp_dir do
         let(:options) { ["--whitelist", ["*.txt"]] }
         let(:test_file) { File.join temp_dir, "test.txt" }
@@ -90,33 +68,6 @@ RSpec.describe Tocer::CLI do
             Dir.chdir temp_dir do
               message = "Processed table of contents for:\n" \
                         "  ./test.txt\n"
-              expect(&cli).to output(message).to_stdout
-            end
-          end
-        end
-      end
-
-      context "with configured whitelist", :temp_dir do
-        let(:test_file) { File.join temp_dir, "test.local" }
-        let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
-        before do
-          File.open(configuration_path, "w") { |file| file.write %(:whitelist: [test.local]) }
-        end
-
-        it "uses configured whitelist" do
-          ClimateControl.modify HOME: temp_dir do
-            Dir.chdir(temp_dir) do
-              cli.call
-              expect(contents.include?("# Table of Contents")).to eq(true)
-            end
-          end
-        end
-
-        it "prints files processed" do
-          ClimateControl.modify HOME: temp_dir do
-            Dir.chdir temp_dir do
-              message = "Processed table of contents for:\n" \
-                        "  ./test.local\n"
               expect(&cli).to output(message).to_stdout
             end
           end
@@ -146,7 +97,7 @@ RSpec.describe Tocer::CLI do
     end
 
     shared_examples_for "an edit command" do
-      let(:file_path) { File.join ENV["HOME"], Tocer::Identity.file_name }
+      let(:file_path) { File.join ENV["HOME"], Tocer::Identity.name }
 
       it "edits resource file", :temp_dir do
         ClimateControl.modify EDITOR: %(printf "%s\n") do
@@ -158,19 +109,6 @@ RSpec.describe Tocer::CLI do
     end
 
     shared_examples_for "a config command", :temp_dir do
-      let(:configuration_path) { File.join temp_dir, Tocer::Identity.file_name }
-      before { FileUtils.touch configuration_path }
-
-      context "with info option" do
-        let(:options) { %w[-i] }
-
-        it "prints configuration path" do
-          Dir.chdir(temp_dir) do
-            expect(&cli).to output("#{configuration_path}\n").to_stdout
-          end
-        end
-      end
-
       context "with no options" do
         it "prints help text" do
           expect(&cli).to output(/Manage gem configuration./).to_stdout
