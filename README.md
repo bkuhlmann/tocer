@@ -97,22 +97,22 @@ can re-run Tocer on that file to auto-update it with new table of contents.
 
 ## Customization
 
-If desired, this gem supports global customization via the `~/.tocerrc` file. Order of precedence is
-determined in the following order (with the last one taking top priority):
+This gem can be configured via a global configuration:
 
-0. Global: `~/.tocerrc`.
-0. Local: `<project_root>/.tocerrc`.
-0. CLI: `tocer --generate . --label "## Custom Label" --whitelist CHANGES.md`
+    ~/.config/tocer/configuration.yml
 
-Settings provided to the CLI during runtime will trump the global setting. The global settings are
-weakest of all but great for situations where custom settings should be applied to *all* projects.
+It can also be configured via [XDG environment variables](https://github.com/bkuhlmann/runcom#xdg)
+as provided by the [Runcom](https://github.com/bkuhlmann/runcom) gem.
 
-The `~/.tocerrc` file uses the following default settings:
+The default configuration is as follows:
 
     :label: "# Table of Contents"
     :whitelist: ["README.md"]
 
-Each `~/.tocerrc` setting can be configured as follows:
+Feel free to take this default configuration, modify, and save as your own custom
+`configuration.yml`.
+
+The `configuration.yml` file can be configured as follows:
 
 - `label`: The header label for the table of contents. Default: "# Table of Contents".
 - `whitelist`: The list of *included* files. Default: "*.md".
