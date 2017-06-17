@@ -31,7 +31,7 @@ RSpec.describe Tocer::Writer do
     before { FileUtils.cp fixture_path, test_path }
 
     context "when using a custom label" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-missing.md" }
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "missing.md" }
       let :contents do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \
@@ -54,7 +54,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents exists and is empty" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-empty.md" }
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "empty.md" }
 
       it "replaces existing table of contents with new table of contents" do
         subject.write
@@ -63,7 +63,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents exists" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-existing.md" }
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "existing.md" }
 
       it "replaces existing table of contents with new table of contents" do
         subject.write
@@ -73,7 +73,7 @@ RSpec.describe Tocer::Writer do
 
     context "when table of contents uses comments without auto-generated messages" do
       let :fixture_path do
-        File.join Dir.pwd, "spec", "support", "fixtures", "toc-without_comment_messages.md"
+        File.join Dir.pwd, "spec", "support", "fixtures", "without_comment_messages.md"
       end
 
       it "replaces existing table of contents with new table of contents" do
@@ -83,7 +83,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents doesn't exist" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "toc-missing.md" }
+      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "missing.md" }
       let :contents do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \

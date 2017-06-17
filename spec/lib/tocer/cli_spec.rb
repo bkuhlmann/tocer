@@ -9,7 +9,7 @@ RSpec.describe Tocer::CLI do
     let(:cli) { -> { described_class.start command_line } }
 
     shared_examples_for "a generate command" do
-      let(:fixture_file) { File.join Bundler.root, "spec", "support", "fixtures", "toc-missing.md" }
+      let(:fixture_file) { File.join Bundler.root, "spec", "support", "fixtures", "missing.md" }
       let(:test_file) { File.join temp_dir, "README.md" }
       let(:contents) { IO.read test_file }
       before { FileUtils.cp fixture_file, test_file }
