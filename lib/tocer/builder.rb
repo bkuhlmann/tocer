@@ -33,7 +33,7 @@ module Tocer
         "#{comment_block.start_tag}\n\n",
         "#{label}\n\n",
         links(lines).join("\n"),
-        "\n\n#{comment_block.finish_tag}\n\n"
+        "\n\n#{comment_block.finish_tag}\n"
       ].join
     end
 

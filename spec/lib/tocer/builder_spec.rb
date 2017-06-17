@@ -34,8 +34,7 @@ RSpec.describe Tocer::Builder do
       "- [Features](#features)\n" \
       "- [History](#history)\n" \
       "\n" \
-      "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
-      "\n"
+      "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n"
     end
 
     context "with custom label" do
@@ -49,8 +48,7 @@ RSpec.describe Tocer::Builder do
         "- [Section 1](#section-1)\n" \
         "- [Section 2](#section-2)\n" \
         "\n" \
-        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
-        "\n"
+        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n"
       end
 
       subject { described_class.new label: "# Overview" }
@@ -97,8 +95,7 @@ RSpec.describe Tocer::Builder do
         "- [General](#general-1)\n" \
         "- [General](#general-2)\n" \
         "\n" \
-        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
-        "\n"
+        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n"
       end
 
       it "builds table of contents" do
