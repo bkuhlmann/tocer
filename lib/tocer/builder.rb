@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
+require "forwardable"
+
 module Tocer
   # Builds a table of contents for a Markdown document.
   class Builder
+    extend Forwardable
+
     CODE_BLOCK_PUNCTUATION = "```"
+
+    def_delegators :comment_block, :start_index, :finish_index, :prependable?
 
     def self.transformer header
       if header.match?(/\[.+\]\(.+\)/)
