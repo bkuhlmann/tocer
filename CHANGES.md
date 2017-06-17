@@ -1,3 +1,20 @@
+# v6.0.0 (2017-06-17)
+
+- Fixed bug with prepended TOC adding trailing spaces.
+- Fixed spec description.
+- Added Circle CI support.
+- Added comment block prependability.
+- Updated README usage configuration documenation.
+- Updated builder to forward helpful methods to comment block.
+- Updated gem dependencies.
+- Updated label to be indented.
+- Updated to Runcom 1.1.0.
+- Removed Travis CI support.
+- Refactored builder to build lines.
+- Refactored comment block start and finish tags.
+- Refactored fixtures.
+- Refactored writer to use builder updates.
+
 # v5.0.0 (2017-05-06)
 
 - Fixed (partial) Reek issues.
