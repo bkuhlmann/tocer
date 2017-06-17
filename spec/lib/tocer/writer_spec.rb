@@ -98,7 +98,7 @@ RSpec.describe Tocer::Writer do
         "# Two\n"
       end
 
-      it "inserts table of contents to top of file" do
+      it "prepends table of contents in file" do
         subject.write
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end

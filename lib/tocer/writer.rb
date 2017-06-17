@@ -2,63 +2,49 @@
 
 module Tocer
   # Writes table of contents to a Markdown document.
-  # :reek:TooManyInstanceVariables
   class Writer
-    # rubocop:disable Metrics/ParameterLists
-    def initialize file_path,
-                   label: "# Table of Contents",
-                   builder: Builder.new(label: label),
-                   comment_block: Elements::CommentBlock
+    def self.add start_index:, old_lines:, new_lines:
+      old_lines.insert start_index, new_lines
+    end
 
+    def self.remove start_index, finish_index, lines
+      range = ((start_index - 1)..finish_index)
+      lines.reject.with_index { |_, index| range.include? index }
+    end
+
+    def initialize file_path, label: "# Table of Contents", builder: Builder.new(label: label)
       @file_path = file_path
-      @file_lines = File.open(file_path, &:to_a)
-      @label = label
       @builder = builder
-      setup_indexes comment_block.new, @file_lines
     end
 
     def write
-      body = start_index.zero? ? prepend_toc : replace_toc
+      lines = File.readlines file_path
+      body = builder.prependable?(lines) ? unshift(lines) : replace(lines)
       File.open(file_path, "w") { |file| file.write body }
     end
 
     private
 
-    attr_reader :file_path,
-                :file_lines,
-                :label,
-                :start_index,
-                :finish_index,
-                :builder,
-                :comment_block
-
-    def setup_indexes comment_block, lines
-      @start_index = comment_block.start_index lines
-      @finish_index = comment_block.finish_index lines
-    end
+    attr_reader :file_path, :builder
 
     def content lines
       builder.build lines
     end
 
-    def remove_toc lines
-      toc_range = ((start_index - 1)..finish_index)
-      lines.reject.with_index { |_, index| toc_range.include? index }
+    def replace lines
+      start_index = builder.start_index lines
+      finish_index = builder.finish_index lines
+      klass = self.class
+
+      klass.add(
+        start_index: start_index,
+        old_lines: klass.remove(start_index, finish_index, lines),
+        new_lines: content(lines[finish_index, lines.length])
+      ).join
     end
 
-    def add_toc old_lines, new_lines
-      old_lines.insert start_index, new_lines
-    end
-
-    def replace_toc
-      old_lines = remove_toc file_lines
-      new_lines = content file_lines[finish_index, file_lines.length]
-
-      add_toc(old_lines, new_lines).join
-    end
-
-    def prepend_toc
-      content(file_lines).dup << file_lines.join
+    def unshift lines
+      content(lines).dup << lines.join
     end
   end
 end
