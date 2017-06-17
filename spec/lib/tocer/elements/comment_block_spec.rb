@@ -23,17 +23,17 @@ RSpec.describe Tocer::Elements::CommentBlock do
 
   describe "#start_index" do
     subject { described_class.new start_id: "START", message: "Test" }
-    let(:collection) { ["<!-- START: Test -->", "Line 1", "Line 2"] }
+    let(:lines) { ["<!-- START: Test -->", "Line 1", "Line 2"] }
 
     it "answers start comment index" do
-      expect(subject.start_index(collection)).to eq(0)
+      expect(subject.start_index(lines)).to eq(0)
     end
 
     context "when comment doesn't match" do
-      let(:collection) { ["<!-- START: Different -->", "Line 1", "Line 2"] }
+      let(:lines) { ["<!-- START: Different -->", "Line 1", "Line 2"] }
 
       it "answers start comment index" do
-        expect(subject.start_index(collection)).to eq(0)
+        expect(subject.start_index(lines)).to eq(0)
       end
     end
   end
@@ -50,18 +50,18 @@ RSpec.describe Tocer::Elements::CommentBlock do
   end
 
   describe "#finish_index" do
-    let(:collection) { ["Line 1", "Line 2", "<!-- FINISH: Test -->"] }
+    let(:lines) { ["Line 1", "Line 2", "<!-- FINISH: Test -->"] }
     subject { described_class.new finish_id: "FINISH", message: "Test" }
 
     it "answers finish comment index" do
-      expect(subject.finish_index(collection)).to eq(2)
+      expect(subject.finish_index(lines)).to eq(2)
     end
 
     context "when comment doesn't match" do
-      let(:collection) { ["Line 1", "Line 2", "<!-- FINISH: Different -->"] }
+      let(:lines) { ["Line 1", "Line 2", "<!-- FINISH: Different -->"] }
 
       it "answers finish comment index" do
-        expect(subject.finish_index(collection)).to eq(2)
+        expect(subject.finish_index(lines)).to eq(2)
       end
     end
   end
@@ -74,6 +74,23 @@ RSpec.describe Tocer::Elements::CommentBlock do
     it "answers customized finish comment" do
       subject = described_class.new finish_id: "FINISH", message: "Wish them well."
       expect(subject.finish_tag).to eq("<!-- FINISH: Wish them well. -->")
+    end
+  end
+
+  describe "#prependable?" do
+    it "answers true when start and finish indexes are zero" do
+      lines = ["Line 1", "Line 2"]
+      expect(subject.prependable?(lines)).to eq(true)
+    end
+
+    it "answers false when start index is zero and finish index is greater than zero" do
+      lines = ["<!-- Tocer[start]: Begin. -->", "<!-- Tocer[finish]: End. -->"]
+      expect(subject.prependable?(lines)).to eq(false)
+    end
+
+    it "answers false when start and finish indexes are greater than zero" do
+      lines = ["Test", "<!-- Tocer[start]: Begin. -->", "Example", "<!-- Tocer[finish]: End. -->"]
+      expect(subject.prependable?(lines)).to eq(false)
     end
   end
 end

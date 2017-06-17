@@ -33,6 +33,10 @@ module Tocer
         comment finish_id, message
       end
 
+      def prependable? lines
+        start_index(lines).zero? && finish_index(lines).zero?
+      end
+
       private
 
       attr_reader :start_id, :finish_id, :message
