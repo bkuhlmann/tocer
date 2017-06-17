@@ -17,20 +17,20 @@ module Tocer
         @message = message
       end
 
-      def start
-        comment start_id, message
-      end
-
       def start_index lines
         self.class.index lines, start_id
       end
 
-      def finish
-        comment finish_id, message
+      def start_tag
+        comment start_id, message
       end
 
       def finish_index lines
         self.class.index lines, finish_id
+      end
+
+      def finish_tag
+        comment finish_id, message
       end
 
       private

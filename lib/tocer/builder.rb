@@ -14,10 +14,10 @@ module Tocer
       end
     end
 
-    def initialize lines, label: "# Table of Contents", comment_block: Elements::CommentBlock
+    def initialize lines, label: "# Table of Contents", comment_block: Elements::CommentBlock.new
       @lines = lines
       @label = label
-      @comment_block = comment_block.new
+      @comment_block = comment_block
       @url_count = Hash.new { |hash, key| hash[key] = 0 }
       @code_block = false
     end
@@ -33,10 +33,10 @@ module Tocer
       return "" if headers.empty?
 
       [
-        "#{comment_block.start}\n\n",
+        "#{comment_block.start_tag}\n\n",
         "#{label}\n\n",
         headers_as_links.join("\n"),
-        "\n\n#{comment_block.finish}\n\n"
+        "\n\n#{comment_block.finish_tag}\n\n"
       ].join
     end
 
