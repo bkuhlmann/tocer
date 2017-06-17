@@ -15,7 +15,7 @@ module Tocer
 
     def self.configuration
       Runcom::Configuration.new project_name: Identity.name, defaults: {
-        label: "# Table of Contents",
+        label: "## Table of Contents",
         whitelist: ["README.md"]
       }
     end

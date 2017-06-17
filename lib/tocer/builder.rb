@@ -19,7 +19,7 @@ module Tocer
       end
     end
 
-    def initialize label: "# Table of Contents", comment_block: Elements::CommentBlock.new
+    def initialize label: "## Table of Contents", comment_block: Elements::CommentBlock.new
       @label = label
       @comment_block = comment_block
       @url_count = Hash.new { |hash, key| hash[key] = 0 }

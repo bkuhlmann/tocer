@@ -28,7 +28,7 @@ RSpec.describe Tocer::Builder do
     let :toc do
       "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
       "\n" \
-      "# Table of Contents\n" \
+      "## Table of Contents\n" \
       "\n" \
       "- [Overview](#overview)\n" \
       "- [Features](#features)\n" \
@@ -89,7 +89,7 @@ RSpec.describe Tocer::Builder do
       let :toc do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \
-        "# Table of Contents\n" \
+        "## Table of Contents\n" \
         "\n" \
         "- [General](#general)\n" \
         "- [General](#general-1)\n" \

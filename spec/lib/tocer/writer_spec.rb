@@ -51,7 +51,7 @@ RSpec.describe Tocer::Writer do
       "\n" \
       "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
       "\n" \
-      "# Table of Contents\n" \
+      "## Table of Contents\n" \
       "\n"\
       "- [One](#one)\n" \
       "- [Two](#two)\n" \
@@ -110,7 +110,7 @@ RSpec.describe Tocer::Writer do
       let :contents do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \
-        "# Table of Contents\n" \
+        "## Table of Contents\n" \
         "\n" \
         "- [One](#one)\n" \
         "- [Two](#two)\n" \
@@ -155,7 +155,7 @@ RSpec.describe Tocer::Writer do
       let :contents do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \
-        "# Table of Contents\n" \
+        "## Table of Contents\n" \
         "\n" \
         "- [One](#one)\n" \
         "- [Two](#two)\n" \

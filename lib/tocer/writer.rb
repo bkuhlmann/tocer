@@ -13,7 +13,7 @@ module Tocer
       lines.reject.with_index { |_, index| range.include? index }
     end
 
-    def initialize file_path, label: "# Table of Contents", builder: Builder.new(label: label)
+    def initialize file_path, label: "## Table of Contents", builder: Builder.new(label: label)
       @file_path = file_path
       @builder = builder
     end

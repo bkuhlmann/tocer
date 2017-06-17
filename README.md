@@ -12,41 +12,41 @@ Markdown files.
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
-# Table of Contents
+## Table of Contents
 
-- [Features](#features)
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [Usage](#usage)
-  - [Command Line Interface (CLI)](#command-line-interface-cli)
-  - [Customization](#customization)
-- [Tests](#tests)
-- [Versioning](#versioning)
-- [Code of Conduct](#code-of-conduct)
-- [Contributions](#contributions)
-- [License](#license)
-- [History](#history)
-- [Credits](#credits)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Usage](#usage)
+    - [Command Line Interface (CLI)](#command-line-interface-cli)
+    - [Customization](#customization)
+  - [Tests](#tests)
+  - [Versioning](#versioning)
+  - [Code of Conduct](#code-of-conduct)
+  - [Contributions](#contributions)
+  - [License](#license)
+  - [History](#history)
+  - [Credits](#credits)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
-# Features
+## Features
 
 - Supports Markdown ATX-style headers. Example: `# Header`.
     - Does not support header suffixes. Example: `# Header #`.
     - Does not support header prefixes without spaces. Example: `#Header`.
 - Supports table of contents generation for single or multiple files.
-- Supports custom label. Default: "# Table of Contents".
+- Supports custom label. Default: "## Table of Contents".
 - Supports whitelist filtering. Default: "README.md".
 - Prepends table of contents to Markdown documents that don't have table of contents.
 - Rebuilds Markdown documents that have existing table of contents.
 
-# Requirements
+## Requirements
 
 0. A UNIX-based system.
 0. [Ruby 2.4.x](https://www.ruby-lang.org).
 
-# Setup
+## Setup
 
 For a secure install, type the following (recommended):
 
@@ -61,9 +61,9 @@ For an insecure install, type the following (not recommended):
 
     gem install tocer
 
-# Usage
+## Usage
 
-## Command Line Interface (CLI)
+### Command Line Interface (CLI)
 
 From the command line, type: `tocer --help`
 
@@ -95,7 +95,7 @@ In the case that Tocer has already auto-generated a table of contents for a Mark
 existing table of contents has become stale, or placement of the table of contents has changed you
 can re-run Tocer on that file to auto-update it with new table of contents.
 
-## Customization
+### Customization
 
 This gem can be configured via a global configuration:
 
@@ -106,7 +106,7 @@ as provided by the [Runcom](https://github.com/bkuhlmann/runcom) gem.
 
 The default configuration is as follows:
 
-    :label: "# Table of Contents"
+    :label: "## Table of Contents"
     :whitelist: ["README.md"]
 
 Feel free to take this default configuration, modify, and save as your own custom
@@ -138,13 +138,13 @@ There are multiple ways the *whitelist* can be defined. Here are some examples:
     :whitelist:
       - **/*.md
 
-# Tests
+## Tests
 
 To test, run:
 
     bundle exec rake
 
-# Versioning
+## Versioning
 
 Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 
@@ -152,26 +152,26 @@ Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
 - Minor (x.Y.z) - Incremented for new, backwards compatible, public API enhancements/fixes.
 - Patch (x.y.Z) - Incremented for small, backwards compatible, bug fixes.
 
-# Code of Conduct
+## Code of Conduct
 
 Please note that this project is released with a [CODE OF CONDUCT](CODE_OF_CONDUCT.md). By
 participating in this project you agree to abide by its terms.
 
-# Contributions
+## Contributions
 
 Read [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-# License
+## License
 
 Copyright (c) 2015 [Alchemists](https://www.alchemists.io).
 Read [LICENSE](LICENSE.md) for details.
 
-# History
+## History
 
 Read [CHANGES](CHANGES.md) for details.
 Built with [Gemsmith](https://github.com/bkuhlmann/gemsmith).
 
-# Credits
+## Credits
 
 Developed by [Brooke Kuhlmann](https://www.alchemists.io) at
 [Alchemists](https://www.alchemists.io).
