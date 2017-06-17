@@ -13,7 +13,6 @@ RSpec.describe Tocer::Builder do
       "Some historic information.\n"
     ]
   end
-  subject { described_class.new lines }
 
   describe ".transformer" do
     it "answers link transformer for link header" do
@@ -22,38 +21,6 @@ RSpec.describe Tocer::Builder do
 
     it "answers text transformer for plain text header" do
       expect(described_class.transformer("# Test")).to be_a(Tocer::Transformers::Text)
-    end
-  end
-
-  describe "#headers" do
-    context "with header lines" do
-      it "answers headers" do
-        expect(subject.headers).to contain_exactly("# Overview\n", "# Features\n", "# History\n")
-      end
-    end
-
-    context "with empty lines" do
-      let(:lines) { [] }
-
-      it "answers an empty array" do
-        expect(subject.headers).to be_empty
-      end
-    end
-
-    context "with commented code block lines" do
-      let :lines do
-        [
-          "```",
-          "# This is a comment.",
-          "class Example",
-          "end",
-          "```"
-        ]
-      end
-
-      it "answers an empty array" do
-        expect(subject.headers).to be_empty
-      end
     end
   end
 
@@ -73,6 +40,7 @@ RSpec.describe Tocer::Builder do
 
     context "with custom label" do
       let(:lines) { ["# Section 1\n", "# Section 2\n"] }
+
       let :toc do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \
@@ -84,20 +52,21 @@ RSpec.describe Tocer::Builder do
         "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
         "\n"
       end
-      subject { described_class.new lines, label: "# Overview" }
 
-      it "builds the table of contents" do
-        expect(subject.build).to eq(toc)
+      subject { described_class.new label: "# Overview" }
+
+      it "builds table of contents" do
+        expect(subject.build(lines)).to eq(toc)
       end
     end
 
     context "with plain headers" do
-      it "builds the table of contents" do
-        expect(subject.build).to eq(toc)
+      it "builds table of contents" do
+        expect(subject.build(lines)).to eq(toc)
       end
     end
 
-    context "with embedded link headers" do
+    context "with embedded header links" do
       let :lines do
         [
           "# [Overview](https://overview.example.com)\n",
@@ -106,8 +75,8 @@ RSpec.describe Tocer::Builder do
         ]
       end
 
-      it "builds the table of contents" do
-        expect(subject.build).to eq(toc)
+      it "builds table of contents" do
+        expect(subject.build(lines)).to eq(toc)
       end
     end
 
@@ -132,8 +101,24 @@ RSpec.describe Tocer::Builder do
         "\n"
       end
 
-      it "builds the table of contents" do
-        expect(subject.build).to eq(toc)
+      it "builds table of contents" do
+        expect(subject.build(lines)).to eq(toc)
+      end
+    end
+
+    context "with commented code block lines" do
+      let :lines do
+        [
+          "```",
+          "# This is a comment.",
+          "class Example",
+          "end",
+          "```"
+        ]
+      end
+
+      it "answers an empty array" do
+        expect(subject.build(lines)).to eq("")
       end
     end
 
@@ -141,7 +126,7 @@ RSpec.describe Tocer::Builder do
       let(:lines) { [] }
 
       it "answers empty string" do
-        expect(subject.build).to eq("")
+        expect(subject.build(lines)).to eq("")
       end
     end
   end

@@ -2,7 +2,6 @@
 
 module Tocer
   # Builds a table of contents for a Markdown document.
-  # :reek:TooManyInstanceVariables
   class Builder
     CODE_BLOCK_PUNCTUATION = "```"
 
@@ -14,35 +13,27 @@ module Tocer
       end
     end
 
-    def initialize lines, label: "# Table of Contents", comment_block: Elements::CommentBlock.new
-      @lines = lines
+    def initialize label: "# Table of Contents", comment_block: Elements::CommentBlock.new
       @label = label
       @comment_block = comment_block
       @url_count = Hash.new { |hash, key| hash[key] = 0 }
       @code_block = false
     end
 
-    def headers
-      lines.select do |line|
-        toggle_code_block line
-        line.start_with?(Parsers::Header::PUNCTUATION) && !code_block
-      end
-    end
-
-    def build
-      return "" if headers.empty?
+    def build lines
+      return "" if headers(lines).empty?
 
       [
         "#{comment_block.start_tag}\n\n",
         "#{label}\n\n",
-        headers_as_links.join("\n"),
+        links(lines).join("\n"),
         "\n\n#{comment_block.finish_tag}\n\n"
       ].join
     end
 
     private
 
-    attr_reader :lines, :label, :comment_block, :url_count
+    attr_reader :label, :comment_block, :url_count
     attr_accessor :code_block
 
     def toggle_code_block line
@@ -63,8 +54,15 @@ module Tocer
       link
     end
 
-    def headers_as_links
-      headers.map { |header| transform header }
+    def headers lines
+      lines.select do |line|
+        toggle_code_block line
+        line.start_with?(Parsers::Header::PUNCTUATION) && !code_block
+      end
+    end
+
+    def links lines
+      headers(lines).map { |header| transform header }
     end
   end
 end

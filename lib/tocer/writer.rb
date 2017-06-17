@@ -7,7 +7,7 @@ module Tocer
     # rubocop:disable Metrics/ParameterLists
     def initialize file_path,
                    label: "# Table of Contents",
-                   builder: Builder,
+                   builder: Builder.new(label: label),
                    comment_block: Elements::CommentBlock
 
       @file_path = file_path
@@ -38,7 +38,7 @@ module Tocer
     end
 
     def content lines
-      builder.new(lines, label: label).build
+      builder.build lines
     end
 
     def remove_toc lines
