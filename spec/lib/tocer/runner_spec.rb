@@ -105,7 +105,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
         FileUtils.touch nested_file
       end
 
-      it "answers empty array" do
+      it "answers recursed files" do
         expect(subject.files).to contain_exactly(nested_file, markdown_file)
       end
     end
