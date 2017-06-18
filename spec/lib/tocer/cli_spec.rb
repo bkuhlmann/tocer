@@ -6,7 +6,7 @@ RSpec.describe Tocer::CLI do
   describe ".start" do
     let(:options) { [] }
     let(:command_line) { Array(command).concat options }
-    let(:cli) { -> { described_class.start command_line } }
+    let(:cli) { described_class.start command_line }
 
     shared_examples_for "a generate command" do
       let(:fixture_file) { File.join Bundler.root, "spec", "support", "fixtures", "missing.md" }
@@ -18,7 +18,7 @@ RSpec.describe Tocer::CLI do
         it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
-              cli.call
+              cli
               expect(contents.include?("# Table of Contents")).to eq(true)
             end
           end
@@ -29,7 +29,9 @@ RSpec.describe Tocer::CLI do
             Dir.chdir temp_dir do
               message = "Processed table of contents for:\n" \
                         "  ./README.md\n"
-              expect(&cli).to output(message).to_stdout
+              result = -> { cli }
+
+              expect(&result).to output(message).to_stdout
             end
           end
         end
@@ -42,7 +44,7 @@ RSpec.describe Tocer::CLI do
         it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
-              cli.call
+              cli
               expect(contents.include?(label)).to eq(true)
             end
           end
@@ -57,7 +59,7 @@ RSpec.describe Tocer::CLI do
         it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
-              cli.call
+              cli
               expect(contents.include?("# Table of Contents")).to eq(true)
             end
           end
@@ -68,7 +70,9 @@ RSpec.describe Tocer::CLI do
             Dir.chdir temp_dir do
               message = "Processed table of contents for:\n" \
                         "  ./test.txt\n"
-              expect(&cli).to output(message).to_stdout
+              result = -> { cli }
+
+              expect(&result).to output(message).to_stdout
             end
           end
         end
@@ -80,7 +84,7 @@ RSpec.describe Tocer::CLI do
         it "does not generate table of contents" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
-              cli.call
+              cli
               expect(contents.include?("# Table of Contents")).to eq(false)
             end
           end
@@ -89,7 +93,8 @@ RSpec.describe Tocer::CLI do
         it "prints nothing" do
           ClimateControl.modify HOME: temp_dir do
             Dir.chdir temp_dir do
-              expect(&cli).to_not output.to_stdout
+              result = -> { cli }
+              expect(&result).to_not output.to_stdout
             end
           end
         end
@@ -102,7 +107,8 @@ RSpec.describe Tocer::CLI do
       it "edits resource file", :temp_dir do
         ClimateControl.modify EDITOR: %(printf "%s\n") do
           Dir.chdir(temp_dir) do
-            expect(&cli).to output(/info\s+Editing\:\s#{file_path}\.\.\./).to_stdout
+            result = -> { cli }
+            expect(&result).to output(/info\s+Editing\:\s#{file_path}\.\.\./).to_stdout
           end
         end
       end
@@ -111,21 +117,25 @@ RSpec.describe Tocer::CLI do
     shared_examples_for "a config command", :temp_dir do
       context "with no options" do
         it "prints help text" do
-          expect(&cli).to output(/Manage gem configuration./).to_stdout
+          result = -> { cli }
+          expect(&result).to output(/Manage gem configuration./).to_stdout
         end
       end
     end
 
     shared_examples_for "a version command" do
       it "prints version" do
-        expect(&cli).to output(/#{Tocer::Identity.label}\s#{Tocer::Identity.version}\n/).to_stdout
+        result = -> { cli }
+        expect(&result).to output(/#{Tocer::Identity.version_label}\n/).to_stdout
       end
     end
 
     shared_examples_for "a help command" do
       it "prints usage" do
         pattern = /#{Tocer::Identity.label}\s#{Tocer::Identity.version}\scommands:\n/
-        expect(&cli).to output(pattern).to_stdout
+        result = -> { cli }
+
+        expect(&result).to output(pattern).to_stdout
       end
     end
 
