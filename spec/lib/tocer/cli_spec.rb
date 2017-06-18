@@ -132,7 +132,7 @@ RSpec.describe Tocer::CLI do
 
     shared_examples_for "a help command" do
       it "prints usage" do
-        pattern = /#{Tocer::Identity.label}\s#{Tocer::Identity.version}\scommands:\n/
+        pattern = /#{Tocer::Identity.version_label}\scommands:\n/
         result = -> { cli }
 
         expect(&result).to output(pattern).to_stdout
