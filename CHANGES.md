@@ -1,3 +1,15 @@
+# v6.1.0 (2017-07-16)
+
+- Added Git Cop code quality task.
+- Updated CONTRIBUTING documentation.
+- Updated GitHub templates.
+- Updated command line usage in CLI specs.
+- Updated gem dependencies.
+- Updated to Awesome Print 1.8.0.
+- Updated to Gemsmith 10.0.0.
+- Removed Thor+ gem.
+- Refactored CLI version/help specs.
+
 # v6.0.0 (2017-06-17)
 
 - Fixed bug with prepended TOC adding trailing spaces.
