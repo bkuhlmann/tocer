@@ -20,6 +20,9 @@ module Tocer
 
     def initialize args = [], options = {}, config = {}
       super args, options, config
+      @configuration = self.class.configuration
+    rescue Runcom::Errors::Base => error
+      abort error.message
     end
 
     desc "-g, [--generate=PATH]", "Generate table of contents."
@@ -36,9 +39,8 @@ module Tocer
                   default: configuration.to_h.fetch(:whitelist)
     # :reek:TooManyStatements
     def generate path = "."
-      configuration = self.class.configuration.merge label: options.label,
-                                                     whitelist: options.whitelist
-      runner = Runner.new path, configuration: configuration
+      updated_configuration = configuration.merge label: options.label, whitelist: options.whitelist
+      runner = Runner.new path, configuration: updated_configuration
       files = runner.files
 
       return if files.empty?
@@ -59,7 +61,7 @@ module Tocer
                   desc: "Print gem configuration.",
                   type: :boolean, default: false
     def config
-      path = self.class.configuration.path
+      path = configuration.path
 
       if options.edit? then `#{ENV["EDITOR"]} #{path}`
       elsif options.info?
@@ -79,5 +81,9 @@ module Tocer
     def help task = nil
       say and super
     end
+
+    private
+
+    attr_reader :configuration
   end
 end
