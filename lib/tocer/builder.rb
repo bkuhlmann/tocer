@@ -19,6 +19,7 @@ module Tocer
       end
     end
 
+    # rubocop:disable Style/CommentedKeyword
     def initialize label: "## Table of Contents", comment_block: Elements::CommentBlock.new
       @label = label
       @comment_block = comment_block

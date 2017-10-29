@@ -13,6 +13,7 @@ module Tocer
       lines.reject.with_index { |_, index| range.include? index }
     end
 
+    # rubocop:disable Style/CommentedKeyword
     def initialize file_path, label: "## Table of Contents", builder: Builder.new(label: label)
       @file_path = file_path
       @builder = builder
