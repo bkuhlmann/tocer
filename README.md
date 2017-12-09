@@ -1,8 +1,8 @@
 # Tocer
 
 [![Gem Version](https://badge.fury.io/rb/tocer.svg)](http://badge.fury.io/rb/tocer)
-[![Code Climate GPA](https://codeclimate.com/github/bkuhlmann/tocer.svg)](https://codeclimate.com/github/bkuhlmann/tocer)
-[![Code Climate Coverage](https://codeclimate.com/github/bkuhlmann/tocer/coverage.svg)](https://codeclimate.com/github/bkuhlmann/tocer)
+[![Code Climate Maintainability](https://api.codeclimate.com/v1/badges/5d4db0f578703d8124a4/maintainability)](https://codeclimate.com/github/bkuhlmann/tocer/maintainability)
+[![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/5d4db0f578703d8124a4/test_coverage)](https://codeclimate.com/github/bkuhlmann/tocer/test_coverage)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/tocer.svg)](https://gemnasium.com/bkuhlmann/tocer)
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/tocer.svg?style=svg)](https://circleci.com/gh/bkuhlmann/tocer)
 [![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
