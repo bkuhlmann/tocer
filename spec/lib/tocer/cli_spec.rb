@@ -51,8 +51,8 @@ RSpec.describe Tocer::CLI do
         end
       end
 
-      context "with custom whitelist", :temp_dir do
-        let(:options) { ["--whitelist", ["*.txt"]] }
+      context "with custom include list", :temp_dir do
+        let(:options) { ["--includes", ["*.txt"]] }
         let(:test_file) { File.join temp_dir, "test.txt" }
         before { FileUtils.touch File.join(temp_dir, "test.md") }
 
@@ -104,7 +104,6 @@ RSpec.describe Tocer::CLI do
     shared_examples_for "an edit command" do
       let(:file_path) { File.join ENV["HOME"], Tocer::Identity.name }
 
-      # rubocop:disable Style/FormatStringToken
       it "edits resource file", :temp_dir do
         ClimateControl.modify EDITOR: %(printf "%s\n") do
           Dir.chdir(temp_dir) do
@@ -113,7 +112,6 @@ RSpec.describe Tocer::CLI do
           end
         end
       end
-      # rubocop:enable Style/FormatStringToken
     end
 
     shared_examples_for "a config command", :temp_dir do

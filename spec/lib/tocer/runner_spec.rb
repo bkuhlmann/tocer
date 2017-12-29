@@ -5,11 +5,11 @@ require "spec_helper"
 RSpec.describe Tocer::Runner, :temp_dir do
   let(:path) { "." }
   let(:label) { "# Test" }
-  let(:whitelist) { [] }
+  let(:includes) { [] }
   let :configuration do
     {
       label: label,
-      whitelist: whitelist
+      includes: includes
     }
   end
   let(:writer_class) { class_spy Tocer::Writer }
@@ -41,8 +41,8 @@ RSpec.describe Tocer::Runner, :temp_dir do
       end
     end
 
-    context "with whitelist only" do
-      let(:whitelist) { ["*.md"] }
+    context "with include list only" do
+      let(:includes) { ["*.md"] }
 
       it "answers files with matching extensions" do
         Dir.chdir temp_dir do
@@ -51,18 +51,18 @@ RSpec.describe Tocer::Runner, :temp_dir do
       end
     end
 
-    context "with path and whitelist string" do
+    context "with path and include list string" do
       let(:path) { temp_dir }
-      let(:whitelist) { "*.md" }
+      let(:includes) { "*.md" }
 
       it "answers files with matching extensions" do
         expect(subject.files).to contain_exactly(markdown_file)
       end
     end
 
-    context "with path and whitelist array" do
+    context "with path and include list array" do
       let(:path) { temp_dir }
-      let(:whitelist) { ["*.md"] }
+      let(:includes) { ["*.md"] }
 
       it "answers files with matching extensions" do
         expect(subject.files).to contain_exactly(markdown_file)
@@ -77,27 +77,27 @@ RSpec.describe Tocer::Runner, :temp_dir do
       end
     end
 
-    context "with path and invalid whitelist" do
+    context "with path and invalid include list" do
       let(:path) { temp_dir }
-      let(:whitelist) { ["bogus", "~#}*^"] }
+      let(:includes) { ["bogus", "~#}*^"] }
 
       it "answers empty array" do
         expect(subject.files).to be_empty
       end
     end
 
-    context "with path and whitelist without wildcards" do
+    context "with path and include list without wildcards" do
       let(:path) { temp_dir }
-      let(:whitelist) { [".md"] }
+      let(:includes) { [".md"] }
 
       it "answers empty array" do
         expect(subject.files).to be_empty
       end
     end
 
-    context "with path and recursive whitelist" do
+    context "with path and recursive include list" do
       let(:path) { temp_dir }
-      let(:whitelist) { ["**/*.md"] }
+      let(:includes) { ["**/*.md"] }
       let(:nested_file) { Pathname File.join(temp_dir, "nested", "nested.md") }
 
       before do
@@ -121,7 +121,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
 
     context "with files" do
       let(:path) { temp_dir }
-      let(:whitelist) { ["*.md"] }
+      let(:includes) { ["*.md"] }
 
       before do
         allow(writer_class).to receive(:new)

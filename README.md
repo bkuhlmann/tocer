@@ -37,7 +37,7 @@ Markdown files.
     - Does not support header prefixes without spaces. Example: `#Header`.
 - Supports table of contents generation for single or multiple files.
 - Supports custom label. Default: "## Table of Contents".
-- Supports whitelist filtering. Default: "README.md".
+- Supports file list filtering. Default: "README.md".
 - Prepends table of contents to Markdown documents that don't have table of contents.
 - Rebuilds Markdown documents that have existing table of contents.
 
@@ -67,7 +67,7 @@ For specific `--generate` options, run `tocer --help --generate` to see the foll
 
     -l, [--label=LABEL]              # Label
                                      # Default: # Table of Contents
-    -w, [--whitelist=one two three]  # File whitelist
+    -w, [--includes=one two three]   # File include list
                                      # Default: ["README.md"]
 
 To generate the table of contents at a specific position within your Markdown files, add the
@@ -98,7 +98,7 @@ as provided by the [Runcom](https://github.com/bkuhlmann/runcom) gem.
 The default configuration is as follows:
 
     :label: "## Table of Contents"
-    :whitelist: ["README.md"]
+    :includes: ["README.md"]
 
 Feel free to take this default configuration, modify, and save as your own custom
 `configuration.yml`.
@@ -106,27 +106,27 @@ Feel free to take this default configuration, modify, and save as your own custo
 The `configuration.yml` file can be configured as follows:
 
 - `label`: The header label for the table of contents. Default: "# Table of Contents".
-- `whitelist`: The list of *included* files. Default: "*.md".
+- `includes`: The list of included files. Default: "*.md".
 
-There are multiple ways the *whitelist* can be defined. Here are some examples:
+There are multiple ways the include list can be defined. Here are some examples:
 
     # Use an empty array to ignore all files (a key with with no value would work too).
-    :whitelist: []
+    :includes: []
 
     # Use an array of wildcards for groups of files with similar extensions:
-    :whitelist:
+    :includes:
       - *.md
       - *.mkd
       - *.markdown
 
     # Use a mix of wild cards and relative names/paths to customized as necessary:
-    :whitelist:
+    :includes:
       - README.md
       - docs/*.md
       - *.markdown
 
     # Use a recursive glob to traverse and update all sub-directories:
-    :whitelist:
+    :includes:
       - **/*.md
 
 ## Tests

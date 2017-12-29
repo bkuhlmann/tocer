@@ -14,7 +14,7 @@ module Tocer
     def self.configuration
       Runcom::Configuration.new project_name: Identity.name, defaults: {
         label: "## Table of Contents",
-        whitelist: ["README.md"]
+        includes: ["README.md"]
       }
     end
 
@@ -32,14 +32,14 @@ module Tocer
                   desc: "Label",
                   type: :string,
                   default: configuration.to_h.fetch(:label)
-    method_option :whitelist,
+    method_option :includes,
                   aliases: "-w",
-                  desc: "File whitelist",
+                  desc: "File include list",
                   type: :array,
-                  default: configuration.to_h.fetch(:whitelist)
+                  default: configuration.to_h.fetch(:includes)
     # :reek:TooManyStatements
     def generate path = "."
-      updated_configuration = configuration.merge label: options.label, whitelist: options.whitelist
+      updated_configuration = configuration.merge label: options.label, includes: options.includes
       runner = Runner.new path, configuration: updated_configuration
       files = runner.files
 

@@ -12,8 +12,8 @@ module Tocer
     end
 
     def files
-      return [] unless path.exist? && path.directory? && !whitelist.empty?
-      Pathname.glob(%(#{path}/{#{whitelist.join ","}})).select(&:file?)
+      return [] unless path.exist? && path.directory? && !includes.empty?
+      Pathname.glob(%(#{path}/{#{includes.join ","}})).select(&:file?)
     end
 
     def run
@@ -24,8 +24,8 @@ module Tocer
 
     attr_reader :path, :configuration, :writer
 
-    def whitelist
-      Array configuration[:whitelist]
+    def includes
+      Array configuration[:includes]
     end
   end
 end
