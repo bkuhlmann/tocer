@@ -20,7 +20,7 @@ module Tocer
 
     def write
       lines = File.readlines file_path
-      body = builder.prependable?(lines) ? unshift(lines) : replace(lines)
+      body = builder.prependable?(lines) ? prepend(lines) : replace(lines)
       File.open(file_path, "w") { |file| file.write body }
     end
 
@@ -44,7 +44,7 @@ module Tocer
       ).join
     end
 
-    def unshift lines
+    def prepend lines
       content(lines) + "\n" + lines.join
     end
   end
