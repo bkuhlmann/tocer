@@ -44,7 +44,7 @@ Markdown files.
 ## Requirements
 
 0. A UNIX-based system.
-0. [Ruby 2.4.x](https://www.ruby-lang.org).
+0. [Ruby 2.5.x](https://www.ruby-lang.org).
 
 ## Setup
 
