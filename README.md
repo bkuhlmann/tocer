@@ -5,7 +5,6 @@
 [![Code Climate Test Coverage](https://api.codeclimate.com/v1/badges/5d4db0f578703d8124a4/test_coverage)](https://codeclimate.com/github/bkuhlmann/tocer/test_coverage)
 [![Gemnasium Status](https://gemnasium.com/bkuhlmann/tocer.svg)](https://gemnasium.com/bkuhlmann/tocer)
 [![Circle CI Status](https://circleci.com/gh/bkuhlmann/tocer.svg?style=svg)](https://circleci.com/gh/bkuhlmann/tocer)
-[![Patreon](https://img.shields.io/badge/patreon-donate-brightgreen.svg)](https://www.patreon.com/bkuhlmann)
 
 Tocer (a.k.a. Table of Contenter) is a command line interface for generating table of contents for
 Markdown files.
