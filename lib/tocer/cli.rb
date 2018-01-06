@@ -33,7 +33,7 @@ module Tocer
                   type: :string,
                   default: configuration.to_h.fetch(:label)
     method_option :includes,
-                  aliases: "-w",
+                  aliases: "-i",
                   desc: "File include list",
                   type: :array,
                   default: configuration.to_h.fetch(:includes)
