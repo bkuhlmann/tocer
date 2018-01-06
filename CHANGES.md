@@ -1,3 +1,9 @@
+# v7.0.2 (2018-01-06)
+
+- Fixed `--generate` include short option.
+- Updated README license information.
+- Removed Patreon badge from README.
+
 # v7.0.1 (2018-01-01)
 
 - Updated to Gemsmith 11.0.0.

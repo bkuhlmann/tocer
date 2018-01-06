@@ -64,10 +64,10 @@ From the command line, type: `tocer --help`
 
 For specific `--generate` options, run `tocer --help --generate` to see the following:
 
-    -l, [--label=LABEL]              # Label
-                                     # Default: # Table of Contents
-    -w, [--includes=one two three]   # File include list
-                                     # Default: ["README.md"]
+    -l, [--label=LABEL]             # Label
+                                    # Default: ## Table of Contents
+    -i, [--includes=one two three]  # File include list
+                                    # Default: ["README.md"]
 
 To generate the table of contents at a specific position within your Markdown files, add the
 following lines to your file(s) prior to generation:
