@@ -16,7 +16,7 @@ RSpec.describe Tocer::CLI do
 
       context "with defaults", :temp_dir do
         it "generates table of contents" do
-          ClimateControl.modify HOME: temp_dir do
+          ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               cli
               expect(contents.include?("# Table of Contents")).to eq(true)
@@ -25,7 +25,7 @@ RSpec.describe Tocer::CLI do
         end
 
         it "prints files processed" do
-          ClimateControl.modify HOME: temp_dir do
+          ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               message = "Processed table of contents for:\n" \
                         "  ./README.md\n"
@@ -42,7 +42,7 @@ RSpec.describe Tocer::CLI do
         let(:options) { ["--label", label] }
 
         it "generates table of contents" do
-          ClimateControl.modify HOME: temp_dir do
+          ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               cli
               expect(contents.include?(label)).to eq(true)
@@ -57,7 +57,7 @@ RSpec.describe Tocer::CLI do
         before { FileUtils.touch File.join(temp_dir, "test.md") }
 
         it "generates table of contents" do
-          ClimateControl.modify HOME: temp_dir do
+          ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               cli
               expect(contents.include?("# Table of Contents")).to eq(true)
@@ -66,7 +66,7 @@ RSpec.describe Tocer::CLI do
         end
 
         it "prints files processed" do
-          ClimateControl.modify HOME: temp_dir do
+          ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               message = "Processed table of contents for:\n" \
                         "  ./test.txt\n"
@@ -82,7 +82,7 @@ RSpec.describe Tocer::CLI do
         let(:options) { ["invalid.md"] }
 
         it "does not generate table of contents" do
-          ClimateControl.modify HOME: temp_dir do
+          ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               cli
               expect(contents.include?("# Table of Contents")).to eq(false)
@@ -91,7 +91,7 @@ RSpec.describe Tocer::CLI do
         end
 
         it "prints nothing" do
-          ClimateControl.modify HOME: temp_dir do
+          ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               result = -> { cli }
               expect(&result).to_not output.to_stdout
