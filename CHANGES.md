@@ -1,3 +1,17 @@
+# v7.1.0 (2018-04-01)
+
+- Fixed gemspec issues with missing gem signing key/certificate.
+- Added gemspec metadata for source, changes, and issue tracker URLs.
+- Updated gem dependencies.
+- Updated to Circle CI 2.0.0 configuration.
+- Updated to Refinements 5.1.0.
+- Updated to Rubocop 0.53.0.
+- Updated to Ruby 2.5.1.
+- Updated to Runcom 3.0.0.
+- Removed Circle CI Bundler cache.
+- Removed Gemnasium support.
+- Refactored temp dir shared context as a pathname.
+
 # v7.0.2 (2018-01-06)
 
 - Fixed `--generate` include short option.
