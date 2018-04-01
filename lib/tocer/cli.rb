@@ -12,7 +12,7 @@ module Tocer
     package_name Identity.version_label
 
     def self.configuration
-      Runcom::Configuration.new project_name: Identity.name, defaults: {
+      Runcom::Configuration.new Identity.name, defaults: {
         label: "## Table of Contents",
         includes: ["README.md"]
       }
@@ -40,7 +40,7 @@ module Tocer
     # :reek:TooManyStatements
     def generate path = "."
       updated_configuration = configuration.merge label: options.label, includes: options.includes
-      runner = Runner.new path, configuration: updated_configuration
+      runner = Runner.new path, configuration: updated_configuration.to_h
       files = runner.files
 
       return if files.empty?
