@@ -1,3 +1,12 @@
+# 7.2.0 (2018-05-01)
+
+- Added Runcom examples for project specific usage.
+- Updated project changes to use semantic versions.
+- Updated to Gemsmith 12.0.0.
+- Updated to Git Cop 2.2.0.
+- Updated to Refinements 5.2.0.
+- Updated to Runcom 3.1.0.
+
 # 7.1.0 (2018-04-01)
 
 - Fixed gemspec issues with missing gem signing key/certificate.
