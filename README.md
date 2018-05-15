@@ -109,24 +109,24 @@ The `configuration.yml` file can be configured as follows:
 
 There are multiple ways the include list can be defined. Here are some examples:
 
-    # Use an empty array to ignore all files (a key with with no value would work too).
+    # Use an empty array to ignore all files (a key with no value would work too).
     :includes: []
 
     # Use an array of wildcards for groups of files with similar extensions:
     :includes:
-      - *.md
-      - *.mkd
-      - *.markdown
+      - "*.md"
+      - "*.mkd"
+      - "*.markdown"
 
     # Use a mix of wild cards and relative names/paths to customized as necessary:
     :includes:
       - README.md
-      - docs/*.md
-      - *.markdown
+      - "docs/*.md"
+      - "*.markdown"
 
     # Use a recursive glob to traverse and update all sub-directories:
     :includes:
-      - **/*.md
+      - "**/*.md"
 
 ## Tests
 
