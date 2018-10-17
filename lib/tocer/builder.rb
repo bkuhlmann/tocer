@@ -44,6 +44,7 @@ module Tocer
 
     def toggle_code_block line
       return unless line.start_with? CODE_BLOCK_PUNCTUATION
+
       self.code_block = !code_block
     end
 

@@ -44,6 +44,7 @@ module Tocer
       files = runner.files
 
       return if files.empty?
+
       runner.run
 
       say "Processed table of contents for:"
