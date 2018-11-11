@@ -4,9 +4,10 @@ require "spec_helper"
 
 RSpec.describe Tocer::CLI do
   describe ".start" do
+    subject(:cli) { described_class.start command_line }
+
     let(:options) { [] }
     let(:command_line) { Array(command).concat options }
-    let(:cli) { described_class.start command_line }
 
     shared_examples_for "a generate command" do
       let(:fixture_file) { File.join Bundler.root, "spec", "support", "fixtures", "missing.md" }
@@ -54,6 +55,7 @@ RSpec.describe Tocer::CLI do
       context "with custom include list", :temp_dir do
         let(:options) { ["--includes", ["*.txt"]] }
         let(:test_file) { File.join temp_dir, "test.txt" }
+
         before { FileUtils.touch File.join(temp_dir, "test.md") }
 
         it "generates table of contents" do
@@ -94,7 +96,7 @@ RSpec.describe Tocer::CLI do
           ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
               result = -> { cli }
-              expect(&result).to_not output.to_stdout
+              expect(&result).not_to output.to_stdout
             end
           end
         end
@@ -141,46 +143,55 @@ RSpec.describe Tocer::CLI do
 
     describe "--generate" do
       let(:command) { "--generate" }
+
       it_behaves_like "a generate command"
     end
 
     describe "-g" do
       let(:command) { "-g" }
+
       it_behaves_like "a generate command"
     end
 
     describe "--config" do
       let(:command) { "--config" }
+
       it_behaves_like "a config command"
     end
 
     describe "-c" do
       let(:command) { "-c" }
+
       it_behaves_like "a config command"
     end
 
     describe "--version" do
       let(:command) { "--version" }
+
       it_behaves_like "a version command"
     end
 
     describe "-v" do
       let(:command) { "-v" }
+
       it_behaves_like "a version command"
     end
 
     describe "--help" do
       let(:command) { "--help" }
+
       it_behaves_like "a help command"
     end
 
     describe "-h" do
       let(:command) { "-h" }
+
       it_behaves_like "a help command"
     end
 
     context "with no command" do
       let(:command) { nil }
+
       it_behaves_like "a help command"
     end
   end

@@ -3,6 +3,8 @@
 require "spec_helper"
 
 RSpec.describe Tocer::Runner, :temp_dir do
+  subject(:runner) { described_class.new path, configuration: configuration, writer: writer_class }
+
   let(:path) { "." }
   let(:label) { "# Test" }
   let(:includes) { [] }
@@ -17,8 +19,6 @@ RSpec.describe Tocer::Runner, :temp_dir do
   let(:markdown_file) { Pathname File.join(temp_dir, "test.md") }
   let(:text_file) { Pathname File.join(temp_dir, "test.txt") }
 
-  subject { described_class.new path, configuration: configuration, writer: writer_class }
-
   before do
     FileUtils.touch markdown_file
     FileUtils.touch text_file
@@ -26,10 +26,10 @@ RSpec.describe Tocer::Runner, :temp_dir do
 
   describe "#files" do
     context "with defaults" do
-      subject { described_class.new }
+      subject(:runner) { described_class.new }
 
       it "answers empty array" do
-        expect(subject.files).to be_empty
+        expect(runner.files).to be_empty
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       let(:path) { temp_dir }
 
       it "answers empty array" do
-        expect(subject.files).to be_empty
+        expect(runner.files).to be_empty
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
 
       it "answers files with matching extensions" do
         Dir.chdir temp_dir do
-          expect(subject.files).to contain_exactly(Pathname("./test.md"))
+          expect(runner.files).to contain_exactly(Pathname("./test.md"))
         end
       end
     end
@@ -56,7 +56,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       let(:includes) { "*.md" }
 
       it "answers files with matching extensions" do
-        expect(subject.files).to contain_exactly(markdown_file)
+        expect(runner.files).to contain_exactly(markdown_file)
       end
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       let(:includes) { ["*.md"] }
 
       it "answers files with matching extensions" do
-        expect(subject.files).to contain_exactly(markdown_file)
+        expect(runner.files).to contain_exactly(markdown_file)
       end
     end
 
@@ -73,7 +73,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       let(:path) { "bogus" }
 
       it "answers empty array" do
-        expect(subject.files).to be_empty
+        expect(runner.files).to be_empty
       end
     end
 
@@ -82,7 +82,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       let(:includes) { ["bogus", "~#}*^"] }
 
       it "answers empty array" do
-        expect(subject.files).to be_empty
+        expect(runner.files).to be_empty
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       let(:includes) { [".md"] }
 
       it "answers empty array" do
-        expect(subject.files).to be_empty
+        expect(runner.files).to be_empty
       end
     end
 
@@ -106,7 +106,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       end
 
       it "answers recursed files" do
-        expect(subject.files).to contain_exactly(nested_file, markdown_file)
+        expect(runner.files).to contain_exactly(nested_file, markdown_file)
       end
     end
   end
@@ -114,8 +114,8 @@ RSpec.describe Tocer::Runner, :temp_dir do
   describe "#run" do
     context "without files" do
       it "doesn't update files" do
-        subject.run
-        expect(writer_instance).to_not have_received(:write)
+        runner.run
+        expect(writer_instance).not_to have_received(:write)
       end
     end
 
@@ -130,7 +130,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
       end
 
       it "updates files" do
-        subject.run
+        runner.run
         expect(writer_instance).to have_received(:write)
       end
     end

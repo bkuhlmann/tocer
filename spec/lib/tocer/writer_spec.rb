@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Tocer::Writer do
-  subject { described_class.new test_path }
+  subject(:writer) { described_class.new test_path }
 
   describe ".add" do
     let(:old_lines) { %w[a b c] }
@@ -69,6 +69,8 @@ RSpec.describe Tocer::Writer do
     before { FileUtils.cp fixture_path, test_path }
 
     context "when using a custom label" do
+      subject(:writer) { described_class.new test_path, label: "# Index" }
+
       let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "missing.md" }
 
       let :contents do
@@ -85,10 +87,8 @@ RSpec.describe Tocer::Writer do
         "# Two\n"
       end
 
-      subject { described_class.new test_path, label: "# Index" }
-
       it "uses custom label for table of contents" do
-        subject.write
+        writer.write
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -97,7 +97,7 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "empty.md" }
 
       it "replaces existing table of contents with new table of contents" do
-        subject.write
+        writer.write
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -122,7 +122,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "replaces existing table of contents with new table of contents" do
-        subject.write
+        writer.write
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -133,7 +133,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "replaces existing table of contents with new table of contents" do
-        subject.write
+        writer.write
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -144,7 +144,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "replaces existing table of contents with new table of contents" do
-        subject.write
+        writer.write
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -167,7 +167,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "prepends table of contents in file" do
-        subject.write
+        writer.write
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end

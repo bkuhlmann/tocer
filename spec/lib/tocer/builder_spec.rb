@@ -3,6 +3,8 @@
 require "spec_helper"
 
 RSpec.describe Tocer::Builder do
+  subject(:builder) { described_class.new }
+
   let :lines do
     [
       "# Overview\n",
@@ -38,6 +40,8 @@ RSpec.describe Tocer::Builder do
     end
 
     context "with custom label" do
+      subject(:builder) { described_class.new label: "# Overview" }
+
       let(:lines) { ["# Section 1\n", "# Section 2\n"] }
 
       let :toc do
@@ -51,16 +55,14 @@ RSpec.describe Tocer::Builder do
         "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n"
       end
 
-      subject { described_class.new label: "# Overview" }
-
       it "builds table of contents" do
-        expect(subject.build(lines)).to eq(toc)
+        expect(builder.build(lines)).to eq(toc)
       end
     end
 
     context "with plain headers" do
       it "builds table of contents" do
-        expect(subject.build(lines)).to eq(toc)
+        expect(builder.build(lines)).to eq(toc)
       end
     end
 
@@ -74,7 +76,7 @@ RSpec.describe Tocer::Builder do
       end
 
       it "builds table of contents" do
-        expect(subject.build(lines)).to eq(toc)
+        expect(builder.build(lines)).to eq(toc)
       end
     end
 
@@ -99,7 +101,7 @@ RSpec.describe Tocer::Builder do
       end
 
       it "builds table of contents" do
-        expect(subject.build(lines)).to eq(toc)
+        expect(builder.build(lines)).to eq(toc)
       end
     end
 
@@ -115,7 +117,7 @@ RSpec.describe Tocer::Builder do
       end
 
       it "answers an empty array" do
-        expect(subject.build(lines)).to eq("")
+        expect(builder.build(lines)).to eq("")
       end
     end
 
@@ -123,7 +125,7 @@ RSpec.describe Tocer::Builder do
       let(:lines) { [] }
 
       it "answers empty string" do
-        expect(subject.build(lines)).to eq("")
+        expect(builder.build(lines)).to eq("")
       end
     end
   end
