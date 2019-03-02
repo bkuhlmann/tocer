@@ -67,7 +67,7 @@ module Tocer
       if options.edit? then `#{ENV["EDITOR"]} #{path}`
       elsif options.info?
         path ? say(path) : say("Configuration doesn't exist.")
-      else help(:config)
+      else help :config
       end
     end
 

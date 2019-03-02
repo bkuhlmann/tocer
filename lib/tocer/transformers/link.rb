@@ -13,7 +13,7 @@ module Tocer
       end
 
       def label
-        header.content.gsub(embedded_link, embedded_link_label)
+        header.content.gsub embedded_link, embedded_link_label
       end
 
       def url
