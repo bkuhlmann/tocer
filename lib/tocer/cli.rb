@@ -12,10 +12,11 @@ module Tocer
     package_name Identity.version_label
 
     def self.configuration
-      Runcom::Config.new Identity.name, defaults: {
-        label: "## Table of Contents",
-        includes: ["README.md"]
-      }
+      Runcom::Config.new Identity.name,
+                         defaults: {
+                           label: "## Table of Contents",
+                           includes: ["README.md"]
+                         }
     end
 
     def initialize args = [], options = {}, config = {}
@@ -56,11 +57,13 @@ module Tocer
     method_option :edit,
                   aliases: "-e",
                   desc: "Edit gem configuration.",
-                  type: :boolean, default: false
+                  type: :boolean,
+                  default: false
     method_option :info,
                   aliases: "-i",
                   desc: "Print gem configuration.",
-                  type: :boolean, default: false
+                  type: :boolean,
+                  default: false
     def config
       path = configuration.path
 
