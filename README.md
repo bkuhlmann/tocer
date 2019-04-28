@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="tocer.png" alt="Tocer Icon"/>
+</p>
+
 # Tocer
 
 [![Gem Version](https://badge.fury.io/rb/tocer.svg)](http://badge.fury.io/rb/tocer)
