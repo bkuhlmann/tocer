@@ -22,6 +22,7 @@ Markdown files.
   - [Usage](#usage)
     - [Command Line Interface (CLI)](#command-line-interface-cli)
     - [Customization](#customization)
+    - [Rake](#rake)
   - [Tests](#tests)
   - [Versioning](#versioning)
   - [Code of Conduct](#code-of-conduct)
@@ -109,7 +110,7 @@ Feel free to take this default configuration, modify, and save as your own custo
 The `configuration.yml` file can be configured as follows:
 
 - `label`: The header label for the table of contents. Default: "# Table of Contents".
-- `includes`: The list of included files. Default: "*.md".
+- `includes`: The list of included files. Default: "\*.md".
 
 There are multiple ways the include list can be defined. Here are some examples:
 
@@ -131,6 +132,20 @@ There are multiple ways the include list can be defined. Here are some examples:
     # Use a recursive glob to traverse and update all sub-directories:
     :includes:
       - "**/*.md"
+
+### Rake
+
+You can add Rake support by adding the following to your `Rakefile`:
+
+    begin
+      require "tocer/rake/setup"
+    rescue LoadError => error
+      puts error.message
+    end
+
+Once configured, the following tasks will be available (i.e. `bundle exec rake -T`):
+
+    rake toc[label,includes]   # Add/Update Table of Contents (README)
 
 ## Tests
 
