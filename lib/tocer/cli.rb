@@ -11,17 +11,9 @@ module Tocer
 
     package_name Identity.version_label
 
-    def self.configuration
-      Runcom::Config.new Identity.name,
-                         defaults: {
-                           label: "## Table of Contents",
-                           includes: ["README.md"]
-                         }
-    end
-
     def initialize args = [], options = {}, config = {}
       super args, options, config
-      @configuration = self.class.configuration
+      @configuration = Tocer::Configuration.default
     rescue Runcom::Errors::Base => error
       abort error.message
     end
@@ -32,12 +24,12 @@ module Tocer
                   aliases: "-l",
                   desc: "Label",
                   type: :string,
-                  default: configuration.to_h.fetch(:label)
+                  default: Tocer::Configuration.default.to_h.fetch(:label)
     method_option :includes,
                   aliases: "-i",
                   desc: "File include list",
                   type: :array,
-                  default: configuration.to_h.fetch(:includes)
+                  default: Tocer::Configuration.default.to_h.fetch(:includes)
     # :reek:TooManyStatements
     def generate path = "."
       updated_configuration = configuration.merge label: options.label, includes: options.includes
