@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "tocer/identity"
+require "tocer/configuration"
 require "tocer/elements/comment_block"
 require "tocer/parsers/header"
 require "tocer/transformers/link"
