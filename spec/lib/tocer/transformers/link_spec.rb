@@ -81,12 +81,12 @@ RSpec.describe Tocer::Transformers::Link do
     end
   end
 
-  describe "#transform" do
+  describe "#call" do
     context "with indentation" do
       let(:markdown) { "## [Example](https://www.example.com)" }
 
       it "answers indented bullet link" do
-        expect(link.transform).to eq("  - [Example](#example)")
+        expect(link.call).to eq("  - [Example](#example)")
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe Tocer::Transformers::Link do
       let(:markdown) { "###### [Example](https://www.example.com)" }
 
       it "answers multi-indented, bullet link" do
-        expect(link.transform).to eq("          - [Example](#example)")
+        expect(link.call).to eq("          - [Example](#example)")
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe Tocer::Transformers::Link do
       let(:markdown) { "# [Example](https://www.example.com)" }
 
       it "answers non-indented bullet link" do
-        expect(link.transform).to eq("- [Example](#example)")
+        expect(link.call).to eq("- [Example](#example)")
       end
     end
 
@@ -110,7 +110,7 @@ RSpec.describe Tocer::Transformers::Link do
       let(:markdown) { "# [Example](https://www.example.com)" }
 
       it "answers non-indented bullet link" do
-        expect(link.transform(url_suffix: 1)).to eq("- [Example](#example-1)")
+        expect(link.call(url_suffix: 1)).to eq("- [Example](#example-1)")
       end
     end
   end

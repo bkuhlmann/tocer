@@ -8,33 +8,36 @@ module Tocer
     class Text
       using Refinements::Arrays
 
-      def initialize text, header: Parsers::Header
-        @header = header.new text
+      def initialize text, parser: Parsers::Header
+        @parser = parser.new text
       end
 
       def label
-        header.content
+        parser.content
       end
 
       def url
         label.downcase.gsub(/\s/, "-").gsub(/[^\w\-]+/, "")
       end
 
-      def transform url_suffix: ""
-        modified_url = [url, url_suffix.to_s].compress.join "-"
-        "#{indented_bullet}[#{label}](##{modified_url})"
+      def call url_suffix: ""
+        "#{indented_bullet}[#{label}](##{computed_url url_suffix})"
       end
 
       private
 
-      attr_reader :header
+      attr_reader :parser
 
-      def prefix_to_spaces
-        Array.new(header.prefix.length, "  ").join
+      def computed_url suffix = ""
+        [url, suffix.to_s].compress.join "-"
       end
 
       def indented_bullet
         prefix_to_spaces.gsub(/\s{2}$/, "- ")
+      end
+
+      def prefix_to_spaces
+        Array.new(parser.prefix.length, "  ").join
       end
     end
   end

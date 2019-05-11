@@ -56,7 +56,7 @@ module Tocer
     def transform header
       transformer = self.class.transformer header
       url = transformer.url
-      link = transformer.transform url_suffix: url_suffix(url)
+      link = transformer.call url_suffix: url_suffix(url)
       url_count[url] += 1
       link
     end
