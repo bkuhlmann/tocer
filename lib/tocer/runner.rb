@@ -17,7 +17,7 @@ module Tocer
       Pathname.glob(%(#{path}/{#{includes.join ","}})).select(&:file?)
     end
 
-    def run
+    def call
       files.each { |file| writer.new(file, label: configuration.fetch(:label)).call }
     end
 

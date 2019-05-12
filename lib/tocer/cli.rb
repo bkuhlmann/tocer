@@ -38,7 +38,7 @@ module Tocer
 
       return if files.empty?
 
-      runner.run
+      runner.call
 
       say "Processed table of contents for:"
       files.each { |file| say "  #{file}" }

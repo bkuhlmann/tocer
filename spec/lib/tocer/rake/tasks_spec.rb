@@ -34,7 +34,7 @@ RSpec.describe Tocer::Rake::Tasks do
 
       it "executes runner" do
         Rake::Task["toc"].invoke
-        expect(runner_instance).to have_received(:run)
+        expect(runner_instance).to have_received(:call)
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Tocer::Rake::Tasks do
 
       it "executes runner" do
         Rake::Task["toc"].invoke "## TOC", %w[one.md two.md]
-        expect(runner_instance).to have_received(:run)
+        expect(runner_instance).to have_received(:call)
       end
     end
   end
