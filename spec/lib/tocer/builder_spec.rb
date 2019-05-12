@@ -16,16 +16,6 @@ RSpec.describe Tocer::Builder do
     ]
   end
 
-  describe ".transformer" do
-    it "answers link transformer for link header" do
-      expect(described_class.transformer("# [Test](#test)")).to be_a(Tocer::Transformers::Link)
-    end
-
-    it "answers text transformer for plain text header" do
-      expect(described_class.transformer("# Test")).to be_a(Tocer::Transformers::Text)
-    end
-  end
-
   describe "#build" do
     let :toc do
       "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \

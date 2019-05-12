@@ -11,18 +11,10 @@ module Tocer
 
     def_delegators :comment_block, :start_index, :finish_index, :prependable?
 
-    def self.transformer header
-      if header.match?(/\[.+\]\(.+\)/)
-        Transformers::Link.new header
-      else
-        Transformers::Text.new header
-      end
-    end
-
     def initialize label: "## Table of Contents", comment_block: Elements::CommentBlock.new
       @label = label
       @comment_block = comment_block
-      @url_count = Hash.new { |hash, key| hash[key] = 0 }
+      @url_count = Hash.new 0
       @code_block = false
     end
 
@@ -42,23 +34,8 @@ module Tocer
     attr_reader :label, :comment_block, :url_count
     attr_accessor :code_block
 
-    def toggle_code_block line
-      return unless line.start_with? CODE_BLOCK_PUNCTUATION
-
-      self.code_block = !code_block
-    end
-
-    def url_suffix url
-      count = url_count[url]
-      count.zero? ? "" : count
-    end
-
-    def transform header
-      transformer = self.class.transformer header
-      url = transformer.url
-      link = transformer.call url_suffix: url_suffix(url)
-      url_count[url] += 1
-      link
+    def links lines
+      headers(lines).map { |markdown| transform markdown }
     end
 
     def headers lines
@@ -68,8 +45,23 @@ module Tocer
       end
     end
 
-    def links lines
-      headers(lines).map { |header| transform header }
+    def toggle_code_block line
+      return unless line.start_with? CODE_BLOCK_PUNCTUATION
+
+      self.code_block = !code_block
+    end
+
+    def transform markdown
+      Transformers::Finder.call(markdown).then do |transformer|
+        url = transformer.url
+        link = transformer.call url_suffix: url_suffix(url)
+        url_count[url] += 1
+        link
+      end
+    end
+
+    def url_suffix url
+      url_count[url].then { |count| count.zero? ? "" : count }
     end
   end
 end
