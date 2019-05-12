@@ -18,7 +18,7 @@ module Tocer
       @builder = builder
     end
 
-    def write
+    def call
       lines = File.readlines file_path
       body = builder.prependable?(lines) ? prepend(lines) : replace(lines)
       File.open(file_path, "w") { |file| file.write body }

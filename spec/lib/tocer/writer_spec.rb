@@ -41,7 +41,7 @@ RSpec.describe Tocer::Writer do
     end
   end
 
-  describe "#write", :temp_dir do
+  describe "#call", :temp_dir do
     let(:test_path) { File.join temp_dir, "test.md" }
 
     let :contents do
@@ -88,7 +88,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "uses custom label for table of contents" do
-        writer.write
+        writer.call
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -97,7 +97,7 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "empty.md" }
 
       it "replaces existing table of contents with new table of contents" do
-        writer.write
+        writer.call
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -122,7 +122,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "replaces existing table of contents with new table of contents" do
-        writer.write
+        writer.call
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -133,7 +133,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "replaces existing table of contents with new table of contents" do
-        writer.write
+        writer.call
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -144,7 +144,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "replaces existing table of contents with new table of contents" do
-        writer.write
+        writer.call
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end
@@ -167,7 +167,7 @@ RSpec.describe Tocer::Writer do
       end
 
       it "prepends table of contents in file" do
-        writer.write
+        writer.call
         File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
       end
     end

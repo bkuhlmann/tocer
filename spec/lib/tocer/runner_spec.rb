@@ -115,7 +115,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
     context "without files" do
       it "doesn't update files" do
         runner.run
-        expect(writer_instance).not_to have_received(:write)
+        expect(writer_instance).not_to have_received(:call)
       end
     end
 
@@ -131,7 +131,7 @@ RSpec.describe Tocer::Runner, :temp_dir do
 
       it "updates files" do
         runner.run
-        expect(writer_instance).to have_received(:write)
+        expect(writer_instance).to have_received(:call)
       end
     end
   end

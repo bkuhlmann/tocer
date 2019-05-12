@@ -18,7 +18,7 @@ module Tocer
     end
 
     def run
-      files.each { |file| writer.new(file, label: configuration.fetch(:label)).write }
+      files.each { |file| writer.new(file, label: configuration.fetch(:label)).call }
     end
 
     private
