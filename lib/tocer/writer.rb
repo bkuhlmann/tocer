@@ -29,7 +29,7 @@ module Tocer
     attr_reader :file_path, :builder
 
     def content lines
-      builder.build lines
+      builder.call lines
     end
 
     def replace lines

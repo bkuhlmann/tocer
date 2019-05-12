@@ -18,7 +18,7 @@ module Tocer
       @code_block = false
     end
 
-    def build lines
+    def call lines
       return "" if headers(lines).empty?
 
       [

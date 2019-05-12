@@ -16,7 +16,7 @@ RSpec.describe Tocer::Builder do
     ]
   end
 
-  describe "#build" do
+  describe "#call" do
     let :toc do
       "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
       "\n" \
@@ -46,13 +46,13 @@ RSpec.describe Tocer::Builder do
       end
 
       it "builds table of contents" do
-        expect(builder.build(lines)).to eq(toc)
+        expect(builder.call(lines)).to eq(toc)
       end
     end
 
     context "with plain headers" do
       it "builds table of contents" do
-        expect(builder.build(lines)).to eq(toc)
+        expect(builder.call(lines)).to eq(toc)
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe Tocer::Builder do
       end
 
       it "builds table of contents" do
-        expect(builder.build(lines)).to eq(toc)
+        expect(builder.call(lines)).to eq(toc)
       end
     end
 
@@ -78,6 +78,7 @@ RSpec.describe Tocer::Builder do
           "# General\n"
         ]
       end
+
       let :toc do
         "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
         "\n" \
@@ -91,7 +92,7 @@ RSpec.describe Tocer::Builder do
       end
 
       it "builds table of contents" do
-        expect(builder.build(lines)).to eq(toc)
+        expect(builder.call(lines)).to eq(toc)
       end
     end
 
@@ -107,7 +108,7 @@ RSpec.describe Tocer::Builder do
       end
 
       it "answers an empty array" do
-        expect(builder.build(lines)).to eq("")
+        expect(builder.call(lines)).to eq("")
       end
     end
 
@@ -115,7 +116,7 @@ RSpec.describe Tocer::Builder do
       let(:lines) { [] }
 
       it "answers empty string" do
-        expect(builder.build(lines)).to eq("")
+        expect(builder.call(lines)).to eq("")
       end
     end
   end
