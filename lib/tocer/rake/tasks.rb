@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rake"
+require "tocer"
 
 module Tocer
   module Rake
