@@ -146,6 +146,10 @@ Once configured, the following tasks will be available (i.e. `bundle exec rake -
 
     rake toc[label,includes]   # Add/Update Table of Contents (README)
 
+...which can be called as follows (quotes are not necessary if spaces are not used):
+
+    rake toc["## Example, *.md"]
+
 ## Tests
 
 To test, run:
