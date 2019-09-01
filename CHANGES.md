@@ -1,3 +1,10 @@
+# 9.1.1 (2019-09-01)
+
+- Updated README documentation with rake task usage.
+- Updated to Rubocop 0.73.0.
+- Updated to Rubocop Performance 1.4.0.
+- Updated to Ruby 2.6.4.
+
 # 9.1.0 (2019-06-09)
 
 - Fixed rake task requirements.
