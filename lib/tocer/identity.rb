@@ -12,7 +12,7 @@ module Tocer
     end
 
     def self.version
-      "9.1.1"
+      "9.1.2"
     end
 
     def self.version_label
