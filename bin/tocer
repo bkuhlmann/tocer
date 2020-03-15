@@ -5,5 +5,5 @@ require "tocer"
 require "tocer/cli"
 require "tocer/identity"
 
-Process.setproctitle Tocer::Identity.version_label
+Process.setproctitle Tocer::Identity::VERSION_LABEL
 Tocer::CLI.start

@@ -104,7 +104,7 @@ RSpec.describe Tocer::CLI do
     end
 
     shared_examples_for "an edit command" do
-      let(:file_path) { File.join ENV["HOME"], Tocer::Identity.name }
+      let(:file_path) { File.join ENV["HOME"], Tocer::Identity::NAME }
 
       it "edits resource file", :temp_dir do
         ClimateControl.modify EDITOR: %(printf "%s\n") do
@@ -128,13 +128,13 @@ RSpec.describe Tocer::CLI do
     shared_examples_for "a version command" do
       it "prints version" do
         result = -> { cli }
-        expect(&result).to output(/#{Tocer::Identity.version_label}\n/).to_stdout
+        expect(&result).to output(/#{Tocer::Identity::VERSION_LABEL}\n/).to_stdout
       end
     end
 
     shared_examples_for "a help command" do
       it "prints usage" do
-        pattern = /#{Tocer::Identity.version_label}\scommands:\n/
+        pattern = /#{Tocer::Identity::VERSION_LABEL}\scommands:\n/
         result = -> { cli }
 
         expect(&result).to output(pattern).to_stdout

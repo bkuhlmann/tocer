@@ -9,7 +9,7 @@ module Tocer
   class CLI < Thor
     include Thor::Actions
 
-    package_name Identity.version_label
+    package_name Identity::VERSION_LABEL
 
     def initialize args = [], options = {}, config = {}
       super args, options, config
@@ -69,7 +69,7 @@ module Tocer
     desc "-v, [--version]", "Show gem version."
     map %w[-v --version] => :version
     def version
-      say Identity.version_label
+      say Identity::VERSION_LABEL
     end
 
     desc "-h, [--help=COMMAND]", "Show this message or get help for a command."

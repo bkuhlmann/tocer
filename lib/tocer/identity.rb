@@ -3,20 +3,9 @@
 module Tocer
   # Gem identity information.
   module Identity
-    def self.name
-      "tocer"
-    end
-
-    def self.label
-      "Tocer"
-    end
-
-    def self.version
-      "10.0.1"
-    end
-
-    def self.version_label
-      "#{label} #{version}"
-    end
+    NAME = "tocer"
+    LABEL = "Tocer"
+    VERSION = "10.0.1"
+    VERSION_LABEL = "#{LABEL} #{VERSION}"
   end
 end

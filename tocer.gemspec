@@ -3,8 +3,8 @@
 require_relative "lib/tocer/identity"
 
 Gem::Specification.new do |spec|
-  spec.name = Tocer::Identity.name
-  spec.version = Tocer::Identity.version
+  spec.name = Tocer::Identity::NAME
+  spec.version = Tocer::Identity::VERSION
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
