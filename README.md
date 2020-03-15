@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="tocer.png" alt="Tocer Icon"/>
+  <img src="https://www.alchemists.io/images/projects/tocer/icon.png" alt="Tocer Icon"/>
 </p>
 
 # Tocer
