@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.append File.expand_path("lib", __dir__)
-require "tocer/identity"
+require_relative "lib/tocer/identity"
 
 Gem::Specification.new do |spec|
   spec.name = Tocer::Identity.name
