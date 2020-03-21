@@ -1,0 +1,211 @@
+:toc: macro
+:toclevels: 5
+:figure-caption!:
+
+= Tocer
+
+[link=http://badge.fury.io/rb/tocer]
+image::https://badge.fury.io/rb/tocer.svg[Gem Version]
+[link=https://circleci.com/gh/bkuhlmann/tocer]
+image::https://circleci.com/gh/bkuhlmann/tocer.svg?style=svg[Circle CI Status]
+
+Tocer (a.k.a. Table of Contenter) is a command line interface for generating table of contents for
+Markdown files.
+
+toc::[]
+
+== Features
+
+* Supports Markdown ATX-style headers. Example: `# Header`.
+** Does not support header suffixes. Example: `# Header #`.
+** Does not support header prefixes without spaces. Example: `#Header`.
+* Supports table of contents generation for single or multiple files.
+* Supports custom label. Default: `## Table of Contents`.
+* Supports file list filtering. Default: `"README.md"`.
+* Prepends table of contents to Markdown documents that don’t have table of contents.
+* Rebuilds Markdown documents that have existing table of contents.
+
+== Requirements
+
+. A UNIX-based system.
+. https://www.ruby-lang.org[Ruby 2.7.x].
+
+== Setup
+
+=== Production
+
+To install, run:
+
+[source,bash]
+----
+gem install tocer
+----
+
+=== Development
+
+To contribute, run:
+
+[source,bash]
+----
+git clone https://github.com/bkuhlmann/tocer.git
+cd tocer
+bin/setup
+----
+
+You can also use the IRB console for direct access to all objects:
+
+[source,bash]
+----
+bin/console
+----
+
+== Usage
+
+=== Command Line Interface (CLI)
+
+From the command line, type: `+tocer --help+`
+
+....
+tocer -c, [--config]         # Manage gem configuration.
+tocer -g, [--generate=PATH]  # Generate table of contents.
+tocer -h, [--help=COMMAND]   # Show this message or get help for a command.
+tocer -v, [--version]        # Show gem version.
+....
+
+For specific `+--generate+` options, run `+tocer --help --generate+` to see the following:
+
+....
+-l, [--label=LABEL]             # Label
+                                # Default: ## Table of Contents
+-i, [--includes=one two three]  # File include list
+                                # Default: ["README.md"]
+....
+
+To generate the table of contents at a specific position within your Markdown files, add the
+following lines to your file(s) prior to generation:
+
+[source,markdown]
+----
+<!-- Tocer[start] -->
+<!-- Tocer[finish] -->
+----
+
+Alternatively, you can run `+tocer -g <directory>+` on files that do not have Tocer support and it
+will prepend the table of contents to your file(s), complete with an auto-generated table of
+contents.
+
+In the case that Tocer has already auto-generated a table of contents for a Markdown file, the
+existing table of contents has become stale, or placement of the table of contents has changed you
+can re-run Tocer on that file to auto-update it with new table of contents.
+
+=== Customization
+
+This gem can be configured via a global configuration: `~/.config/tocer/configuration.yml`.
+
+It can also be configured via link:https://www.alchemists.io/projects/xdg[XDG] environment
+variables.
+
+The default configuration is as follows:
+
+[source,yaml]
+----
+:label: "## Table of Contents"
+:includes:
+  - "README.md"
+----
+
+Feel free to take this default configuration, modify, and save as your own custom
+`configuration.yml`.
+
+The `configuration.yml` file can be configured as follows:
+
+* `label`: The header label for the table of contents. Default: `"# Table of Contents"`.
+* `includes`: The list of included files. Default: `"*.md"`.
+
+There are multiple ways the include list can be defined. Here are some examples:
+
+[source,yaml]
+----
+# Use an empty array to ignore all files (a key with no value would work too).
+:includes: []
+
+# Use an array of wildcards for groups of files with similar extensions:
+:includes:
+  - "*.md"
+  - "*.mkd"
+  - "*.markdown"
+
+# Use a mix of wild cards and relative names/paths to customized as necessary:
+:includes:
+  - "README.md"
+  - "docs/*.md"
+  - "*.markdown"
+
+# Use a recursive glob to traverse and update all sub-directories:
+:includes:
+  - "**/*.md"
+----
+
+=== Rake
+
+You can add Rake support by adding the following to your `Rakefile`:
+
+[source,ruby]
+----
+begin
+  require "tocer/rake/setup"
+rescue LoadError => error
+  puts error.message
+end
+----
+
+Once configured, the following tasks will be available (i.e. `bundle exec rake -T`):
+
+....
+rake toc[label,includes]   # Add/Update Table of Contents (README)
+....
+
+…which can be called as follows (quotes are not necessary if spaces are not used):
+
+[source,bash]
+----
+rake toc["## Example, *.md"]
+----
+
+== Tests
+
+To test, run:
+
+[source,bash]
+----
+bundle exec rake
+----
+
+== Versioning
+
+Read link:https://semver.org[Semantic Versioning] for details. Briefly, it means:
+
+* Major (X.y.z) - Incremented for any backwards incompatible public API changes.
+* Minor (x.Y.z) - Incremented for new, backwards compatible, public API enhancements/fixes.
+* Patch (x.y.Z) - Incremented for small, backwards compatible, bug fixes.
+
+== Code of Conduct
+
+Please note that this project is released with a link:CODE_OF_CONDUCT.adoc[CODE OF CONDUCT]. By
+participating in this project you agree to abide by its terms.
+
+== Contributions
+
+Read link:CONTRIBUTING.adoc[CONTRIBUTING] for details.
+
+== License
+
+Read link:LICENSE.adoc[LICENSE] for details.
+
+== History
+
+Read link:CHANGES.adoc[CHANGES] for details.
+
+== Credits
+
+Engineered by link:https://www.alchemists.io/team/brooke_kuhlmann.html[Brooke Kuhlmann].
