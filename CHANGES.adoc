@@ -1,5 +1,21 @@
 = Changes
 
+== 10.1.0 (2020-04-01)
+
+- Added README production and development setup instructions
+- Updated documentation to ASCII Doc format
+- Updated gem identity to use constants
+- Updated gemspec URLs
+- Updated gemspec to require relative path
+- Updated to Code of Conduct 2.0.0
+- Updated to Reek 5.6.0
+- Updated to Reek 6.0.0
+- Updated to Rubocop 0.79.0
+- Updated to Ruby 2.7.1
+- Updated to SimpleCov 0.18.0
+- Removed Code Climate support
+- Removed README images
+
 == 10.0.1 (2020-01-02)
 
 * Fixed loading of configuration file
