@@ -110,7 +110,7 @@ RSpec.describe Tocer::CLI do
         ClimateControl.modify EDITOR: %(printf "%s\n") do
           Dir.chdir temp_dir do
             result = -> { cli }
-            expect(&result).to output(/info\s+Editing\:\s#{file_path}\.\.\./).to_stdout
+            expect(&result).to output(/info\s+Editing:\s#{file_path}\.\.\./).to_stdout
           end
         end
       end

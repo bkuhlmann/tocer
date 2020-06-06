@@ -5,7 +5,7 @@ module Tocer
     # Represents a table of contents start and finish comment block.
     class CommentBlock
       def self.index lines, id
-        (lines.index { |line| line =~ /\<\!\-\-.*#{Regexp.escape id}.*\-\-\>/ }).to_i
+        (lines.index { |line| line =~ /<!--.*#{Regexp.escape id}.*-->/ }).to_i
       end
 
       def initialize start_id: "Tocer[start]",
