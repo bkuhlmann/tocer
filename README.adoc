@@ -28,7 +28,7 @@ toc::[]
 == Requirements
 
 . A UNIX-based system.
-. https://www.ruby-lang.org[Ruby 2.7.x].
+. link:https://www.ruby-lang.org[Ruby].
 
 == Setup
 
