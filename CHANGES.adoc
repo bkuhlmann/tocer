@@ -1,11 +1,21 @@
 = Changes
 
+== 10.2.0 (2020-07-22)
+
+* Fixed Rubocop Lint/NonDeterministicRequireOrder issues
+* Fixed Rubocop Style/RedundantRegexpEscape issues
+* Fixed project requirements
+* Updated GitHub templates
+* Updated to Gemsmith 14.2.0
+* Updated to Git Lint 1.0.0
+* Refactored Rakefile requirements
+
 == 10.1.1 (2020-05-21)
 
-- Updated Pry gem dependencies
-- Updated README credit URL
-- Updated Rubocop gem dependencies
-- Updated to Refinements 7.4.0
+* Updated Pry gem dependencies
+* Updated README credit URL
+* Updated Rubocop gem dependencies
+* Updated to Refinements 7.4.0
 
 == 10.1.0 (2020-04-01)
 
