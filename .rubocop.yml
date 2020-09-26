@@ -6,3 +6,5 @@ inherit_from:
 
 Lint/Void:
   CheckForMethodsWithNoSideEffects: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
