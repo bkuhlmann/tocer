@@ -32,31 +32,11 @@ toc::[]
 
 == Setup
 
-=== Production
-
 To install, run:
 
 [source,bash]
 ----
 gem install tocer
-----
-
-=== Development
-
-To contribute, run:
-
-[source,bash]
-----
-git clone https://github.com/bkuhlmann/tocer.git
-cd tocer
-bin/setup
-----
-
-You can also use the IRB console for direct access to all objects:
-
-[source,bash]
-----
-bin/console
 ----
 
 == Usage
@@ -170,6 +150,24 @@ rake toc[label,includes]   # Add/Update Table of Contents (README)
 [source,bash]
 ----
 rake toc["## Example, *.md"]
+----
+
+== Development
+
+To contribute, run:
+
+[source,bash]
+----
+git clone https://github.com/bkuhlmann/tocer.git
+cd tocer
+bin/setup
+----
+
+You can also use the IRB console for direct access to all objects:
+
+[source,bash]
+----
+bin/console
 ----
 
 == Tests
