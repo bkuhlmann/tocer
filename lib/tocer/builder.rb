@@ -52,7 +52,7 @@ module Tocer
     end
 
     def transform markdown
-      Transformers::Finder.call(markdown).then do |transformer|
+      Transformers::Finder.new.call(markdown).then do |transformer|
         url = transformer.url
         link = transformer.call url_suffix: url_suffix(url)
         url_count[url] += 1

@@ -9,10 +9,18 @@ module Tocer
         /.*/ => Transformers::Text
       }.freeze
 
-      def self.call markdown
-        TRANSFORMERS.find { |pattern, transformer| break transformer if pattern.match? markdown }
+      def initialize transformers: TRANSFORMERS
+        @transformers = transformers
+      end
+
+      def call markdown
+        transformers.find { |pattern, transformer| break transformer if pattern.match? markdown }
                     .then { |transformer| transformer.new markdown }
       end
+
+      private
+
+      attr_reader :transformers
     end
   end
 end
