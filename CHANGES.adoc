@@ -1,14 +1,25 @@
 = Changes
 
+== 10.4.0 (2020-11-14)
+
+* Fixed Rubocop Style/StaticClass
+* Added Alchemists style guide badge
+* Added Bundler Leak development dependency
+* Updated Rubocop gems
+* Updated to Bundler Audit 0.7.0
+* Updated to RSpec 3.10.0
+* Updated to Refinements 7.14.0
+* Updated to Runcom 6.4.0
+
 == 10.3.0 (2020-10-18)
 
-- Added Guard and Rubocop binstubs
-- Added Rubocop RSpec/MultipleMemoizedHelpers configuration
-- Updated project documentation to conform to Rubysmith template
-- Updated to Refinements 7.11.0
-- Updated to Rubocop 0.89.0
-- Updated to Ruby 2.7.2
-- Updated to SimpleCov 0.19.0
+* Added Guard and Rubocop binstubs
+* Added Rubocop RSpec/MultipleMemoizedHelpers configuration
+* Updated project documentation to conform to Rubysmith template
+* Updated to Refinements 7.11.0
+* Updated to Rubocop 0.89.0
+* Updated to Ruby 2.7.2
+* Updated to SimpleCov 0.19.0
 
 == 10.2.0 (2020-07-22)
 
