@@ -11,7 +11,7 @@ module Tocer
       end
 
       def prefix
-        String markdown[/#{PUNCTUATION}{1,}/]
+        String markdown[/#{PUNCTUATION}{1,}/o]
       end
 
       def content
