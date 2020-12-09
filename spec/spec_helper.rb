@@ -8,6 +8,7 @@ SimpleCov.start { enable_coverage :branch }
 
 require "tocer"
 require "refinements"
+require "climate_control"
 
 using Refinements::Pathnames
 
