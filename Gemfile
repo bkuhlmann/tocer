@@ -18,12 +18,12 @@ end
 
 group :development do
   gem "gemsmith", "~> 14.9"
-  gem "guard-rspec", "~> 4.7", require: false
   gem "rake", "~> 13.0"
 end
 
 group :test do
   gem "climate_control", "~> 0.2"
+  gem "guard-rspec", "~> 4.7", require: false
   gem "rspec", "~> 3.10"
 end
 
