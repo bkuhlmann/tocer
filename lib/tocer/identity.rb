@@ -5,7 +5,7 @@ module Tocer
   module Identity
     NAME = "tocer"
     LABEL = "Tocer"
-    VERSION = "10.4.1"
+    VERSION = "10.5.0"
     VERSION_LABEL = "#{LABEL} #{VERSION}"
   end
 end
