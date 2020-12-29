@@ -1,5 +1,12 @@
 = Changes
 
+== 11.0.0 (2020-12-29)
+
+* Updated to Refinements 7.18.0
+* Updated to Ruby 3.0.0
+* Updated to Refinements 8.0.0
+* Updated to Runcom 7.0.0
+
 == 10.5.0 (2020-12-13)
 
 * Fixed RSpec helper to include climate control
