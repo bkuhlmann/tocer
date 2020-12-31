@@ -2,8 +2,10 @@
 
 require "spec_helper"
 
-RSpec.describe Tocer::Runner, :temp_dir do
+RSpec.describe Tocer::Runner do
   subject(:runner) { described_class.new path, configuration: configuration, writer: writer_class }
+
+  include_context "with temporary directory"
 
   let(:path) { "." }
   let(:label) { "# Test" }

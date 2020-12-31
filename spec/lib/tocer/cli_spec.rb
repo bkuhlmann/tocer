@@ -3,6 +3,8 @@
 require "spec_helper"
 
 RSpec.describe Tocer::CLI do
+  include_context "with temporary directory"
+
   describe ".start" do
     subject(:cli) { described_class.start command_line }
 
@@ -15,7 +17,7 @@ RSpec.describe Tocer::CLI do
       let(:contents) { IO.read test_file }
       before { FileUtils.cp fixture_file, test_file }
 
-      context "with defaults", :temp_dir do
+      context "with defaults" do
         it "generates table of contents" do
           ClimateControl.modify HOME: temp_dir.to_s do
             Dir.chdir temp_dir do
@@ -38,7 +40,7 @@ RSpec.describe Tocer::CLI do
         end
       end
 
-      context "with custom label", :temp_dir do
+      context "with custom label" do
         let(:label) { "# Index" }
         let(:options) { ["--label", label] }
 
@@ -52,7 +54,7 @@ RSpec.describe Tocer::CLI do
         end
       end
 
-      context "with custom include list", :temp_dir do
+      context "with custom include list" do
         let(:options) { ["--includes", ["*.txt"]] }
         let(:test_file) { File.join temp_dir, "test.txt" }
 
@@ -80,7 +82,7 @@ RSpec.describe Tocer::CLI do
         end
       end
 
-      context "with no files to process", :temp_dir do
+      context "with no files to process" do
         let(:options) { ["invalid.md"] }
 
         it "does not generate table of contents" do
@@ -106,7 +108,7 @@ RSpec.describe Tocer::CLI do
     shared_examples_for "an edit command" do
       let(:file_path) { File.join ENV["HOME"], Tocer::Identity::NAME }
 
-      it "edits resource file", :temp_dir do
+      it "edits resource file" do
         ClimateControl.modify EDITOR: %(printf "%s\n") do
           Dir.chdir temp_dir do
             result = -> { cli }
@@ -116,7 +118,7 @@ RSpec.describe Tocer::CLI do
       end
     end
 
-    shared_examples_for "a config command", :temp_dir do
+    shared_examples_for "a config command" do
       context "with no options" do
         it "prints help text" do
           result = -> { cli }

@@ -5,6 +5,8 @@ require "spec_helper"
 RSpec.describe Tocer::Writer do
   subject(:writer) { described_class.new test_path }
 
+  include_context "with temporary directory"
+
   describe ".add" do
     let(:old_lines) { %w[a b c] }
     let(:new_lines) { "1 2 3" }
@@ -41,7 +43,7 @@ RSpec.describe Tocer::Writer do
     end
   end
 
-  describe "#call", :temp_dir do
+  describe "#call" do
     let(:test_path) { File.join temp_dir, "test.md" }
 
     let :contents do
