@@ -7,5 +7,6 @@ module Tocer
     LABEL = "Tocer"
     VERSION = "11.1.0"
     VERSION_LABEL = "#{LABEL} #{VERSION}"
+    SUMMARY = "A command line interface for generating table of contents for Markdown files."
   end
 end

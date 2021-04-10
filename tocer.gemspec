@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://www.alchemists.io/projects/tocer"
-  spec.summary = "A command line interface for generating table of contents for Markdown files."
+  spec.summary = Tocer::Identity::SUMMARY
   spec.license = "Apache-2.0"
 
   spec.metadata = {
