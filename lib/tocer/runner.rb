@@ -1,32 +1,27 @@
 # frozen_string_literal: true
 
-require "pathname"
+require "refinements/pathnames"
 
 module Tocer
-  # Generates/updates Table of Contents for files in given path.
+  # Generates/updates Table of Contents for files in root path.
   class Runner
-    def initialize path = ".", configuration: {}, writer: Writer
-      @path = Pathname path
+    using Refinements::Pathnames
+
+    def initialize configuration: CLI::Configuration::Loader.call, writer: Writer
       @configuration = configuration
       @writer = writer
     end
 
-    def files
-      return [] unless path.exist? && path.directory? && !includes.empty?
-
-      Pathname.glob(%(#{path}/{#{includes.join ","}})).select(&:file?)
-    end
-
-    def call
-      files.each { |file| writer.new(file, label: configuration.fetch(:label)).call }
+    def call root_dir: ".", label: configuration.label, includes: configuration.includes
+      Pathname(root_dir).files(%({#{includes.join ","}}))
+                        .each do |path|
+                          yield path if block_given?
+                          writer.new(path, label: label).call
+                        end
     end
 
     private
 
-    attr_reader :path, :configuration, :writer
-
-    def includes
-      Array configuration[:includes]
-    end
+    attr_reader :configuration, :writer
   end
 end

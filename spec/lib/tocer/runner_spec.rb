@@ -3,138 +3,74 @@
 require "spec_helper"
 
 RSpec.describe Tocer::Runner do
-  subject(:runner) { described_class.new path, configuration: configuration, writer: writer_class }
+  subject(:runner) { described_class.new }
+
+  using Refinements::Pathnames
 
   include_context "with temporary directory"
 
-  let(:path) { "." }
-  let(:label) { "# Test" }
-  let(:includes) { [] }
-  let :configuration do
-    {
-      label: label,
-      includes: includes
-    }
-  end
-  let(:writer_class) { class_spy Tocer::Writer }
-  let(:writer_instance) { instance_spy Tocer::Writer }
-  let(:markdown_file) { Pathname File.join(temp_dir, "test.md") }
-  let(:text_file) { Pathname File.join(temp_dir, "test.txt") }
-
-  before do
-    FileUtils.touch markdown_file
-    FileUtils.touch text_file
-  end
-
-  describe "#files" do
-    context "with defaults" do
-      subject(:runner) { described_class.new }
-
-      it "answers empty array" do
-        expect(runner.files).to be_empty
-      end
-    end
-
-    context "with path only" do
-      let(:path) { temp_dir }
-
-      it "answers empty array" do
-        expect(runner.files).to be_empty
-      end
-    end
-
-    context "with include list only" do
-      let(:includes) { ["*.md"] }
-
-      it "answers files with matching extensions" do
-        Dir.chdir temp_dir do
-          expect(runner.files).to contain_exactly(Pathname("./test.md"))
-        end
-      end
-    end
-
-    context "with path and include list string" do
-      let(:path) { temp_dir }
-      let(:includes) { "*.md" }
-
-      it "answers files with matching extensions" do
-        expect(runner.files).to contain_exactly(markdown_file)
-      end
-    end
-
-    context "with path and include list array" do
-      let(:path) { temp_dir }
-      let(:includes) { ["*.md"] }
-
-      it "answers files with matching extensions" do
-        expect(runner.files).to contain_exactly(markdown_file)
-      end
-    end
-
-    context "with invalid path" do
-      let(:path) { "bogus" }
-
-      it "answers empty array" do
-        expect(runner.files).to be_empty
-      end
-    end
-
-    context "with path and invalid include list" do
-      let(:path) { temp_dir }
-      let(:includes) { ["bogus", "~#}*^"] }
-
-      it "answers empty array" do
-        expect(runner.files).to be_empty
-      end
-    end
-
-    context "with path and include list without wildcards" do
-      let(:path) { temp_dir }
-      let(:includes) { [".md"] }
-
-      it "answers empty array" do
-        expect(runner.files).to be_empty
-      end
-    end
-
-    context "with path and recursive include list" do
-      let(:path) { temp_dir }
-      let(:includes) { ["**/*.md"] }
-      let(:nested_file) { Pathname File.join(temp_dir, "nested", "nested.md") }
-
-      before do
-        FileUtils.mkdir File.join(temp_dir, "nested")
-        FileUtils.touch nested_file
-      end
-
-      it "answers recursed files" do
-        expect(runner.files).to contain_exactly(nested_file, markdown_file)
-      end
-    end
-  end
-
   describe "#call" do
-    context "without files" do
-      it "doesn't update files" do
-        runner.call
-        expect(writer_instance).not_to have_received(:call)
-      end
+    let(:shell) { class_spy Kernel }
+
+    it "uses custom label" do
+      path = temp_dir.join("README.md").touch.write <<~CONTENT
+        <!-- Tocer[start] -->
+        <!-- Tocer[finish] -->
+
+        ## One
+      CONTENT
+
+      runner.call root_dir: temp_dir, label: "# Test"
+
+      expect(path.read).to eq(<<~CONTENT)
+        <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+        # Test
+
+          - [One](#one)
+
+        <!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+        ## One
+      CONTENT
     end
 
-    context "with files" do
-      let(:path) { temp_dir }
-      let(:includes) { ["*.md"] }
+    it "processes files with matching extensions" do
+      test_path = temp_dir.join("test.md").touch
+      runner.call(root_dir: temp_dir, includes: ["*.md"]) { |path| shell.print path }
 
-      before do
-        allow(writer_class).to receive(:new)
-          .with(markdown_file, label: label)
-          .and_return(writer_instance)
-      end
+      expect(shell).to have_received(:print).with(test_path)
+    end
 
-      it "updates files" do
-        runner.call
-        expect(writer_instance).to have_received(:call)
-      end
+    it "processes with files with recursive includes" do
+      test_path = temp_dir.join("nested").make_path.join("nested.md").touch
+      runner.call(root_dir: temp_dir, includes: ["**/*.md"]) { |path| shell.print path }
+
+      expect(shell).to have_received(:print).with(test_path)
+    end
+
+    it "doesn't process files when there are no files" do
+      runner.call(root_dir: temp_dir) { |path| shell.print path }
+      expect(shell).not_to have_received(:print)
+    end
+
+    it "doesn't process files for invalid path" do
+      runner.call root_dir: "bogus"
+      expect(shell).not_to have_received(:print)
+    end
+
+    it "doesn't process files with invalid includes" do
+      temp_dir.join("test.md").touch
+      runner.call(root_dir: temp_dir, includes: ["bogus", "~#}*^"]) { |path| shell.print path }
+
+      expect(shell).not_to have_received(:print)
+    end
+
+    it "doesn't process files with missing wildcards" do
+      temp_dir.join("test.md").touch
+      runner.call(root_dir: temp_dir, includes: [".md"]) { |path| shell.print path }
+
+      expect(shell).not_to have_received(:print)
     end
   end
 end
