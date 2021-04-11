@@ -2,8 +2,6 @@
 # frozen_string_literal: true
 
 require "tocer"
-require "tocer/cli"
-require "tocer/identity"
 
 Process.setproctitle Tocer::Identity::VERSION_LABEL
-Tocer::CLI.start
+Tocer::CLI::Shell.new.call ARGV
