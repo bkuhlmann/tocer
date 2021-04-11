@@ -4,10 +4,9 @@ require "spec_helper"
 require "tocer/rake/tasks"
 
 RSpec.describe Tocer::Rake::Tasks do
-  subject(:tasks) { described_class.new runner: runner_class }
+  subject(:tasks) { described_class.new runner: runner }
 
-  let(:runner_class) { class_double Tocer::Runner }
-  let(:runner_instance) { instance_spy Tocer::Runner }
+  let(:runner) { instance_spy Tocer::Runner }
 
   before { Rake::Task.clear }
 
@@ -19,28 +18,20 @@ RSpec.describe Tocer::Rake::Tasks do
   end
 
   describe "#install" do
-    before do
-      allow(runner_class).to receive(:new).with(configuration: configuration)
-                                          .and_return(runner_instance)
-      tasks.install
+    before { tasks.install }
+
+    it "calls runner with default arguments" do
+      Rake::Task["toc"].invoke
+
+      expect(runner).to have_received(:call).with(
+        label: "## Table of Contents",
+        includes: ["README.md"]
+      )
     end
 
-    context "with no toc task arguments" do
-      let(:configuration) { {label: "## Table of Contents", includes: ["README.md"]} }
-
-      it "executes runner" do
-        Rake::Task["toc"].invoke
-        expect(runner_instance).to have_received(:call)
-      end
-    end
-
-    context "with toc arguments" do
-      let(:configuration) { {label: "## TOC", includes: %w[one.md two.md]} }
-
-      it "executes runner" do
-        Rake::Task["toc"].invoke "## TOC", %w[one.md two.md]
-        expect(runner_instance).to have_received(:call)
-      end
+    it "calls runner with custom arguments" do
+      Rake::Task["toc"].invoke "## TOC", %w[one.md two.md]
+      expect(runner).to have_received(:call).with(label: "## TOC", includes: %w[one.md two.md])
     end
   end
 end
