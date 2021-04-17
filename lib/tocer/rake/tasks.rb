@@ -6,6 +6,7 @@ require "refinements/structs"
 
 module Tocer
   module Rake
+    # Provides Rake tasks for convenience.
     class Tasks
       include ::Rake::DSL
       using Refinements::Structs
