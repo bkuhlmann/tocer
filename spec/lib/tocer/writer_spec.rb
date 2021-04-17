@@ -5,7 +5,7 @@ require "spec_helper"
 RSpec.describe Tocer::Writer do
   using Refinements::Pathnames
 
-  subject(:writer) { described_class.new test_path }
+  subject(:writer) { described_class.new }
 
   include_context "with temporary directory"
 
@@ -75,12 +75,10 @@ RSpec.describe Tocer::Writer do
     before { fixture_path.copy test_path }
 
     context "when using a custom label" do
-      subject(:writer) { described_class.new test_path, label: "# Index" }
-
       let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
 
       it "uses custom label for table of contents" do
-        writer.call
+        writer.call test_path, label: "# Index"
 
         expect(test_path.read).to eq(<<~BODY)
           <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -102,7 +100,7 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { Bundler.root.join "spec/support/fixtures/empty.md" }
 
       it "replaces existing table of contents with new table of contents" do
-        writer.call
+        writer.call test_path
         expect(test_path.read).to eq(contents)
       end
     end
@@ -111,7 +109,7 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { Bundler.root.join "spec/support/fixtures/existing-prepended.md" }
 
       it "replaces existing table of contents with new table of contents" do
-        writer.call
+        writer.call test_path
 
         expect(test_path.read).to eq(<<~BODY)
           <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -133,7 +131,7 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { Bundler.root.join "spec/support/fixtures/existing-embedded.md" }
 
       it "replaces existing table of contents with new table of contents" do
-        writer.call
+        writer.call test_path
         expect(test_path.read).to eq(contents)
       end
     end
@@ -142,7 +140,7 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { Bundler.root.join "spec/support/fixtures/without_comment_messages.md" }
 
       it "replaces existing table of contents with new table of contents" do
-        writer.call
+        writer.call test_path
         expect(test_path.read).to eq(contents)
       end
     end
@@ -151,7 +149,7 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
 
       it "prepends table of contents in file" do
-        writer.call
+        writer.call test_path
 
         expect(test_path.read).to eq(<<~BODY)
           <!-- Tocer[start]: Auto-generated, don't remove. -->

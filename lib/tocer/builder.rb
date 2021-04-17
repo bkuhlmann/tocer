@@ -3,7 +3,7 @@
 require "forwardable"
 
 module Tocer
-  # Builds a table of contents for a Markdown document.
+  # Builds table of contents for a Markdown document.
   class Builder
     extend Forwardable
 
@@ -11,32 +11,34 @@ module Tocer
 
     def_delegators :comment_block, :start_index, :finish_index, :prependable?
 
-    def initialize label: "## Table of Contents", comment_block: Elements::CommentBlock.new
-      @label = label
+    def initialize comment_block: Elements::CommentBlock.new, transformer: Transformers::Finder.new
       @comment_block = comment_block
+      @transformer = transformer
       @url_count = Hash.new 0
       @code_block = false
     end
 
-    def call lines
+    def call lines, label: CLI::Configuration::Loader.call.label
       return "" if headers(lines).empty?
 
+      assemble(lines, label).join
+    end
+
+    private
+
+    attr_reader :comment_block, :transformer, :url_count
+    attr_accessor :code_block
+
+    def assemble lines, label
       [
         "#{comment_block.start_tag}\n\n",
         "#{label}\n\n",
         links(lines).join("\n"),
         "\n\n#{comment_block.finish_tag}\n"
-      ].join
+      ]
     end
 
-    private
-
-    attr_reader :label, :comment_block, :url_count
-    attr_accessor :code_block
-
-    def links lines
-      headers(lines).map { |markdown| transform markdown }
-    end
+    def links(lines) = headers(lines).map { |markdown| transform markdown }
 
     def headers lines
       lines.select do |line|
@@ -52,16 +54,14 @@ module Tocer
     end
 
     def transform markdown
-      Transformers::Finder.new.call(markdown).then do |transformer|
-        url = transformer.url
-        link = transformer.call url_suffix: url_suffix(url)
+      transformer.call(markdown).then do |instance|
+        url = instance.url
+        link = instance.call url_suffix: url_suffix(url)
         url_count[url] += 1
         link
       end
     end
 
-    def url_suffix url
-      url_count[url].then { |count| count.zero? ? "" : count }
-    end
+    def url_suffix(url) = url_count[url].then { |count| count.zero? ? "" : count }
   end
 end

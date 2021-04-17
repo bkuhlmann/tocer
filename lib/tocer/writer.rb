@@ -4,6 +4,7 @@ require "refinements/pathnames"
 
 module Tocer
   # Writes table of contents to a Markdown document.
+  # :reek:DataClump
   class Writer
     using Refinements::Pathnames
 
@@ -17,25 +18,22 @@ module Tocer
       lines.reject.with_index { |_, index| range.include? index }
     end
 
-    def initialize file_path, label: "## Table of Contents", builder: Builder.new(label: label)
-      @file_path = file_path
+    def initialize builder: Builder.new
       @builder = builder
     end
 
-    def call
-      file_path.rewrite do |body|
+    def call path, label: CLI::Configuration::Loader.call.label
+      path.rewrite do |body|
         lines = body.each_line.to_a
-        builder.prependable?(lines) ? prepend(lines) : replace(lines)
+        builder.prependable?(lines) ? prepend(lines, label) : replace(lines, label)
       end
     end
 
     private
 
-    attr_reader :file_path, :builder
+    attr_reader :builder
 
-    def content(lines) = builder.call(lines)
-
-    def replace lines
+    def replace lines, label
       start_index = builder.start_index lines
       finish_index = builder.finish_index lines
       klass = self.class
@@ -43,10 +41,12 @@ module Tocer
       klass.add(
         start_index: start_index,
         old_lines: klass.remove(start_index, finish_index, lines),
-        new_lines: content(lines[finish_index, lines.length])
+        new_lines: content(lines[finish_index, lines.length], label)
       ).join
     end
 
-    def prepend(lines) = content(lines) + "\n" + lines.join
+    def prepend(lines, label) = content(lines, label) + "\n" + lines.join
+
+    def content(lines, label) = builder.call(lines, label: label)
   end
 end

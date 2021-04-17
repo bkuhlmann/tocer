@@ -18,35 +18,33 @@ RSpec.describe Tocer::Builder do
 
   describe "#call" do
     let :toc do
-      "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
-      "\n" \
-      "## Table of Contents\n" \
-      "\n" \
-      "- [Overview](#overview)\n" \
-      "- [Features](#features)\n" \
-      "- [History](#history)\n" \
-      "\n" \
-      "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n"
+      <<~BODY
+        <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+        ## Table of Contents
+
+        - [Overview](#overview)
+        - [Features](#features)
+        - [History](#history)
+
+        <!-- Tocer[finish]: Auto-generated, don't remove. -->
+      BODY
     end
 
     context "with custom label" do
-      subject(:builder) { described_class.new label: "# Overview" }
-
       let(:lines) { ["# Section 1\n", "# Section 2\n"] }
 
-      let :toc do
-        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "# Overview\n" \
-        "\n" \
-        "- [Section 1](#section-1)\n" \
-        "- [Section 2](#section-2)\n" \
-        "\n" \
-        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n"
-      end
-
       it "builds table of contents" do
-        expect(builder.call(lines)).to eq(toc)
+        expect(builder.call(lines, label: "# Overview")).to eq(<<~TOC)
+          <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+          # Overview
+
+          - [Section 1](#section-1)
+          - [Section 2](#section-2)
+
+          <!-- Tocer[finish]: Auto-generated, don't remove. -->
+        TOC
       end
     end
 
@@ -79,20 +77,18 @@ RSpec.describe Tocer::Builder do
         ]
       end
 
-      let :toc do
-        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "## Table of Contents\n" \
-        "\n" \
-        "- [General](#general)\n" \
-        "- [General](#general-1)\n" \
-        "- [General](#general-2)\n" \
-        "\n" \
-        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n"
-      end
-
       it "builds table of contents" do
-        expect(builder.call(lines)).to eq(toc)
+        expect(builder.call(lines)).to eq(<<~TOC)
+          <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+          ## Table of Contents
+
+          - [General](#general)
+          - [General](#general-1)
+          - [General](#general-2)
+
+          <!-- Tocer[finish]: Auto-generated, don't remove. -->
+        TOC
       end
     end
 
