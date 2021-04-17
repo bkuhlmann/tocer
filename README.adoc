@@ -45,22 +45,18 @@ gem install tocer
 
 === Command Line Interface (CLI)
 
-From the command line, type: `+tocer --help+`
+From the command line, run: `tocer --help`
 
 ....
-tocer -c, [--config]         # Manage gem configuration.
-tocer -g, [--generate=PATH]  # Generate table of contents.
-tocer -h, [--help=COMMAND]   # Show this message or get help for a command.
-tocer -v, [--version]        # Show gem version.
-....
+USAGE:
+  -b, --build [PATH]                       Build table of contents. Default path: "."
+  -c, --config ACTION                      Manage gem configuration: edit or view.
+  -h, --help                               Show this message.
+  -v, --version                            Show gem version.
 
-For specific `+--generate+` options, run `+tocer --help --generate+` to see the following:
-
-....
--l, [--label=LABEL]             # Label
-                                # Default: ## Table of Contents
--i, [--includes=one two three]  # File include list
-                                # Default: ["README.md"]
+BUILD OPTIONS:
+  -i, --includes [a,b,c]                   Include pattern list. Default: ["README.md"].
+  -l, --label [LABEL]                      Label. Default: "## Table of Contents".
 ....
 
 To generate the table of contents at a specific position within your Markdown files, add the
@@ -71,10 +67,6 @@ following lines to your file(s) prior to generation:
 <!-- Tocer[start] -->
 <!-- Tocer[finish] -->
 ----
-
-Alternatively, you can run `+tocer -g <directory>+` on files that do not have Tocer support and it
-will prepend the table of contents to your file(s), complete with an auto-generated table of
-contents.
 
 In the case that Tocer has already auto-generated a table of contents for a Markdown file, the
 existing table of contents has become stale, or placement of the table of contents has changed you
@@ -101,8 +93,8 @@ Feel free to take this default configuration, modify, and save as your own custo
 
 The `configuration.yml` file can be configured as follows:
 
-* `label`: The header label for the table of contents. Default: `"# Table of Contents"`.
-* `includes`: The list of included files. Default: `"*.md"`.
+* `label`: The header label for the table of contents.
+* `includes`: The list of included files.
 
 There are multiple ways the include list can be defined. Here are some examples:
 

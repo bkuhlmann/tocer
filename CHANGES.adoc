@@ -1,5 +1,39 @@
 = Changes
 
+== 12.0.0 (2021-04-17)
+
+* Fixed Reek IrresponsibleModule issues - Brooke Kuhlmann
+* Added CLI build parser - Brooke Kuhlmann
+* Added CLI build processor - Brooke Kuhlmann
+* Added CLI config processor - Brooke Kuhlmann
+* Added CLI configuration - Brooke Kuhlmann
+* Added CLI configuration content - Brooke Kuhlmann
+* Added CLI configuration defaults - Brooke Kuhlmann
+* Added CLI core parser - Brooke Kuhlmann
+* Added CLI options assembler - Brooke Kuhlmann
+* Added CLI parsers module - Brooke Kuhlmann
+* Added CLI shell - Brooke Kuhlmann
+* Added RSpec CLI parser shared example - Brooke Kuhlmann
+* Added RSpec Runcom shared example - Brooke Kuhlmann
+* Added Ruby garbage collection compaction - Brooke Kuhlmann
+* Updated Code Quality URLs - Brooke Kuhlmann
+* Updated Rake tasks to use CLI configuration and updated runner - Brooke Kuhlmann
+* Updated builder and writer to receive label when called - Brooke Kuhlmann
+* Updated implementation for release - Brooke Kuhlmann
+* Updated to Circle CI 2.1.0 - Brooke Kuhlmann
+* Updated to Docker Alpine Ruby image - Brooke Kuhlmann
+* Updated to Rubocop 1.10.0 - Brooke Kuhlmann
+* Updated to Ruby 3.0.1 - Brooke Kuhlmann
+* Removed Climate Control - Brooke Kuhlmann
+* Removed Rubocop RSpec/MultipleMemoizedHelpers configuration - Brooke Kuhlmann
+* Removed Thor - Brooke Kuhlmann
+* Removed configuration - Brooke Kuhlmann
+* Removed runner default path - Brooke Kuhlmann
+* Refactored RSpec temporary directory shared example to use pathnames - Brooke Kuhlmann
+* Refactored gemspec to use identity summary - Brooke Kuhlmann
+* Refactored implementation to use endless methods - Brooke Kuhlmann
+* Refactored writer to use pathnames - Brooke Kuhlmann
+
 == 11.1.0 (2021-01-19)
 
 * Updated to Gemsmith 15.0.0 - Brooke Kuhlmann
