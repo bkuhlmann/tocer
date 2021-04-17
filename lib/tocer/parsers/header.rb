@@ -10,13 +10,9 @@ module Tocer
         @markdown = markdown
       end
 
-      def prefix
-        String markdown[/#{PUNCTUATION}{1,}/o]
-      end
+      def prefix = String(markdown[/#{PUNCTUATION}{1,}/o])
 
-      def content
-        markdown[prefix.length + 1, markdown.length].strip
-      end
+      def content = markdown[prefix.length + 1, markdown.length].strip
 
       private
 

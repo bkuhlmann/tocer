@@ -17,33 +17,21 @@ module Tocer
         @message = message
       end
 
-      def start_index lines
-        self.class.index lines, start_id
-      end
+      def start_index(lines) = self.class.index(lines, start_id)
 
-      def start_tag
-        comment start_id, message
-      end
+      def start_tag = comment(start_id, message)
 
-      def finish_index lines
-        self.class.index lines, finish_id
-      end
+      def finish_index(lines) = self.class.index(lines, finish_id)
 
-      def finish_tag
-        comment finish_id, message
-      end
+      def finish_tag = comment(finish_id, message)
 
-      def prependable? lines
-        start_index(lines).zero? && finish_index(lines).zero?
-      end
+      def prependable?(lines) = start_index(lines).zero? && finish_index(lines).zero?
 
       private
 
       attr_reader :start_id, :finish_id, :message
 
-      def comment id, message
-        "<!-- #{id}: #{message} -->"
-      end
+      def comment(id, message) = "<!-- #{id}: #{message} -->"
     end
   end
 end
