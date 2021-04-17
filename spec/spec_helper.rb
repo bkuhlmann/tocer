@@ -8,7 +8,6 @@ SimpleCov.start { enable_coverage :branch }
 
 require "tocer"
 require "refinements"
-require "climate_control"
 
 GC.auto_compact = true
 GC.verify_compaction_references double_heap: true, toward: :empty
