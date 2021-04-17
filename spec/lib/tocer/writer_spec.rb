@@ -3,6 +3,8 @@
 require "spec_helper"
 
 RSpec.describe Tocer::Writer do
+  using Refinements::Pathnames
+
   subject(:writer) { described_class.new test_path }
 
   include_context "with temporary directory"
@@ -44,133 +46,126 @@ RSpec.describe Tocer::Writer do
   end
 
   describe "#call" do
-    let(:test_path) { File.join temp_dir, "test.md" }
+    let(:test_path) { temp_dir.join "test.md" }
 
     let :contents do
-      "# Introduction\n" \
-      "\n" \
-      "Once upon a time...\n" \
-      "\n" \
-      "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
-      "\n" \
-      "## Table of Contents\n" \
-      "\n"\
-      "- [One](#one)\n" \
-      "- [Two](#two)\n" \
-      "- [Three](#three)\n" \
-      "\n" \
-      "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
-      "\n" \
-      "# One\n" \
-      "# Two\n" \
-      "# Three\n" \
-      "\n" \
-      "The end.\n"
+      <<~CONTENTS
+        # Introduction
+
+        Once upon a time...
+
+        <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+        ## Table of Contents
+
+        - [One](#one)
+        - [Two](#two)
+        - [Three](#three)
+
+        <!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+        # One
+        # Two
+        # Three
+
+        The end.
+      CONTENTS
     end
 
-    before { FileUtils.cp fixture_path, test_path }
+    before { fixture_path.copy test_path }
 
     context "when using a custom label" do
       subject(:writer) { described_class.new test_path, label: "# Index" }
 
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "missing.md" }
-
-      let :contents do
-        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "# Index\n" \
-        "\n" \
-        "- [One](#one)\n" \
-        "- [Two](#two)\n" \
-        "\n" \
-        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "# One\n" \
-        "# Two\n"
-      end
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
 
       it "uses custom label for table of contents" do
         writer.call
-        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
+
+        expect(test_path.read).to eq(<<~BODY)
+          <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+          # Index
+
+          - [One](#one)
+          - [Two](#two)
+
+          <!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+          # One
+          # Two
+        BODY
       end
     end
 
     context "when table of contents exists and is empty" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "empty.md" }
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/empty.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call
-        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
+        expect(test_path.read).to eq(contents)
       end
     end
 
     context "when table of contents is prepended in the document" do
-      let :fixture_path do
-        File.join Dir.pwd, "spec", "support", "fixtures", "existing-prepended.md"
-      end
-
-      let :contents do
-        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "## Table of Contents\n" \
-        "\n" \
-        "- [One](#one)\n" \
-        "- [Two](#two)\n" \
-        "\n" \
-        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "# One\n" \
-        "# Two\n"
-      end
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/existing-prepended.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call
-        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
+
+        expect(test_path.read).to eq(<<~BODY)
+          <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+          ## Table of Contents
+
+          - [One](#one)
+          - [Two](#two)
+
+          <!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+          # One
+          # Two
+        BODY
       end
     end
 
     context "when table of contents is embedded in the document" do
-      let :fixture_path do
-        File.join Dir.pwd, "spec", "support", "fixtures", "existing-embedded.md"
-      end
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/existing-embedded.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call
-        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
+        expect(test_path.read).to eq(contents)
       end
     end
 
     context "when table of contents uses comments without auto-generated messages" do
-      let :fixture_path do
-        File.join Dir.pwd, "spec", "support", "fixtures", "without_comment_messages.md"
-      end
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/without_comment_messages.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call
-        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
+        expect(test_path.read).to eq(contents)
       end
     end
 
     context "when table of contents doesn't exist" do
-      let(:fixture_path) { File.join Dir.pwd, "spec", "support", "fixtures", "missing.md" }
-
-      let :contents do
-        "<!-- Tocer[start]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "## Table of Contents\n" \
-        "\n" \
-        "- [One](#one)\n" \
-        "- [Two](#two)\n" \
-        "\n" \
-        "<!-- Tocer[finish]: Auto-generated, don't remove. -->\n" \
-        "\n" \
-        "# One\n" \
-        "# Two\n"
-      end
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
 
       it "prepends table of contents in file" do
         writer.call
-        File.open(test_path, "r") { |file| expect(file.to_a.join).to eq(contents) }
+
+        expect(test_path.read).to eq(<<~BODY)
+          <!-- Tocer[start]: Auto-generated, don't remove. -->
+
+          ## Table of Contents
+
+          - [One](#one)
+          - [Two](#two)
+
+          <!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+          # One
+          # Two
+        BODY
       end
     end
   end

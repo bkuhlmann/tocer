@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require "refinements/pathnames"
+
 module Tocer
   # Writes table of contents to a Markdown document.
   class Writer
+    using Refinements::Pathnames
+
     def self.add start_index:, old_lines:, new_lines:
       computed_new_lines = start_index.zero? ? new_lines : new_lines + "\n"
       old_lines.insert start_index, *computed_new_lines
@@ -19,18 +23,17 @@ module Tocer
     end
 
     def call
-      lines = File.readlines file_path
-      body = builder.prependable?(lines) ? prepend(lines) : replace(lines)
-      File.open(file_path, "w") { |file| file.write body }
+      file_path.rewrite do |body|
+        lines = body.each_line.to_a
+        builder.prependable?(lines) ? prepend(lines) : replace(lines)
+      end
     end
 
     private
 
     attr_reader :file_path, :builder
 
-    def content lines
-      builder.call lines
-    end
+    def content(lines) = builder.call(lines)
 
     def replace lines
       start_index = builder.start_index lines
@@ -44,8 +47,6 @@ module Tocer
       ).join
     end
 
-    def prepend lines
-      content(lines) + "\n" + lines.join
-    end
+    def prepend(lines) = content(lines) + "\n" + lines.join
   end
 end
