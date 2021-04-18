@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-require "runcom"
-
 module Tocer
   module CLI
     module Parsers
-      SECTIONS = [Core, Build].freeze # Order is important.
-
       # Assembles and parses all Command Line Interface (CLI) options.
       class Assembler
+        SECTIONS = [Core, Build].freeze # Order is important.
+
         def initialize configuration: CLI::Configuration::Loader.call,
                        sections: SECTIONS,
                        client: CLIENT
@@ -29,7 +27,7 @@ module Tocer
 
         private
 
-        attr_reader :options, :client, :sections
+        attr_reader :options, :sections, :client
       end
     end
   end
