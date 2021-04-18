@@ -21,7 +21,7 @@ module Tocer
       def install
         desc "Add/Update Table of Contents (README)"
         task :toc, %i[label includes] do |_task, arguments|
-          runner.call(**configuration.merge(**arguments.to_h).to_h).call
+          runner.call(**configuration.merge(**arguments.to_h).to_h)
         end
       end
 
