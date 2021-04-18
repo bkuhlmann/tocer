@@ -25,9 +25,7 @@ module Tocer
 
         attr_reader :options, :client
 
-        def collate
-          private_methods.sort.grep(/add_/).each { |method| __send__ method }
-        end
+        def collate = private_methods.sort.grep(/add_/).each { |method| __send__ method }
 
         def add_config
           client.on(
