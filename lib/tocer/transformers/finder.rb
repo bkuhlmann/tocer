@@ -4,10 +4,7 @@ module Tocer
   module Transformers
     # Finds appropriate header transformer for matching pattern.
     class Finder
-      TRANSFORMERS = {
-        /\[.+\]\(.+\)/ => Transformers::Link,
-        /.*/ => Transformers::Text
-      }.freeze
+      TRANSFORMERS = {/\[.+\]\(.+\)/ => Transformers::Link, /.*/ => Transformers::Text}.freeze
 
       def initialize transformers: TRANSFORMERS
         @transformers = transformers

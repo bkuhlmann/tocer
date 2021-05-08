@@ -4,10 +4,7 @@ module Tocer
   module CLI
     # The main Command Line Interface (CLI) object.
     class Shell
-      PROCESSORS = {
-        config: Processors::Config.new,
-        build: Processors::Build.new
-      }.freeze
+      PROCESSORS = {config: Processors::Config.new, build: Processors::Build.new}.freeze
 
       def initialize parser: Parsers::Assembler.new, processors: PROCESSORS
         @parser = parser
