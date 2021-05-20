@@ -166,5 +166,14 @@ RSpec.describe Tocer::Writer do
         BODY
       end
     end
+
+    context "when file has no headers" do
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/basic.md" }
+
+      it "doesn't modify contents" do
+        writer.call test_path
+        expect(test_path.read).to eq("This is some *basic* Markdown.\n")
+      end
+    end
   end
 end
