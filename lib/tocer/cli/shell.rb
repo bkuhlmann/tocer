@@ -18,7 +18,6 @@ module Tocer
           in config: action then process_config action
           in build: path then process_build path
           in version: then puts version
-          in help: then usage
           else usage
         end
       end
