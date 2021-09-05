@@ -12,7 +12,8 @@ image::https://img.shields.io/badge/code_style-alchemists-brightgreen.svg[Alchem
 image::https://circleci.com/gh/bkuhlmann/tocer.svg?style=svg[Circle CI Status]
 
 Tocer (a.k.a. Table of Contenter) is a command line interface for generating table of contents for
-Markdown files.
+Markdown files. Use this tool to automatically manage and update your documentation with minimal
+effort. Works on single files or multiple files within nested directory structures.
 
 toc::[]
 
