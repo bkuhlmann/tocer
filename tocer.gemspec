@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.cert_chain = [Gem.default_cert_path]
 
   spec.required_ruby_version = "~> 3.0"
-  spec.add_dependency "refinements", "~> 8.0"
+  spec.add_dependency "refinements", "~> 8.4"
   spec.add_dependency "runcom", "~> 7.0"
 
   spec.files = Dir["lib/**/*"]
