@@ -26,8 +26,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "refinements", "~> 8.5"
   spec.add_dependency "runcom", "~> 7.0"
 
-  spec.files = Dir["lib/**/*"]
-  spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
+  spec.bindir = "exe"
   spec.executables << "tocer"
+  spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
+  spec.files = Dir["lib/**/*"]
   spec.require_paths = ["lib"]
 end
