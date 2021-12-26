@@ -16,7 +16,7 @@ module Tocer
       Pathname(root_dir).files(%({#{includes.join ","}}))
                         .each do |path|
                           yield path if block_given?
-                          writer.call path, label: label
+                          writer.call path, label:
                         end
     end
 

@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Tocer::CLI::Parsers::Build do
-  subject(:parser) { described_class.new options: options }
+  subject(:parser) { described_class.new options: }
 
   let(:options) { {} }
 

@@ -6,7 +6,7 @@ module Tocer
       # Handles parsing of Command Line Interface (CLI) build options.
       class Build
         def self.call options: {}, configuration: Configuration::Loader.call, client: CLIENT
-          new(options: options, configuration: configuration, client: client).call
+          new(options:, configuration:, client:).call
         end
 
         def initialize options: {}, configuration: Configuration::Loader.call, client: CLIENT

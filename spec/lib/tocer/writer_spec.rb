@@ -14,17 +14,17 @@ RSpec.describe Tocer::Writer do
     let(:new_lines) { "1 2 3" }
 
     it "prepend lines" do
-      lines = described_class.add start_index: 0, old_lines: old_lines, new_lines: new_lines
+      lines = described_class.add(start_index: 0, old_lines:, new_lines:)
       expect(lines).to contain_exactly("1 2 3", "a", "b", "c")
     end
 
     it "embeds lines" do
-      lines = described_class.add start_index: 1, old_lines: old_lines, new_lines: new_lines
+      lines = described_class.add(start_index: 1, old_lines:, new_lines:)
       expect(lines).to contain_exactly("a", "b", "1 2 3\n", "c")
     end
 
     it "appends lines" do
-      lines = described_class.add start_index: 2, old_lines: old_lines, new_lines: new_lines
+      lines = described_class.add(start_index: 2, old_lines:, new_lines:)
       expect(lines).to contain_exactly("a", "b", "c", "1 2 3\n")
     end
   end

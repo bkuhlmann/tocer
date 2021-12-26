@@ -4,7 +4,7 @@ require "spec_helper"
 require "tocer/rake/tasks"
 
 RSpec.describe Tocer::Rake::Tasks do
-  subject(:tasks) { described_class.new runner: runner }
+  subject(:tasks) { described_class.new runner: }
 
   let(:runner) { instance_spy Tocer::Runner }
 

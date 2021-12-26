@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Tocer::CLI::Processors::Config, :runcom do
-  subject(:processor) { described_class.new configuration: runcom_configuration, kernel: kernel }
+  subject(:processor) { described_class.new configuration: runcom_configuration, kernel: }
 
   let(:kernel) { class_spy Kernel }
 
