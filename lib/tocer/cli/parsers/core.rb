@@ -18,7 +18,7 @@ module Tocer
           client.banner = "#{Identity::LABEL} - #{Identity::SUMMARY}"
           client.separator "\nUSAGE:\n"
           collate
-          arguments.empty? ? arguments : client.parse!(arguments)
+          arguments.empty? ? arguments : client.parse(arguments)
         end
 
         private

@@ -17,7 +17,7 @@ module Tocer
 
         def call arguments = []
           sections.each { |parser| parser.call client:, options: }
-          client.parse! arguments
+          client.parse arguments
           options
         end
 
