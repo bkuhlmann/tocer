@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = "~> 3.1"
   spec.add_dependency "refinements", "~> 9.0"
   spec.add_dependency "runcom", "~> 8.0"
+  spec.add_dependency "zeitwerk", "~> 2.5"
 
   spec.bindir = "exe"
   spec.executables << "tocer"

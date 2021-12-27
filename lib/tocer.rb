@@ -1,20 +1,11 @@
 # frozen_string_literal: true
 
-require "tocer/identity"
-require "tocer/elements/comment_block"
-require "tocer/parsers/header"
-require "tocer/transformers/link"
-require "tocer/transformers/text"
-require "tocer/transformers/finder"
-require "tocer/builder"
-require "tocer/writer"
-require "tocer/runner"
-require "tocer/cli/configuration/content"
-require "tocer/cli/configuration/loader"
-require "tocer/cli/parsers"
-require "tocer/cli/parsers/build"
-require "tocer/cli/parsers/core"
-require "tocer/cli/parsers/assembler"
-require "tocer/cli/processors/build"
-require "tocer/cli/processors/config"
-require "tocer/cli/shell"
+require "zeitwerk"
+
+Zeitwerk::Loader.for_gem
+                .tap { |loader| loader.inflector.inflect "cli" => "CLI" }
+                .setup
+
+# Main namespace.
+module Tocer
+end
