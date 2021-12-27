@@ -13,7 +13,7 @@ module Tocer
 
       def self.setup = new.install
 
-      def initialize configuration: CLI::Configuration::Loader.new.call, runner: Runner.new
+      def initialize configuration: Configuration::Loader.new.call, runner: Runner.new
         @configuration = configuration
         @runner = runner
       end

@@ -7,7 +7,7 @@ module Tocer
       class Assembler
         SECTIONS = [Core, Build].freeze # Order is important.
 
-        def initialize configuration: CLI::Configuration::Loader.call,
+        def initialize configuration: Configuration::Loader.call,
                        sections: SECTIONS,
                        client: CLIENT
           @options = configuration.to_h

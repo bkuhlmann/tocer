@@ -5,7 +5,7 @@ module Tocer
     module Processors
       # Handles the Command Line Interface (CLI) configuration processing.
       class Config
-        def initialize configuration: CLI::Configuration::Loader::CLIENT, kernel: Kernel
+        def initialize configuration: Configuration::Loader::CLIENT, kernel: Kernel
           @configuration = configuration
           @kernel = kernel
         end

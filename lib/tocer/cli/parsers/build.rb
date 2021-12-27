@@ -29,7 +29,7 @@ module Tocer
           client.on(
             "-l",
             "--label [LABEL]",
-            %(Label. Default: "#{CLI::Configuration::Loader.call.label}".)
+            %(Label. Default: "#{Configuration::Loader.call.label}".)
           ) do |value|
             options[:label] = value || configuration.to_h.fetch(:label)
           end
@@ -40,7 +40,7 @@ module Tocer
             "-i",
             "--includes [a,b,c]",
             Array,
-            %(Include pattern list. Default: #{CLI::Configuration::Loader.call.includes}.)
+            %(Include pattern list. Default: #{Configuration::Loader.call.includes}.)
           ) do |value|
             list = Array value
             options[:includes] = list.empty? ? configuration.to_h.fetch(:includes) : list

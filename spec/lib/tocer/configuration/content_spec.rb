@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Tocer::CLI::Configuration::Content do
+RSpec.describe Tocer::Configuration::Content do
   subject(:content) { described_class.new }
 
   describe "#initialize" do

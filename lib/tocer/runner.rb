@@ -7,7 +7,7 @@ module Tocer
   class Runner
     using Refinements::Pathnames
 
-    def initialize configuration: CLI::Configuration::Loader.call, writer: Writer.new
+    def initialize configuration: Configuration::Loader.call, writer: Writer.new
       @configuration = configuration
       @writer = writer
     end

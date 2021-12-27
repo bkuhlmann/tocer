@@ -19,6 +19,6 @@ RSpec.shared_context "with Runcom", :runcom do
   let(:gem_configuration_path) { temp_dir.join("configuration.yml").touch }
 
   let :gem_defaults do
-    YAML.load_file Bundler.root.join("lib/tocer/cli/configuration/defaults.yml")
+    YAML.load_file Bundler.root.join("lib/tocer/configuration/defaults.yml")
   end
 end
