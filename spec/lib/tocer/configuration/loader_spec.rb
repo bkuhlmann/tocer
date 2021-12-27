@@ -2,11 +2,17 @@
 
 require "spec_helper"
 
-RSpec.describe Tocer::Configuration::Loader, :runcom do
+RSpec.describe Tocer::Configuration::Loader do
   subject(:configuration) { described_class.new client: runcom_configuration }
 
+  include_context "with Runcom"
+
   let :content do
-    Tocer::Configuration::Content[label: "## Table of Contents", includes: %w[README.md]]
+    Tocer::Configuration::Content[
+      build_includes: %w[README.md],
+      build_label: "## Table of Contents",
+      build_path: "."
+    ]
   end
 
   describe ".call" do

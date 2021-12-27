@@ -1,3 +1,5 @@
-:label: "## Table of Contents"
-:includes:
-  - "README.md"
+:build:
+  :label: "## Table of Contents"
+  :includes:
+    - "README.md"
+  :path: "."
