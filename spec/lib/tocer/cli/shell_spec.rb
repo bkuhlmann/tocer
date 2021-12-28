@@ -5,14 +5,14 @@ require "spec_helper"
 RSpec.describe Tocer::CLI::Shell, :runcom do
   using Refinements::Pathnames
 
-  subject(:shell) { described_class.new processors: }
+  subject(:shell) { described_class.new actions: }
 
   include_context "with temporary directory"
 
-  let :processors do
+  let :actions do
     {
-      build: Tocer::CLI::Processors::Build.new,
-      config: Tocer::CLI::Processors::Config.new(configuration: runcom_configuration, kernel:)
+      build: Tocer::CLI::Actions::Build.new,
+      config: Tocer::CLI::Actions::Config.new(configuration: runcom_configuration, kernel:)
     }
   end
 

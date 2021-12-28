@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Tocer::CLI::Processors::Build do
+RSpec.describe Tocer::CLI::Actions::Build do
   using Refinements::Pathnames
 
   subject(:processor) { described_class.new }

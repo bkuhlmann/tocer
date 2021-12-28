@@ -4,11 +4,11 @@ module Tocer
   module CLI
     # The main Command Line Interface (CLI) object.
     class Shell
-      PROCESSORS = {config: Processors::Config.new, build: Processors::Build.new}.freeze
+      ACTIONS = {config: Actions::Config.new, build: Actions::Build.new}.freeze
 
-      def initialize parser: Parsers::Assembler.new, processors: PROCESSORS
+      def initialize parser: Parsers::Assembler.new, actions: ACTIONS
         @parser = parser
-        @processors = processors
+        @actions = actions
       end
 
       def call arguments = []
@@ -24,7 +24,7 @@ module Tocer
 
       private
 
-      attr_reader :parser, :processors
+      attr_reader :parser, :actions
 
       def parse arguments = []
         parser.call arguments
@@ -32,9 +32,9 @@ module Tocer
         puts error.message
       end
 
-      def process_config(action) = processors.fetch(:config).call(action)
+      def process_config(action) = actions.fetch(:config).call(action)
 
-      def process_build(path) = processors.fetch(:build).call(path, options)
+      def process_build(path) = actions.fetch(:build).call(path, options)
 
       def options = parser.to_h
 

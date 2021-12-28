@@ -2,8 +2,8 @@
 
 module Tocer
   module CLI
-    module Processors
-      # Handles the Command Line Interface (CLI) for building of table of contents.
+    module Actions
+      # Handles the build action.
       class Build
         def initialize runner: Runner.new
           @runner = runner
