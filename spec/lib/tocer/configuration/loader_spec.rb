@@ -3,9 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Tocer::Configuration::Loader do
-  subject(:configuration) { described_class.new client: runcom_configuration }
-
-  include_context "with Runcom"
+  subject(:configuration) { described_class.with_defaults }
 
   let :content do
     Tocer::Configuration::Content[
@@ -18,6 +16,12 @@ RSpec.describe Tocer::Configuration::Loader do
   describe ".call" do
     it "answers default configuration" do
       expect(described_class.call).to eq(content)
+    end
+  end
+
+  describe ".with_defaults" do
+    it "answers default configuration" do
+      expect(described_class.with_defaults.call).to eq(content)
     end
   end
 

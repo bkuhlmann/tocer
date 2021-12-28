@@ -18,6 +18,8 @@ module Tocer
 
       def self.call = new.call
 
+      def self.with_defaults = new(client: DEFAULTS)
+
       def initialize content: Content.new, client: CLIENT
         @content = content
         @client = client

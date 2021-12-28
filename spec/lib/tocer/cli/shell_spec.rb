@@ -5,29 +5,22 @@ require "spec_helper"
 RSpec.describe Tocer::CLI::Shell do
   using Refinements::Pathnames
 
-  subject(:shell) { described_class.new actions: }
+  subject(:shell) { described_class.new actions: described_class::ACTIONS.merge(config:) }
 
-  include_context "with Runcom"
+  include_context "with temporary directory"
 
-  let :actions do
-    {
-      build: Tocer::CLI::Actions::Build.new,
-      config: Tocer::CLI::Actions::Config.new(client: runcom_configuration, kernel:)
-    }
-  end
-
-  let(:kernel) { class_spy Kernel }
+  let(:config) { instance_spy Tocer::CLI::Actions::Config }
   let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
 
   describe "#call" do
     it "edits configuration" do
       shell.call %w[--config edit]
-      expect(kernel).to have_received(:system).with(/\$EDITOR\s.+configuration.yml/)
+      expect(config).to have_received(:call).with(:edit)
     end
 
     it "views configuration" do
       shell.call %w[--config view]
-      expect(kernel).to have_received(:system).with(/cat\s.+configuration.yml/)
+      expect(config).to have_received(:call).with(:view)
     end
 
     it "builds with defaults" do

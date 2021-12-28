@@ -8,18 +8,10 @@ RSpec.describe Tocer::Runner do
   using Refinements::Pathnames
   using Refinements::Structs
 
-  include_context "with temporary directory"
+  include_context "with application configuration"
 
   describe "#call" do
     let(:kernel) { class_spy Kernel }
-
-    let :configuration do
-      Tocer::Configuration::Content[
-        build_includes: %w[README.md],
-        build_label: "# Test",
-        build_path: temp_dir
-      ]
-    end
 
     it "uses custom label" do
       path = temp_dir.join("README.md").touch.write <<~CONTENT
@@ -34,7 +26,7 @@ RSpec.describe Tocer::Runner do
       expect(path.read).to eq(<<~CONTENT)
         <!-- Tocer[start]: Auto-generated, don't remove. -->
 
-        # Test
+        ## Table of Contents
 
           - [One](#one)
 
