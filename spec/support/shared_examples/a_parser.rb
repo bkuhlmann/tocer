@@ -3,7 +3,7 @@
 RSpec.shared_examples "a parser" do
   describe ".call" do
     it "answers empty array" do
-      expect(described_class.call(client: OptionParser.new, options: {a: 1})).to eq([])
+      expect(described_class.call).to be_a(Tocer::Configuration::Content)
     end
   end
 end

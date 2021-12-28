@@ -9,11 +9,7 @@ module Tocer
           @runner = runner
         end
 
-        def call root_dir = ".", configuration = {}
-          runner.call(root_dir:, **configuration.slice(:label, :includes)) do |path|
-            puts "  #{path}"
-          end
-        end
+        def call(configuration) = runner.call(configuration) { |path| puts "  #{path}" }
 
         private
 

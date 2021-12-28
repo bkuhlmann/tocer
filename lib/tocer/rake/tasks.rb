@@ -13,7 +13,7 @@ module Tocer
 
       def self.setup = new.install
 
-      def initialize configuration: Configuration::Loader.new.call, runner: Runner.new
+      def initialize configuration: Configuration::Loader.call, runner: Runner.new
         @configuration = configuration
         @runner = runner
       end
@@ -21,7 +21,8 @@ module Tocer
       def install
         desc "Add/Update Table of Contents (README)"
         task :toc, %i[label includes] do |_task, arguments|
-          runner.call(**configuration.merge(**arguments.to_h).to_h)
+          attributes = arguments.to_h.transform_keys includes: :build_includes, label: :build_label
+          runner.call configuration.merge(**attributes)
         end
       end
 

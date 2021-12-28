@@ -2,7 +2,7 @@
 
 require "refinements/pathnames"
 
-RSpec.shared_context "with Runcom", :runcom do
+RSpec.shared_context "with Runcom" do
   using Refinements::Pathnames
 
   include_context "with temporary directory"

@@ -2,17 +2,17 @@
 
 require "spec_helper"
 
-RSpec.describe Tocer::CLI::Shell, :runcom do
+RSpec.describe Tocer::CLI::Shell do
   using Refinements::Pathnames
 
   subject(:shell) { described_class.new actions: }
 
-  include_context "with temporary directory"
+  include_context "with Runcom"
 
   let :actions do
     {
       build: Tocer::CLI::Actions::Build.new,
-      config: Tocer::CLI::Actions::Config.new(configuration: runcom_configuration, kernel:)
+      config: Tocer::CLI::Actions::Config.new(client: runcom_configuration, kernel:)
     }
   end
 

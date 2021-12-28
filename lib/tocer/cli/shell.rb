@@ -12,31 +12,27 @@ module Tocer
       end
 
       def call arguments = []
-        parse arguments
-
-        case options
-          in config: action then process_config action
-          in build: path then process_build path
-          in version: then puts version
-          else usage
-        end
+        perform parser.call(arguments)
+      rescue OptionParser::ParseError => error
+        puts error.message
       end
 
       private
 
       attr_reader :parser, :actions
 
-      def parse arguments = []
-        parser.call arguments
-      rescue StandardError => error
-        puts error.message
+      def perform configuration
+        case configuration
+          in action_config: Symbol => action then process_config action
+          in action_build: true then process_build configuration
+          in action_version: true then puts Identity::VERSION_LABEL
+          else usage
+        end
       end
 
       def process_config(action) = actions.fetch(:config).call(action)
 
-      def process_build(path) = actions.fetch(:build).call(path, options)
-
-      def options = parser.to_h
+      def process_build(configuration) = actions.fetch(:build).call(configuration)
 
       def usage = puts(parser.to_s)
     end

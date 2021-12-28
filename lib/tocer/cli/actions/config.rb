@@ -5,8 +5,8 @@ module Tocer
     module Actions
       # Handles the config action.
       class Config
-        def initialize configuration: Configuration::Loader::CLIENT, kernel: Kernel
-          @configuration = configuration
+        def initialize client: Configuration::Loader::CLIENT, kernel: Kernel
+          @client = client
           @kernel = kernel
         end
 
@@ -14,17 +14,17 @@ module Tocer
           case action
             when :edit then edit
             when :view then view
-            else fail StandardError, "Invalid configuration action: #{action}."
+            else kernel.puts "Invalid configuration action: #{action}."
           end
         end
 
         private
 
-        attr_reader :configuration, :kernel
+        attr_reader :client, :kernel
 
-        def edit = kernel.system("$EDITOR #{configuration.current}")
+        def edit = kernel.system("$EDITOR #{client.current}")
 
-        def view = kernel.system("cat #{configuration.current}")
+        def view = kernel.system("cat #{client.current}")
       end
     end
   end

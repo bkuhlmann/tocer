@@ -7,21 +7,20 @@ module Tocer
   class Runner
     using Refinements::Pathnames
 
-    def initialize configuration: Configuration::Loader.call, writer: Writer.new
-      @configuration = configuration
+    def initialize writer: Writer.new
       @writer = writer
     end
 
-    def call root_dir: ".", label: configuration.label, includes: configuration.includes
-      Pathname(root_dir).files(%({#{includes.join ","}}))
-                        .each do |path|
-                          yield path if block_given?
-                          writer.call path, label:
-                        end
+    def call configuration
+      Pathname(configuration.build_path).files(%({#{configuration.build_includes.join ","}}))
+                                        .each do |path|
+                                          yield path if block_given?
+                                          writer.call path, label: configuration.build_label
+                                        end
     end
 
     private
 
-    attr_reader :configuration, :writer
+    attr_reader :writer
   end
 end

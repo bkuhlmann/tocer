@@ -3,31 +3,25 @@
 require "spec_helper"
 
 RSpec.describe Tocer::CLI::Parsers::Core do
-  subject(:parser) { described_class.new options: }
-
-  let(:options) { {} }
+  subject(:parser) { described_class.new }
 
   it_behaves_like "a parser"
 
   describe "#call" do
     it "answers config edit (short)" do
-      parser.call %w[-c edit]
-      expect(options).to eq(config: :edit)
+      expect(parser.call(%w[-c edit])).to have_attributes(action_config: :edit)
     end
 
     it "answers config edit (long)" do
-      parser.call %w[--config edit]
-      expect(options).to eq(config: :edit)
+      expect(parser.call(%w[--config edit])).to have_attributes(action_config: :edit)
     end
 
     it "answers config view (short)" do
-      parser.call %w[-c view]
-      expect(options).to eq(config: :view)
+      expect(parser.call(%w[-c view])).to have_attributes(action_config: :view)
     end
 
     it "answers config view (long)" do
-      parser.call %w[--config view]
-      expect(options).to eq(config: :view)
+      expect(parser.call(%w[--config view])).to have_attributes(action_config: :view)
     end
 
     it "fails with missing config action" do
@@ -41,43 +35,41 @@ RSpec.describe Tocer::CLI::Parsers::Core do
     end
 
     it "answers build default path (short)" do
-      parser.call %w[-b]
-      expect(options).to eq(build: ".")
+      expect(parser.call(%w[-b])).to have_attributes(action_build: true, build_path: ".")
     end
 
     it "answers build custom path (short)" do
-      parser.call %w[-b one/two/three]
-      expect(options).to eq(build: "one/two/three")
+      expect(parser.call(%w[-b one/two])).to have_attributes(
+        action_build: true,
+        build_path: "one/two"
+      )
     end
 
     it "answers build default path (long)" do
-      parser.call %w[--build]
-      expect(options).to eq(build: ".")
+      expect(parser.call(%w[--build])).to have_attributes(action_build: true, build_path: ".")
     end
 
     it "answers build custom path (long)" do
-      parser.call %w[--build one/two/three]
-      expect(options).to eq(build: "one/two/three")
+      expect(parser.call(%w[--build one/two])).to have_attributes(
+        action_build: true,
+        build_path: "one/two"
+      )
     end
 
     it "answers version (short)" do
-      parser.call %w[-v]
-      expect(options[:version]).to match(/Tocer\s\d+\.\d+\.\d+/)
+      expect(parser.call(%w[-v])).to have_attributes(action_version: true)
     end
 
     it "answers version (long)" do
-      parser.call %w[--version]
-      expect(options[:version]).to match(/Tocer\s\d+\.\d+\.\d+/)
+      expect(parser.call(%w[--version])).to have_attributes(action_version: true)
     end
 
     it "enables help (short)" do
-      parser.call %w[-h]
-      expect(options).to eq(help: true)
+      expect(parser.call(%w[-h])).to have_attributes(action_help: true)
     end
 
     it "enables help (long)" do
-      parser.call %w[--help]
-      expect(options).to eq(help: true)
+      expect(parser.call(%w[--help])).to have_attributes(action_help: true)
     end
   end
 end

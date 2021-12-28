@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
+require "refinements/structs"
+
 module Tocer
   module CLI
     module Parsers
       # Handles parsing of Command Line Interface (CLI) build options.
       class Build
+        using Refinements::Structs
+
         def self.call(...) = new(...).call
 
-        def initialize options: {}, configuration: Configuration::Loader.call, client: Parser::CLIENT
-          @options = options
+        def initialize configuration = Configuration::Loader.call, client: Parser::CLIENT
           @configuration = configuration
           @client = client
         end
@@ -16,20 +19,21 @@ module Tocer
         def call arguments = []
           client.separator "\nBUILD OPTIONS:\n"
           private_methods.sort.grep(/add_/).each { |method| __send__ method }
-          arguments.empty? ? arguments : client.parse(arguments)
+          client.parse arguments
+          configuration
         end
 
         private
 
-        attr_reader :options, :configuration, :client
+        attr_reader :configuration, :client
 
         def add_label
           client.on(
             "-l",
             "--label [LABEL]",
-            %(Label. Default: "#{Configuration::Loader.call.label}".)
+            %(Label. Default: "#{configuration.build_label}".)
           ) do |value|
-            options[:label] = value || configuration.to_h.fetch(:label)
+            configuration.merge! build_label: value if value
           end
         end
 
@@ -38,10 +42,9 @@ module Tocer
             "-i",
             "--includes [a,b,c]",
             Array,
-            %(Include pattern list. Default: #{Configuration::Loader.call.includes}.)
-          ) do |value|
-            list = Array value
-            options[:includes] = list.empty? ? configuration.to_h.fetch(:includes) : list
+            %(Include pattern list. Default: #{configuration.build_includes}.)
+          ) do |items|
+            configuration.merge! build_includes: items if items
           end
         end
       end

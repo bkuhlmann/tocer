@@ -23,15 +23,25 @@ RSpec.describe Tocer::Rake::Tasks do
     it "calls runner with default arguments" do
       Rake::Task["toc"].invoke
 
-      expect(runner).to have_received(:call).with(
-        label: "## Table of Contents",
-        includes: ["README.md"]
-      )
+      configuration = Tocer::Configuration::Content[
+        build_label: "## Table of Contents",
+        build_includes: %w[README.md],
+        build_path: "."
+      ]
+
+      expect(runner).to have_received(:call).with(configuration)
     end
 
     it "calls runner with custom arguments" do
       Rake::Task["toc"].invoke "## TOC", %w[one.md two.md]
-      expect(runner).to have_received(:call).with(label: "## TOC", includes: %w[one.md two.md])
+
+      configuration = Tocer::Configuration::Content[
+        build_label: "## TOC",
+        build_includes: %w[one.md two.md],
+        build_path: "."
+      ]
+
+      expect(runner).to have_received(:call).with(configuration)
     end
   end
 end

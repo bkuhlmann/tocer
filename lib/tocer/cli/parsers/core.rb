@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
 require "tocer/identity"
+require "refinements/structs"
 
 module Tocer
   module CLI
     module Parsers
       # Handles parsing of Command Line Interface (CLI) core options.
       class Core
+        using Refinements::Structs
+
         def self.call(...) = new(...).call
 
-        def initialize options: {}, client: Parser::CLIENT
-          @options = options
+        def initialize configuration = Configuration::Loader.call, client: Parser::CLIENT
+          @configuration = configuration
           @client = client
         end
 
@@ -18,12 +21,13 @@ module Tocer
           client.banner = "#{Identity::LABEL} - #{Identity::SUMMARY}"
           client.separator "\nUSAGE:\n"
           collate
-          arguments.empty? ? arguments : client.parse(arguments)
+          client.parse arguments
+          configuration
         end
 
         private
 
-        attr_reader :options, :client
+        attr_reader :configuration, :client
 
         def collate = private_methods.sort.grep(/add_/).each { |method| __send__ method }
 
@@ -34,25 +38,25 @@ module Tocer
             %i[edit view],
             "Manage gem configuration: edit or view."
           ) do |action|
-            options[:config] = action
+            configuration.merge! action_config: action
           end
         end
 
         def add_build
-          client.on "-b", "--build [PATH]", %(Build table of contents. Default path: ".") do |value|
-            options[:build] = value || "."
+          client.on "-b", "--build [PATH]", %(Build table of contents. Default path: ".".) do |path|
+            configuration.merge! action_build: true, build_path: path || "."
           end
         end
 
         def add_version
           client.on "-v", "--version", "Show gem version." do
-            options[:version] = Identity::VERSION_LABEL
+            configuration.merge! action_version: true
           end
         end
 
         def add_help
           client.on "-h", "--help", "Show this message." do
-            options[:help] = true
+            configuration.merge! action_help: true
           end
         end
       end

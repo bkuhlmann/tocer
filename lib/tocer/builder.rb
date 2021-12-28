@@ -18,7 +18,7 @@ module Tocer
       @code_block = false
     end
 
-    def call lines, label: Configuration::Loader.call.label
+    def call lines, label: Configuration::Loader.call.build_label
       return "" if headers(lines).empty?
 
       url_count.clear
