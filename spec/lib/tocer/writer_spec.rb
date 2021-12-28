@@ -145,6 +145,23 @@ RSpec.describe Tocer::Writer do
       end
     end
 
+    context "when table of contents is a placeholder" do
+      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/placeholder.md" }
+
+      it "answers original document" do
+        writer.call test_path
+
+        expect(test_path.read).to eq(<<~COMMENTS)
+          Once upon a time...
+
+          <!-- Tocer[start]: Auto-generated, don't remove. -->
+          <!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+          The end.
+        COMMENTS
+      end
+    end
+
     context "when table of contents doesn't exist" do
       let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
 

@@ -43,8 +43,16 @@ module Tocer
       klass.add(
         start_index:,
         old_lines: klass.remove(start_index, finish_index, lines),
-        new_lines: content(lines[finish_index, lines.length], label)
+        new_lines: new_lines(lines, label, finish_index)
       ).join
+    end
+
+    def new_lines lines, label, finish_index
+      if builder.unbuildable?(lines)
+        builder.comments
+      else
+        content(lines[finish_index, lines.length], label)
+      end
     end
 
     def prepend(lines, label) = [content(lines, label), lines.join].compress.join("\n")
