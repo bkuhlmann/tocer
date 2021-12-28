@@ -81,6 +81,18 @@ RSpec.describe Tocer::Elements::CommentBlock do
     end
   end
 
+  describe "#empty?" do
+    it "answers true when lines don't exist between start and finish index" do
+      lines = ["<!-- Tocer[start]: Begin. -->", "<!-- Tocer[finish]: End. -->"]
+      expect(comment_block.empty?(lines)).to eq(true)
+    end
+
+    it "answers false when lines exist between start and finish indexes" do
+      lines = ["<!-- Tocer[start]: Begin. -->", "Example", "<!-- Tocer[finish]: End. -->"]
+      expect(comment_block.empty?(lines)).to eq(false)
+    end
+  end
+
   describe "#prependable?" do
     it "answers true when start and finish indexes are zero" do
       lines = ["Line 1", "Line 2"]

@@ -25,6 +25,8 @@ module Tocer
 
       def finish_tag = comment(finish_id, message)
 
+      def empty?(lines) = (finish_index(lines) - start_index(lines)) == 1
+
       def prependable?(lines) = start_index(lines).zero? && finish_index(lines).zero?
 
       private
