@@ -17,6 +17,8 @@ module Tocer
         @message = message
       end
 
+      def comments = "#{start_tag}\n#{finish_tag}\n"
+
       def start_index(lines) = self.class.index(lines, start_id)
 
       def start_tag = comment(start_id, message)

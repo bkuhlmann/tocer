@@ -21,6 +21,15 @@ RSpec.describe Tocer::Elements::CommentBlock do
     end
   end
 
+  describe "#comments" do
+    it "answers code comments only" do
+      expect(comment_block.comments).to eq(<<~COMMENTS)
+        <!-- Tocer[start]: Auto-generated, don't remove. -->
+        <!-- Tocer[finish]: Auto-generated, don't remove. -->
+      COMMENTS
+    end
+  end
+
   describe "#start_index" do
     subject(:comment_block) { described_class.new start_id: "START", message: "Test" }
 
@@ -45,9 +54,8 @@ RSpec.describe Tocer::Elements::CommentBlock do
     end
 
     it "answers customized start comment" do
-      comment_block = described_class.new start_id: "START",
-                                          message: "Keep it secret, keep it safe."
-      expect(comment_block.start_tag).to eq("<!-- START: Keep it secret, keep it safe. -->")
+      comment_block = described_class.new start_id: "START", message: "Placeholder."
+      expect(comment_block.start_tag).to eq("<!-- START: Placeholder. -->")
     end
   end
 
@@ -76,8 +84,8 @@ RSpec.describe Tocer::Elements::CommentBlock do
     end
 
     it "answers customized finish comment" do
-      comment_block = described_class.new finish_id: "FINISH", message: "Wish them well."
-      expect(comment_block.finish_tag).to eq("<!-- FINISH: Wish them well. -->")
+      comment_block = described_class.new finish_id: "FINISH", message: "Placeholder."
+      expect(comment_block.finish_tag).to eq("<!-- FINISH: Placeholder. -->")
     end
   end
 
