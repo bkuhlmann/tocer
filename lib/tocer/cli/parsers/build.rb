@@ -5,11 +5,9 @@ module Tocer
     module Parsers
       # Handles parsing of Command Line Interface (CLI) build options.
       class Build
-        def self.call options: {}, configuration: Configuration::Loader.call, client: CLIENT
-          new(options:, configuration:, client:).call
-        end
+        def self.call(...) = new(...).call
 
-        def initialize options: {}, configuration: Configuration::Loader.call, client: CLIENT
+        def initialize options: {}, configuration: Configuration::Loader.call, client: Parser::CLIENT
           @options = options
           @configuration = configuration
           @client = client

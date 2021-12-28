@@ -6,7 +6,7 @@ module Tocer
     class Shell
       ACTIONS = {config: Actions::Config.new, build: Actions::Build.new}.freeze
 
-      def initialize parser: Parsers::Assembler.new, actions: ACTIONS
+      def initialize parser: Parser.new, actions: ACTIONS
         @parser = parser
         @actions = actions
       end

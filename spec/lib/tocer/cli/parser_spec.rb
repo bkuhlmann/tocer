@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Tocer::CLI::Parsers::Assembler do
+RSpec.describe Tocer::CLI::Parser do
   subject(:parser) { described_class.new configuration: {} }
 
   describe "#call" do

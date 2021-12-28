@@ -7,9 +7,9 @@ module Tocer
     module Parsers
       # Handles parsing of Command Line Interface (CLI) core options.
       class Core
-        def self.call(options: {}, client: CLIENT) = new(options:, client:).call
+        def self.call(...) = new(...).call
 
-        def initialize options: {}, client: CLIENT
+        def initialize options: {}, client: Parser::CLIENT
           @options = options
           @client = client
         end
