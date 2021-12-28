@@ -31,6 +31,15 @@ RSpec.describe Tocer::Builder do
       BODY
     end
 
+    it "builds table of contents" do
+      expect(builder.call(lines)).to eq(toc)
+    end
+
+    it "builds table of contents consistently when called multiple times" do
+      builder.call lines
+      expect(builder.call(lines)).to eq(toc)
+    end
+
     context "with custom label" do
       let(:lines) { ["# Section 1\n", "# Section 2\n"] }
 
@@ -45,12 +54,6 @@ RSpec.describe Tocer::Builder do
 
           <!-- Tocer[finish]: Auto-generated, don't remove. -->
         TOC
-      end
-    end
-
-    context "with plain headers" do
-      it "builds table of contents" do
-        expect(builder.call(lines)).to eq(toc)
       end
     end
 
