@@ -11,8 +11,9 @@ module Tocer
       end
 
       def call markdown
-        transformers.find { |pattern, transformer| break transformer if pattern.match? markdown }
-                    .then { |transformer| transformer.new markdown }
+        transformers.find do |pattern, transformer|
+          break transformer.new(markdown) if pattern.match? markdown
+        end
       end
 
       private
