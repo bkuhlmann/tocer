@@ -16,6 +16,27 @@ RSpec.describe Tocer::Builder do
     ]
   end
 
+  describe "#unbuildable?" do
+    it "answers true with placeholder and no headers" do
+      lines = [
+        "<!-- Tocer[start]: Auto-generated, don't remove. -->",
+        "<!-- Tocer[finish]: Auto-generated, don't remove. -->"
+      ]
+
+      expect(builder.unbuildable?(lines)).to eq(true)
+    end
+
+    it "answers false with placeholder and headers" do
+      lines = [
+        "<!-- Tocer[start]: Auto-generated, don't remove. -->",
+        "<!-- Tocer[finish]: Auto-generated, don't remove. -->",
+        "# One"
+      ]
+
+      expect(builder.unbuildable?(lines)).to eq(false)
+    end
+  end
+
   describe "#call" do
     let :toc do
       <<~BODY
@@ -31,11 +52,11 @@ RSpec.describe Tocer::Builder do
       BODY
     end
 
-    it "builds table of contents" do
+    it "builds table of contents when headers exist" do
       expect(builder.call(lines)).to eq(toc)
     end
 
-    it "builds table of contents consistently when called multiple times" do
+    it "builds identical table of contents when called multiple times" do
       builder.call lines
       expect(builder.call(lines)).to eq(toc)
     end
@@ -43,7 +64,7 @@ RSpec.describe Tocer::Builder do
     context "with custom label" do
       let(:lines) { ["# Section 1\n", "# Section 2\n"] }
 
-      it "builds table of contents" do
+      it "builds customized table of contents" do
         expect(builder.call(lines, label: "# Overview")).to eq(<<~TOC)
           <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -66,7 +87,7 @@ RSpec.describe Tocer::Builder do
         ]
       end
 
-      it "builds table of contents" do
+      it "builds linked table of contents" do
         expect(builder.call(lines)).to eq(toc)
       end
     end
@@ -80,7 +101,7 @@ RSpec.describe Tocer::Builder do
         ]
       end
 
-      it "builds table of contents" do
+      it "builds sequential table of contents" do
         expect(builder.call(lines)).to eq(<<~TOC)
           <!-- Tocer[start]: Auto-generated, don't remove. -->
 

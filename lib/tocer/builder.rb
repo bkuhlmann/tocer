@@ -9,7 +9,7 @@ module Tocer
 
     CODE_BLOCK_PUNCTUATION = "```"
 
-    def_delegators :comment_block, :start_index, :finish_index, :prependable?
+    def_delegators :comment_block, :start_index, :finish_index, :comments, :prependable?
 
     def initialize comment_block: Elements::CommentBlock.new, transformer: Transformers::Finder.new
       @comment_block = comment_block
@@ -17,6 +17,8 @@ module Tocer
       @url_count = Hash.new 0
       @code_block = false
     end
+
+    def unbuildable?(lines) = comment_block.empty?(lines) && headers(lines).empty?
 
     def call lines, label: Configuration::Loader.call.build_label
       return "" if headers(lines).empty?
