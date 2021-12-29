@@ -2,9 +2,11 @@
 
 require "zeitwerk"
 
-Zeitwerk::Loader.for_gem
-                .tap { |loader| loader.inflector.inflect "cli" => "CLI" }
-                .setup
+Zeitwerk::Loader.for_gem.then do |loader|
+  loader.inflector.inflect "cli" => "CLI"
+  loader.ignore "#{__dir__}/rake/setup.rb"
+  loader.setup
+end
 
 # Main namespace.
 module Tocer
