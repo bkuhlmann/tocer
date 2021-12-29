@@ -12,11 +12,11 @@ module Tocer
     end
 
     def call configuration
-      Pathname(configuration.build_path).files(%({#{configuration.build_includes.join ","}}))
-                                        .each do |path|
-                                          yield path if block_given?
-                                          writer.call path, label: configuration.build_label
-                                        end
+      Pathname(configuration.root_dir).files(%({#{configuration.includes.join ","}}))
+                                      .each do |path|
+                                        yield path if block_given?
+                                        writer.call path, label: configuration.label
+                                      end
     end
 
     private

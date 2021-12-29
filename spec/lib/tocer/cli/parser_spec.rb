@@ -19,7 +19,7 @@ RSpec.describe Tocer::CLI::Parser do
   describe "#to_s" do
     it "answers usage" do
       parser.call
-      expect(parser.to_s).to match(/.+USAGE.+BUILD\sOPTIONS.+/m)
+      expect(parser.to_s).to match(/.+USAGE.+OPTIONS.+/m)
     end
   end
 end

@@ -7,7 +7,7 @@ module Tocer
     # Assembles and parses all Command Line Interface (CLI) options.
     class Parser
       CLIENT = OptionParser.new nil, 40, "  "
-      SECTIONS = [Parsers::Core, Parsers::Build].freeze # Order is important.
+      SECTIONS = [Parsers::Core, Parsers::Flag].freeze # Order is important.
 
       def initialize configuration = Configuration::Loader.call, sections: SECTIONS, client: CLIENT
         @configuration = configuration.dup

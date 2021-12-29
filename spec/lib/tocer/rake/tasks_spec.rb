@@ -33,9 +33,9 @@ RSpec.describe Tocer::Rake::Tasks do
 
       expect(runner).to have_received(:call).with(
         Tocer::Configuration::Content[
-          build_label: "## TOC",
-          build_includes: %w[one.md two.md],
-          build_path: temp_dir
+          label: "## TOC",
+          includes: %w[one.md two.md],
+          root_dir: temp_dir
         ]
       )
     end

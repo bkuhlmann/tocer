@@ -21,8 +21,7 @@ module Tocer
       def install
         desc "Add/Update Table of Contents (README)"
         task :toc, %i[label includes] do |_task, arguments|
-          attributes = arguments.to_h.transform_keys includes: :build_includes, label: :build_label
-          runner.call configuration.merge(**attributes)
+          runner.call configuration.merge(**arguments.to_h)
         end
       end
 

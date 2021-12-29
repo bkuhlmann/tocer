@@ -5,5 +5,5 @@ RSpec.shared_context "with application configuration" do
 
   include_context "with temporary directory"
 
-  let(:configuration) { Tocer::Configuration::Loader.with_defaults.call.merge build_path: temp_dir }
+  let(:configuration) { Tocer::Configuration::Loader.with_defaults.call.merge root_dir: temp_dir }
 end

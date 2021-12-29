@@ -3,8 +3,8 @@
 module Tocer
   module CLI
     module Actions
-      # Handles the build action.
-      class Build
+      # Handles the insert action.
+      class Insert
         def initialize runner: Runner.new
           @runner = runner
         end

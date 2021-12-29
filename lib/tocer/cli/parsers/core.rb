@@ -42,9 +42,15 @@ module Tocer
           end
         end
 
-        def add_build
-          client.on "-b", "--build [PATH]", %(Build table of contents. Default path: ".".) do |path|
-            configuration.merge! action_build: true, build_path: path || "."
+        def add_insert
+          root_dir = configuration.root_dir
+
+          client.on(
+            "-i",
+            "--insert [PATH]",
+            %(Insert/update table of contents. Default: "#{root_dir}".)
+          ) do |path|
+            configuration.merge! action_insert: true, root_dir: path || root_dir
           end
         end
 

@@ -34,25 +34,25 @@ RSpec.describe Tocer::CLI::Parsers::Core do
       expect(&expectation).to raise_error(OptionParser::InvalidArgument, /bogus/)
     end
 
-    it "answers build default path (short)" do
-      expect(parser.call(%w[-b])).to have_attributes(action_build: true, build_path: ".")
+    it "answers insert default root directory (short)" do
+      expect(parser.call(%w[-i])).to have_attributes(action_insert: true, root_dir: ".")
     end
 
-    it "answers build custom path (short)" do
-      expect(parser.call(%w[-b one/two])).to have_attributes(
-        action_build: true,
-        build_path: "one/two"
+    it "answers insert custom root directory (short)" do
+      expect(parser.call(%w[-i one/two])).to have_attributes(
+        action_insert: true,
+        root_dir: "one/two"
       )
     end
 
-    it "answers build default path (long)" do
-      expect(parser.call(%w[--build])).to have_attributes(action_build: true, build_path: ".")
+    it "answers insert default root directory (long)" do
+      expect(parser.call(%w[--insert])).to have_attributes(action_insert: true, root_dir: ".")
     end
 
-    it "answers build custom path (long)" do
-      expect(parser.call(%w[--build one/two])).to have_attributes(
-        action_build: true,
-        build_path: "one/two"
+    it "answers insert custom root directory (long)" do
+      expect(parser.call(%w[--insert one/two])).to have_attributes(
+        action_insert: true,
+        root_dir: "one/two"
       )
     end
 

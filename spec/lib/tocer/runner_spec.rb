@@ -38,14 +38,14 @@ RSpec.describe Tocer::Runner do
 
     it "processes files with matching extensions" do
       test_path = temp_dir.join("test.md").touch
-      runner.call(configuration.merge(build_includes: %w[*.md])) { |path| kernel.print path }
+      runner.call(configuration.merge(includes: %w[*.md])) { |path| kernel.print path }
 
       expect(kernel).to have_received(:print).with(test_path)
     end
 
     it "processes with files with recursive includes" do
       test_path = temp_dir.join("nested").make_path.join("nested.md").touch
-      runner.call(configuration.merge(build_includes: %w[**/*.md])) { |path| kernel.print path }
+      runner.call(configuration.merge(includes: %w[**/*.md])) { |path| kernel.print path }
 
       expect(kernel).to have_received(:print).with(test_path)
     end
@@ -56,13 +56,13 @@ RSpec.describe Tocer::Runner do
     end
 
     it "doesn't process files for invalid path" do
-      runner.call configuration.merge build_path: "bogus"
+      runner.call configuration.merge root_dir: "bogus"
       expect(kernel).not_to have_received(:print)
     end
 
     it "doesn't process files with invalid includes" do
       temp_dir.join("test.md").touch
-      test_configuration = configuration.merge build_includes: ["bogus", "~#}*^"]
+      test_configuration = configuration.merge includes: ["bogus", "~#}*^"]
       runner.call(test_configuration) { |path| kernel.print path }
 
       expect(kernel).not_to have_received(:print)
@@ -70,7 +70,7 @@ RSpec.describe Tocer::Runner do
 
     it "doesn't process files with missing wildcards" do
       temp_dir.join("test.md").touch
-      runner.call(configuration.merge(build_includes: %w[.md])) { |path| kernel.print path }
+      runner.call(configuration.merge(includes: %w[.md])) { |path| kernel.print path }
 
       expect(kernel).not_to have_received(:print)
     end

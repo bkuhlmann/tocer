@@ -4,13 +4,13 @@ module Tocer
   module Configuration
     # Defines the content of the configuration for use throughout the gem.
     Content = Struct.new(
-      :action_build,
       :action_config,
       :action_help,
+      :action_insert,
       :action_version,
-      :build_includes,
-      :build_label,
-      :build_path,
+      :includes,
+      :label,
+      :root_dir,
       keyword_init: true
     ) do
       def initialize *arguments

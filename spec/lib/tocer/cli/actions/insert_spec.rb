@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Tocer::CLI::Actions::Build do
+RSpec.describe Tocer::CLI::Actions::Insert do
   using Refinements::Pathnames
   using Refinements::Structs
 
@@ -18,7 +18,7 @@ RSpec.describe Tocer::CLI::Actions::Build do
 
     it "calls runner with custom arguments" do
       path = temp_dir.join("test.md").touch
-      expectation = proc { action.call configuration.merge(build_includes: %w[*.md]) }
+      expectation = proc { action.call configuration.merge(includes: %w[*.md]) }
 
       expect(&expectation).to output("  #{path}\n").to_stdout
     end

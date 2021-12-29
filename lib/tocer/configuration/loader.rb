@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "pathname"
-require "refinements/hashes"
 require "refinements/structs"
 require "runcom"
 require "yaml"
@@ -10,7 +9,6 @@ module Tocer
   module Configuration
     # Represents the fully assembled Command Line Interface (CLI) configuration.
     class Loader
-      using Refinements::Hashes
       using Refinements::Structs
 
       DEFAULTS = YAML.load_file(Pathname(__dir__).join("defaults.yml")).freeze
@@ -25,7 +23,7 @@ module Tocer
         @client = client
       end
 
-      def call = content.merge(**client.to_h.flatten_keys)
+      def call = content.merge(**client.to_h)
 
       private
 

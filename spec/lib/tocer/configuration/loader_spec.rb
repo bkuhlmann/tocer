@@ -7,9 +7,9 @@ RSpec.describe Tocer::Configuration::Loader do
 
   let :content do
     Tocer::Configuration::Content[
-      build_includes: %w[README.md],
-      build_label: "## Table of Contents",
-      build_path: "."
+      includes: %w[README.md],
+      label: "## Table of Contents",
+      root_dir: "."
     ]
   end
 
