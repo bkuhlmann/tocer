@@ -50,14 +50,14 @@ From the command line, run: `tocer --help`
 
 ....
 USAGE:
-  -b, --build [PATH]                       Build table of contents. Default path: "."
   -c, --config ACTION                      Manage gem configuration: edit or view.
   -h, --help                               Show this message.
+  -i, --insert [PATH]                      Insert/update table of contents. Default: ".".
   -v, --version                            Show gem version.
 
-BUILD OPTIONS:
-  -i, --includes [a,b,c]                   Include pattern list. Default: ["README.md"].
-  -l, --label [LABEL]                      Label. Default: "## Table of Contents".
+OPTIONS:
+      --includes [a,b,c]                   Add include patterns. Default: ["README.md"].
+      --label [LABEL]                      Add label. Default: "## Table of Contents".
 ....
 
 To generate the table of contents at a specific position within your Markdown files, add the
@@ -69,9 +69,9 @@ following lines to your file(s) prior to generation:
 <!-- Tocer[finish] -->
 ----
 
-In the case that Tocer has already auto-generated a table of contents for a Markdown file, the
-existing table of contents has become stale, or placement of the table of contents has changed you
-can re-run Tocer on that file to auto-update it with new table of contents.
+In the case that Tocer has auto-generated a table of contents for a Markdown file; the existing
+table of contents has become stale; or placement of the table of contents has changed, you can
+re-run Tocer on that file to auto-update it with new table of contents.
 
 === Customization
 
@@ -87,6 +87,7 @@ The default configuration is as follows:
 :label: "## Table of Contents"
 :includes:
   - "README.md"
+:root_dir: "."
 ----
 
 Feel free to take this default configuration, modify, and save as your own custom
@@ -96,12 +97,13 @@ The `configuration.yml` file can be configured as follows:
 
 * `label`: The header label for the table of contents.
 * `includes`: The list of included files.
+* `root_dir`: The root path to use for processing files.
 
 There are multiple ways the include list can be defined. Here are some examples:
 
 [source,yaml]
 ----
-# Use an empty array to ignore all files (a key with no value would work too).
+# Use an empty array to ignore all files:
 :includes: []
 
 # Use an array of wildcards for groups of files with similar extensions:

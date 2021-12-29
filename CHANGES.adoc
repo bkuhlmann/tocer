@@ -1,5 +1,46 @@
 = Changes
 
+== 13.0.0 (2021-12-29)
+
+* Fixed Hippocratic license structure - Brooke Kuhlmann
+* Fixed README changes and credits sections - Brooke Kuhlmann
+* Fixed RSpec/Dialect issues - Brooke Kuhlmann
+* Fixed Rakefile Bundler task requirement - Brooke Kuhlmann
+* Fixed builder issue being called multiple times - Brooke Kuhlmann
+* Fixed contributing documentation - Brooke Kuhlmann
+* Fixed parsers to not mutate arguments - Brooke Kuhlmann
+* Fixed runner to use default configuration - Brooke Kuhlmann
+* Fixed writer to not erase empty comment block placeholder - Brooke Kuhlmann
+* Added Zeitwerk gem - Brooke Kuhlmann
+* Added builder unbuildable check - Brooke Kuhlmann
+* Added comment block comments - Brooke Kuhlmann
+* Added comment block empty check - Brooke Kuhlmann
+* Added configuration action and build attributes - Brooke Kuhlmann
+* Added loader default configuration - Brooke Kuhlmann
+* Added project citation information - Brooke Kuhlmann
+* Updated GitHub issue template - Brooke Kuhlmann
+* Updated Rubocop sub-project gem dependencies - Brooke Kuhlmann
+* Updated Zeitwerk to exclude loading of Rake tasks - Brooke Kuhlmann
+* Updated implementation to use configuration - Brooke Kuhlmann
+* Updated to Amazing Print 1.4.0 - Brooke Kuhlmann
+* Updated to Debug 1.4.0 - Brooke Kuhlmann
+* Updated to Git Lint 3.0.0 - Brooke Kuhlmann
+* Updated to Hippocratic License 3.0.0 - Brooke Kuhlmann
+* Updated to Refinements 9.0.0 - Brooke Kuhlmann
+* Updated to Rubocop 1.24.0 - Brooke Kuhlmann
+* Updated to Ruby 3.0.3 - Brooke Kuhlmann
+* Updated to Ruby 3.1.0 - Brooke Kuhlmann
+* Updated to Runcom 8.0.0 - Brooke Kuhlmann
+* Updated to SimpleCov 0.21.2 - Brooke Kuhlmann
+* Removed Gemsmith depenendecy - Brooke Kuhlmann
+* Removed build namespace from default configuration - Brooke Kuhlmann
+* Removed test file - Brooke Kuhlmann
+* Refactored CLI assembler as parser - Brooke Kuhlmann
+* Refactored CLI processors as actions - Brooke Kuhlmann
+* Refactored configuration to top-level namespace - Brooke Kuhlmann
+* Refactored implementation to use punning - Brooke Kuhlmann
+* Refactored transformer finder - Brooke Kuhlmann
+
 == 12.2.0 (2021-11-20)
 
 * Added README community link - Brooke Kuhlmann
