@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bkuhlmann/tocer/issues",
-    "changelog_uri" => "https://www.alchemists.io/projects/tocer/changes.html",
+    "changelog_uri" => "https://www.alchemists.io/projects/tocer/versions",
     "documentation_uri" => "https://www.alchemists.io/projects/tocer",
     "rubygems_mfa_required" => "true",
     "source_code_uri" => "https://github.com/bkuhlmann/tocer"
