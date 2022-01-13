@@ -1,5 +1,9 @@
 = Versions
 
+== 13.0.2 (2022-01-13)
+
+* Fixed Zeitwerk configuration to ignore Rake folder - Brooke Kuhlmann
+
 == 13.0.1 (2022-01-01)
 
 * Updated README policy section links - Brooke Kuhlmann
