@@ -12,7 +12,7 @@ module Tocer
 
       def call markdown
         transformers.find do |pattern, transformer|
-          break transformer.new(markdown) if pattern.match? markdown
+          break transformer.new markdown if pattern.match? markdown
         end
       end
 

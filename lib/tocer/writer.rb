@@ -48,10 +48,10 @@ module Tocer
     end
 
     def new_lines lines, label, finish_index
-      if builder.unbuildable?(lines)
+      if builder.unbuildable? lines
         builder.comments
       else
-        content(lines[finish_index, lines.length], label)
+        content lines[finish_index, lines.length], label
       end
     end
 
