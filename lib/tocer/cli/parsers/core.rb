@@ -11,14 +11,16 @@ module Tocer
 
         def self.call(...) = new(...).call
 
-        def initialize configuration = Configuration::Loader.call, client: Parser::CLIENT
+        def initialize configuration = Configuration::Loader.call,
+                       client: Parser::CLIENT,
+                       container: Container
           @configuration = configuration
           @client = client
+          @container = container
         end
 
         def call arguments = []
-          client.banner = "Tocer - A command line interface for generating table of contents for " \
-                          "Markdown files."
+          client.banner = "Tocer - #{specification.summary}"
           client.separator "\nUSAGE:\n"
           collate
           client.parse arguments
@@ -27,7 +29,7 @@ module Tocer
 
         private
 
-        attr_reader :configuration, :client
+        attr_reader :configuration, :client, :container
 
         def collate = private_methods.sort.grep(/add_/).each { |method| __send__ method }
 
@@ -65,6 +67,8 @@ module Tocer
             configuration.merge! action_help: true
           end
         end
+
+        def specification = container[__method__]
       end
     end
   end
