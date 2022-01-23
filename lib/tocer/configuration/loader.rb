@@ -12,7 +12,7 @@ module Tocer
       using Refinements::Structs
 
       DEFAULTS = YAML.load_file(Pathname(__dir__).join("defaults.yml")).freeze
-      CLIENT = Runcom::Config.new "#{Identity::NAME}/configuration.yml", defaults: DEFAULTS
+      CLIENT = Runcom::Config.new "tocer/configuration.yml", defaults: DEFAULTS
 
       def self.call = new.call
 

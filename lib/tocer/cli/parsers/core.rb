@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "tocer/identity"
 require "refinements/structs"
 
 module Tocer
@@ -18,7 +17,8 @@ module Tocer
         end
 
         def call arguments = []
-          client.banner = "#{Identity::LABEL} - #{Identity::SUMMARY}"
+          client.banner = "Tocer - A command line interface for generating table of contents for " \
+                          "Markdown files."
           client.separator "\nUSAGE:\n"
           collate
           client.parse arguments

@@ -25,7 +25,7 @@ module Tocer
         case configuration
           in action_config: Symbol => action then process_config action
           in action_insert: true then process_insert configuration
-          in action_version: true then puts Identity::VERSION_LABEL
+          in action_version: true then puts "Tocer 13.0.2"
           else usage
         end
       end

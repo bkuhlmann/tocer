@@ -3,5 +3,4 @@
 
 require "tocer"
 
-Process.setproctitle Tocer::Identity::VERSION_LABEL
 Tocer::CLI::Shell.new.call ARGV
