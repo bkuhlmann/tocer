@@ -1,5 +1,22 @@
 = Versions
 
+== 13.1.0 (2022-01-23)
+
+* Added CLI action config container - Brooke Kuhlmann
+* Added CLI core parser container - Brooke Kuhlmann
+* Added CLI insert action application container - Brooke Kuhlmann
+* Added CLI parser container - Brooke Kuhlmann
+* Added CLI shell container - Brooke Kuhlmann
+* Added Dry Container gem - Brooke Kuhlmann
+* Added Pastel gem - Brooke Kuhlmann
+* Added Ruby version to Gemfile - Brooke Kuhlmann
+* Added application container - Brooke Kuhlmann
+* Added identity to gem specification - Brooke Kuhlmann
+* Updated to Reek 6.1.0 - Brooke Kuhlmann
+* Updated to Refinements 9.1.0 - Brooke Kuhlmann
+* Updated to Rubocop 1.25.0 - Brooke Kuhlmann
+* Refactored Git ignore - Brooke Kuhlmann
+
 == 13.0.2 (2022-01-13)
 
 * Fixed Zeitwerk configuration to ignore Rake folder - Brooke Kuhlmann
