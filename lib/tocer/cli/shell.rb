@@ -6,9 +6,10 @@ module Tocer
     class Shell
       ACTIONS = {config: Actions::Config.new, insert: Actions::Insert.new}.freeze
 
-      def initialize parser: Parser.new, actions: ACTIONS
+      def initialize parser: Parser.new, actions: ACTIONS, container: Container
         @parser = parser
         @actions = actions
+        @container = container
       end
 
       def call arguments = []
@@ -19,13 +20,13 @@ module Tocer
 
       private
 
-      attr_reader :parser, :actions
+      attr_reader :parser, :actions, :container
 
       def perform configuration
         case configuration
           in action_config: Symbol => action then process_config action
           in action_insert: true then process_insert configuration
-          in action_version: true then puts "Tocer 13.0.2"
+          in action_version: true then logger.info { "Tocer #{specification.version}" }
           else usage
         end
       end
@@ -35,6 +36,10 @@ module Tocer
       def process_insert(configuration) = actions.fetch(:insert).call(configuration)
 
       def usage = puts(parser.to_s)
+
+      def specification = container[__method__]
+
+      def logger = container[__method__]
     end
   end
 end
