@@ -8,7 +8,7 @@ RSpec.describe Tocer::Runner do
   using Refinements::Pathnames
   using Refinements::Structs
 
-  include_context "with application configuration"
+  include_context "with application container"
 
   describe "#call" do
     let(:kernel) { class_spy Kernel }
