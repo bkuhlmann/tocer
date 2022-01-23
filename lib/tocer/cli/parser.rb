@@ -9,10 +9,10 @@ module Tocer
       CLIENT = OptionParser.new nil, 40, "  "
       SECTIONS = [Parsers::Core, Parsers::Flag].freeze # Order is important.
 
-      def initialize configuration = Configuration::Loader.call, sections: SECTIONS, client: CLIENT
-        @configuration = configuration.dup
+      def initialize sections: SECTIONS, client: CLIENT, container: Container
         @sections = sections
         @client = client
+        @configuration = container[:configuration].dup
       end
 
       def call arguments = []
@@ -25,7 +25,7 @@ module Tocer
 
       private
 
-      attr_reader :configuration, :sections, :client
+      attr_reader :sections, :client, :configuration
     end
   end
 end

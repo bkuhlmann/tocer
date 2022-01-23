@@ -5,6 +5,8 @@ require "spec_helper"
 RSpec.describe Tocer::CLI::Parser do
   subject(:parser) { described_class.new }
 
+  include_context "with application container"
+
   describe "#call" do
     it "answers configuration" do
       expect(parser.call(%w[--help])).to have_attributes(action_help: true)
