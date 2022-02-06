@@ -4,13 +4,6 @@
 
 = Tocer
 
-[link=http://badge.fury.io/rb/tocer]
-image::https://badge.fury.io/rb/tocer.svg[Gem Version]
-[link=https://www.alchemists.io/projects/code_quality]
-image::https://img.shields.io/badge/code_style-alchemists-brightgreen.svg[Alchemists Style Guide]
-[link=https://circleci.com/gh/bkuhlmann/tocer]
-image::https://circleci.com/gh/bkuhlmann/tocer.svg?style=svg[Circle CI Status]
-
 Tocer (a.k.a. Table of Contenter) is a command line interface for generating table of contents for
 Markdown files. Use this tool to automatically manage and update your documentation with minimal
 effort. Works on single files or multiple files within nested directory structures.
