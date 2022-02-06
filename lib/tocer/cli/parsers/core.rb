@@ -20,7 +20,7 @@ module Tocer
         end
 
         def call arguments = []
-          client.banner = "Tocer - #{specification.summary}"
+          client.banner = specification.labeled_summary
           client.separator "\nUSAGE:\n"
           collate
           client.parse arguments
