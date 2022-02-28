@@ -23,7 +23,7 @@ RSpec.describe Tocer::Builder do
         "<!-- Tocer[finish]: Auto-generated, don't remove. -->"
       ]
 
-      expect(builder.unbuildable?(lines)).to eq(true)
+      expect(builder.unbuildable?(lines)).to be(true)
     end
 
     it "answers false with placeholder and headers" do
@@ -33,7 +33,7 @@ RSpec.describe Tocer::Builder do
         "# One"
       ]
 
-      expect(builder.unbuildable?(lines)).to eq(false)
+      expect(builder.unbuildable?(lines)).to be(false)
     end
   end
 
