@@ -18,9 +18,9 @@ RSpec.describe Tocer::CLI::Actions::Insert do
 
     it "calls runner with custom arguments" do
       path = temp_dir.join("test.md").touch
-      expectation = proc { action.call configuration.merge(includes: %w[*.md]) }
+      action.call configuration.merge(includes: %w[*.md])
 
-      expect(&expectation).to output("  #{path}\n").to_stdout
+      expect(logger.reread).to eq("  #{path}\n")
     end
   end
 end

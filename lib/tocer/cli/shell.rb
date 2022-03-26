@@ -27,7 +27,7 @@ module Tocer
           in action_config: Symbol => action then process_config action
           in action_insert: true then process_insert configuration
           in action_version: true then logger.info { specification.labeled_version }
-          else usage
+          else logger.any { parser.to_s }
         end
       end
 
