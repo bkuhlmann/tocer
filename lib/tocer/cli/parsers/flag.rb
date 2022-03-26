@@ -11,7 +11,7 @@ module Tocer
 
         def self.call(...) = new(...).call
 
-        def initialize configuration = Configuration::Loader.call, client: Parser::CLIENT
+        def initialize configuration = Container[:configuration], client: Parser::CLIENT
           @configuration = configuration
           @client = client
         end

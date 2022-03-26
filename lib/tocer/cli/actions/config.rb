@@ -5,9 +5,11 @@ module Tocer
     module Actions
       # Handles the config action.
       class Config
-        def initialize client: Configuration::Loader::CLIENT, container: Container
+        include Tocer::Import[:kernel, :logger]
+
+        def initialize client: Configuration::Loader::CLIENT, **dependencies
+          super(**dependencies)
           @client = client
-          @container = container
         end
 
         def call selection
@@ -20,15 +22,11 @@ module Tocer
 
         private
 
-        attr_reader :client, :container
+        attr_reader :client
 
         def edit = kernel.system("$EDITOR #{client.current}")
 
         def view = kernel.system("cat #{client.current}")
-
-        def kernel = container[__method__]
-
-        def logger = container[__method__]
       end
     end
   end

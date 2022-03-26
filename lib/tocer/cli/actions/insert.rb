@@ -5,9 +5,11 @@ module Tocer
     module Actions
       # Handles the insert action.
       class Insert
-        def initialize runner: Runner.new, container: Container
+        include Tocer::Import[:logger]
+
+        def initialize runner: Runner.new, **dependencies
+          super(**dependencies)
           @runner = runner
-          @container = container
         end
 
         def call configuration
@@ -16,9 +18,7 @@ module Tocer
 
         private
 
-        attr_reader :runner, :container
-
-        def logger = container[__method__]
+        attr_reader :runner
       end
     end
   end

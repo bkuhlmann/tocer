@@ -4,23 +4,29 @@ require "spec_helper"
 
 RSpec.describe Tocer::CLI::Shell do
   using Refinements::Pathnames
+  using Refinements::StringIOs
+  using AutoInjector::Stub
 
-  subject(:shell) { described_class.new actions: described_class::ACTIONS.merge(config:) }
+  subject(:shell) { described_class.new }
 
-  include_context "with temporary directory"
+  include_context "with application container"
 
   let(:config) { instance_spy Tocer::CLI::Actions::Config }
   let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
 
+  before { Tocer::CLI::Actions::Import.stub configuration:, kernel:, logger: }
+
+  after { Tocer::CLI::Actions::Import.unstub :configuration, :kernel, :logger }
+
   describe "#call" do
     it "edits configuration" do
       shell.call %w[--config edit]
-      expect(config).to have_received(:call).with(:edit)
+      expect(kernel).to have_received(:system).with("$EDITOR ")
     end
 
     it "views configuration" do
       shell.call %w[--config view]
-      expect(config).to have_received(:call).with(:view)
+      expect(kernel).to have_received(:system).with("cat ")
     end
 
     it "inserts with defaults" do

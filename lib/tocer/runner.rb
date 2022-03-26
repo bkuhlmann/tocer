@@ -11,7 +11,7 @@ module Tocer
       @writer = writer
     end
 
-    def call configuration = Configuration::Loader.call
+    def call configuration = Container[:configuration]
       Pathname(configuration.root_dir).files(%({#{configuration.includes.join ","}}))
                                       .each do |path|
                                         yield path if block_given?

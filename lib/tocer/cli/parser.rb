@@ -6,26 +6,29 @@ module Tocer
   module CLI
     # Assembles and parses all Command Line Interface (CLI) options.
     class Parser
-      CLIENT = OptionParser.new nil, 40, "  "
-      SECTIONS = [Parsers::Core, Parsers::Flag].freeze # Order is important.
+      include Import[:configuration]
 
-      def initialize sections: SECTIONS, client: CLIENT, container: Container
+      CLIENT = OptionParser.new nil, 40, "  "
+      SECTIONS = [Parsers::Core, Parsers::Flag].freeze # Order matters.
+
+      def initialize sections: SECTIONS, client: CLIENT, **dependencies
+        super(**dependencies)
         @sections = sections
         @client = client
-        @configuration = container[:configuration].dup
+        @configuration_duplicate = configuration.dup
       end
 
       def call arguments = []
-        sections.each { |parser| parser.call configuration, client: }
+        sections.each { |parser| parser.call configuration_duplicate, client: }
         client.parse arguments
-        configuration.freeze
+        configuration_duplicate.freeze
       end
 
       def to_s = client.to_s
 
       private
 
-      attr_reader :sections, :client, :configuration
+      attr_reader :sections, :client, :configuration_duplicate
     end
   end
 end
