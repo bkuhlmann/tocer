@@ -6,7 +6,7 @@ require "tocer/rake/tasks"
 RSpec.describe Tocer::Rake::Tasks do
   subject(:tasks) { described_class.new configuration, runner: }
 
-  include_context "with application container"
+  include_context "with application dependencies"
 
   let(:runner) { instance_spy Tocer::Runner }
 

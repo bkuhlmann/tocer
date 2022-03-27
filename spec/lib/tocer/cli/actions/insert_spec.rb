@@ -8,7 +8,7 @@ RSpec.describe Tocer::CLI::Actions::Insert do
 
   subject(:action) { described_class.new }
 
-  include_context "with application container"
+  include_context "with application dependencies"
 
   describe "#call" do
     it "calls runner with default arguments" do

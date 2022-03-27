@@ -3,7 +3,7 @@
 require "dry/container/stub"
 require "auto_injector/stub"
 
-RSpec.shared_context "with application container" do
+RSpec.shared_context "with application dependencies" do
   using Refinements::Structs
   using AutoInjector::Stub
 

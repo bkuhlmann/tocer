@@ -9,7 +9,7 @@ RSpec.describe Tocer::CLI::Shell do
 
   subject(:shell) { described_class.new }
 
-  include_context "with application container"
+  include_context "with application dependencies"
 
   let(:config) { instance_spy Tocer::CLI::Actions::Config }
   let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
