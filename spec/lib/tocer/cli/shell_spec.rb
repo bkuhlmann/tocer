@@ -103,5 +103,10 @@ RSpec.describe Tocer::CLI::Shell do
       shell.call
       expect(logger.reread).to match(/Tocer.+USAGE.+OPTIONS.+/m)
     end
+
+    it "prints error when invalid option is given" do
+      expectation = proc { shell.call %w[--bogus] }
+      expect(&expectation).to output(/invalid option/).to_stdout
+    end
   end
 end
