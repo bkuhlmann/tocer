@@ -5,7 +5,7 @@ require "spec_helper"
 RSpec.describe Tocer::CLI::Shell do
   using Refinements::Pathnames
   using Refinements::StringIOs
-  using AutoInjector::Stub
+  using Infusible::Stub
 
   subject(:shell) { described_class.new }
 
