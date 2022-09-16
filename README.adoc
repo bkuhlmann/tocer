@@ -148,7 +148,7 @@ To contribute, run:
 
 [source,bash]
 ----
-git clone https://github.com/bkuhlmann/tocer.git
+git clone https://github.com/bkuhlmann/tocer
 cd tocer
 bin/setup
 ----
