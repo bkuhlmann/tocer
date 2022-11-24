@@ -14,7 +14,7 @@ module Tocer
 
       def label = parser.content
 
-      def url = label.downcase.gsub(/\s/, "-").gsub(/[^\w\-]+/, "")
+      def url = label.downcase.gsub(/\s/, "-").gsub(/[^\w-]+/, "")
 
       def call(url_suffix: "") = "#{indented_bullet}[#{label}](##{computed_url url_suffix})"
 
