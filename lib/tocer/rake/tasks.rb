@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "rake"
-require "tocer"
 require "refinements/structs"
+require "tocer"
 
 module Tocer
   module Rake

@@ -13,8 +13,8 @@ unless ENV["NO_COVERAGE"]
   end
 end
 
-require "tocer"
 require "refinements"
+require "tocer"
 
 using Refinements::Pathnames
 
