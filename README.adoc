@@ -123,19 +123,21 @@ You can add Rake support by adding the following to your `Rakefile`:
 [source,ruby]
 ----
 begin
-  require "tocer/rake/setup"
+  require "tocer/rake/register"
 rescue LoadError => error
   puts error.message
 end
+
+Tocer::Rake::Register.call
 ----
 
-Once configured, the following tasks will be available (i.e. `bundle exec rake -T`):
+Once required and registered, the following tasks will be available (i.e. `bundle exec rake -T`):
 
 ....
-rake toc[label,includes]   # Add/Update Table of Contents (README)
+rake toc[label,includes]   # Insert/Update Table of Contents
 ....
 
-…which can be called as follows (quotes are not necessary if spaces are not used):
+You can invoke the task as follows (quotes are only necessary if spaces are used):
 
 [source,bash]
 ----
