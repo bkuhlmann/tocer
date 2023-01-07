@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "refinements/arrays"
 
 module Tocer
@@ -22,7 +23,7 @@ module Tocer
 
       attr_reader :parser
 
-      def computed_url(suffix = "") = [url, suffix.to_s].compress.join("-")
+      def computed_url(suffix = Core::EMPTY_STRING) = [url, suffix.to_s].compress.join("-")
 
       def embedded_link = "[#{embedded_link_label}](#{embedded_link_url})"
 

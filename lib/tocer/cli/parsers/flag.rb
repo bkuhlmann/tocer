@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core"
 require "refinements/structs"
 
 module Tocer
@@ -16,7 +17,7 @@ module Tocer
           @client = client
         end
 
-        def call arguments = []
+        def call arguments = ::Core::EMPTY_ARRAY
           client.separator "\nOPTIONS:\n"
           private_methods.sort.grep(/add_/).each { |method| __send__ method }
           client.parse arguments
