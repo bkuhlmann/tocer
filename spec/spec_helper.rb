@@ -17,10 +17,12 @@ end
 require "refinements"
 require "tocer"
 
+SPEC_ROOT = Pathname(__dir__).realpath.freeze
+
 using Refinements::Pathnames
 
-Pathname.require_tree __dir__, "support/shared_contexts/**/*.rb"
-Pathname.require_tree __dir__, "support/shared_examples/**/*.rb"
+Pathname.require_tree SPEC_ROOT, "support/shared_contexts/**/*.rb"
+Pathname.require_tree SPEC_ROOT, "support/shared_examples/**/*.rb"
 
 RSpec.configure do |config|
   config.color = true

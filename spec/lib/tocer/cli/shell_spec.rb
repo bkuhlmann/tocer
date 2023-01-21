@@ -12,7 +12,7 @@ RSpec.describe Tocer::CLI::Shell do
   include_context "with application dependencies"
 
   let(:config) { instance_spy Tocer::CLI::Actions::Config }
-  let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
+  let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
   before { Tocer::CLI::Actions::Import.stub configuration:, kernel:, logger: }
 

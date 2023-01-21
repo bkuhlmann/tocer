@@ -75,7 +75,7 @@ RSpec.describe Tocer::Writer do
     before { fixture_path.copy test_path }
 
     context "when using a custom label" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
       it "uses custom label for table of contents" do
         writer.call test_path, label: "# Index"
@@ -97,7 +97,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents exists and is empty" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/empty.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/empty.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call test_path
@@ -106,7 +106,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents is prepended in the document" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/existing-prepended.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/existing-prepended.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call test_path
@@ -128,7 +128,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents is embedded in the document" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/existing-embedded.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/existing-embedded.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call test_path
@@ -137,7 +137,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents uses comments without auto-generated messages" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/without_comment_messages.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/without_comment_messages.md" }
 
       it "replaces existing table of contents with new table of contents" do
         writer.call test_path
@@ -146,7 +146,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents is a placeholder" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/placeholder.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/placeholder.md" }
 
       it "answers original document" do
         writer.call test_path
@@ -163,7 +163,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when table of contents doesn't exist" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/missing.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
       it "prepends table of contents in file" do
         writer.call test_path
@@ -185,7 +185,7 @@ RSpec.describe Tocer::Writer do
     end
 
     context "when file has no headers" do
-      let(:fixture_path) { Bundler.root.join "spec/support/fixtures/basic.md" }
+      let(:fixture_path) { SPEC_ROOT.join "support/fixtures/basic.md" }
 
       it "doesn't modify contents" do
         writer.call test_path
