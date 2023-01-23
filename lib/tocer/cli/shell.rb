@@ -14,7 +14,7 @@ module Tocer
       end
 
       def call arguments = Core::EMPTY_ARRAY
-        perform parser.call(arguments)
+        act_on parser.call(arguments)
       rescue OptionParser::ParseError => error
         puts error.message
       end
@@ -23,7 +23,7 @@ module Tocer
 
       attr_reader :parser
 
-      def perform configuration
+      def act_on configuration
         case configuration
           in action_config: Symbol => action then config.call action
           in action_insert: true then insert.call configuration
