@@ -8,8 +8,8 @@ module Tocer
     class Shell
       include Actions::Import[:config, :insert, :specification, :logger]
 
-      def initialize parser: Parser.new, **dependencies
-        super(**dependencies)
+      def initialize(parser: Parser.new, **)
+        super(**)
         @parser = parser
       end
 

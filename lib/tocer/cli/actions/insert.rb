@@ -7,8 +7,8 @@ module Tocer
       class Insert
         include Tocer::Import[:logger]
 
-        def initialize runner: Runner.new, **dependencies
-          super(**dependencies)
+        def initialize(runner: Runner.new, **)
+          super(**)
           @runner = runner
         end
 

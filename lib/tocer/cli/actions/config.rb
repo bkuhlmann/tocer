@@ -7,8 +7,8 @@ module Tocer
       class Config
         include Tocer::Import[:kernel, :logger]
 
-        def initialize client: Configuration::Loader::CLIENT, **dependencies
-          super(**dependencies)
+        def initialize(client: Configuration::Loader::CLIENT, **)
+          super(**)
           @client = client
         end
 
