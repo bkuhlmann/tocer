@@ -5,14 +5,14 @@ Gem::Specification.new do |spec|
   spec.version = "15.1.1"
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
-  spec.homepage = "https://www.alchemists.io/projects/tocer"
+  spec.homepage = "https://alchemists.io/projects/tocer"
   spec.summary = "A command line interface for generating table of contents for Markdown files."
   spec.license = "Hippocratic-2.1"
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bkuhlmann/tocer/issues",
-    "changelog_uri" => "https://www.alchemists.io/projects/tocer/versions",
-    "documentation_uri" => "https://www.alchemists.io/projects/tocer",
+    "changelog_uri" => "https://alchemists.io/projects/tocer/versions",
+    "documentation_uri" => "https://alchemists.io/projects/tocer",
     "funding_uri" => "https://github.com/sponsors/bkuhlmann",
     "label" => "Tocer",
     "rubygems_mfa_required" => "true",

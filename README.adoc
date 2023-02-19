@@ -70,7 +70,7 @@ re-run Tocer on that file to auto-update it with new table of contents.
 
 This gem can be configured via a global configuration: `~/.config/tocer/configuration.yml`.
 
-It can also be configured via link:https://www.alchemists.io/projects/xdg[XDG] environment
+It can also be configured via link:https://alchemists.io/projects/xdg[XDG] environment
 variables.
 
 The default configuration is as follows:
@@ -171,19 +171,19 @@ To test, run:
 bin/rake
 ----
 
-== link:https://www.alchemists.io/policies/license[License]
+== link:https://alchemists.io/policies/license[License]
 
-== link:https://www.alchemists.io/policies/security[Security]
+== link:https://alchemists.io/policies/security[Security]
 
-== link:https://www.alchemists.io/policies/code_of_conduct[Code of Conduct]
+== link:https://alchemists.io/policies/code_of_conduct[Code of Conduct]
 
-== link:https://www.alchemists.io/policies/contributions[Contributions]
+== link:https://alchemists.io/policies/contributions[Contributions]
 
-== link:https://www.alchemists.io/projects/tocer/versions[Versions]
+== link:https://alchemists.io/projects/tocer/versions[Versions]
 
-== link:https://www.alchemists.io/community[Community]
+== link:https://alchemists.io/community[Community]
 
 == Credits
 
-* Built with link:https://www.alchemists.io/projects/gemsmith[Gemsmith].
-* Engineered by link:https://www.alchemists.io/team/brooke_kuhlmann[Brooke Kuhlmann].
+* Built with link:https://alchemists.io/projects/gemsmith[Gemsmith].
+* Engineered by link:https://alchemists.io/team/brooke_kuhlmann[Brooke Kuhlmann].
