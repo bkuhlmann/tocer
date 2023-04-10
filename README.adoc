@@ -28,11 +28,27 @@ toc::[]
 
 == Setup
 
-To install, run:
+To install _with_ security, run:
+
+[source,bash]
+----
+# 💡 Skip this line if you already have the public certificate installed.
+gem cert --add <(curl --compressed --location https://alchemists.io/gems.pem)
+gem install tocer --trust-policy HighSecurity
+----
+
+To install _without_ security, run:
 
 [source,bash]
 ----
 gem install tocer
+----
+
+You can also add the gem directly to your project:
+
+[source,bash]
+----
+bundle add tocer
 ----
 
 == Usage
