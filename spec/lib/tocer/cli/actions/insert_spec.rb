@@ -20,7 +20,7 @@ RSpec.describe Tocer::CLI::Actions::Insert do
       path = temp_dir.join("test.md").touch
       action.call configuration.merge(includes: %w[*.md])
 
-      expect(logger.reread).to eq("  #{path}\n")
+      expect(kernel).to have_received(:puts).with("  #{path}")
     end
   end
 end

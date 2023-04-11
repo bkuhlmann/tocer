@@ -20,7 +20,7 @@ RSpec.describe Tocer::CLI::Actions::Config do
 
     it "logs invalid configuration action" do
       action.call :bogus
-      expect(logger.reread).to match(/Invalid configuration selection: bogus./)
+      expect(logger.reread).to match(/🛑.+Invalid configuration selection: bogus/)
     end
   end
 end

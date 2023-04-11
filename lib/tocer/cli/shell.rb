@@ -6,7 +6,7 @@ module Tocer
   module CLI
     # The main Command Line Interface (CLI) object.
     class Shell
-      include Actions::Import[:config, :insert, :specification, :logger]
+      include Actions::Import[:config, :insert, :kernel, :logger, :specification]
 
       def initialize(parser: Parser.new, **)
         super(**)
@@ -16,7 +16,7 @@ module Tocer
       def call arguments = Core::EMPTY_ARRAY
         act_on parser.call(arguments)
       rescue OptionParser::ParseError => error
-        puts error.message
+        logger.error { error.message }
       end
 
       private
@@ -27,8 +27,8 @@ module Tocer
         case configuration
           in action_config: Symbol => action then config.call action
           in action_insert: true then insert.call configuration
-          in action_version: true then logger.info { specification.labeled_version }
-          else logger.any { parser.to_s }
+          in action_version: true then kernel.puts specification.labeled_version
+          else kernel.puts parser.to_s
         end
       end
     end

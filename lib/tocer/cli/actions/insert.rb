@@ -5,7 +5,7 @@ module Tocer
     module Actions
       # Handles the insert action.
       class Insert
-        include Tocer::Import[:logger]
+        include Tocer::Import[:kernel]
 
         def initialize(runner: Runner.new, **)
           super(**)
@@ -13,7 +13,7 @@ module Tocer
         end
 
         def call configuration
-          runner.call(configuration) { |path| logger.info { "  #{path}" } }
+          runner.call(configuration).each { |path| kernel.puts "  #{path}" }
         end
 
         private
