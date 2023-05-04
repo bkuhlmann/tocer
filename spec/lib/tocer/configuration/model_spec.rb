@@ -7,15 +7,7 @@ RSpec.describe Tocer::Configuration::Model do
 
   describe "#initialize" do
     it "answers default attributes" do
-      expect(content).to have_attributes(
-        action_config: nil,
-        action_help: nil,
-        action_insert: nil,
-        action_version: nil,
-        includes: nil,
-        label: nil,
-        root_dir: nil
-      )
+      expect(content).to have_attributes(label: nil, root_dir: nil, patterns: [])
     end
   end
 end
