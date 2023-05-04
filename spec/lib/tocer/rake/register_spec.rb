@@ -32,7 +32,7 @@ RSpec.describe Tocer::Rake::Register do
       Rake::Task["toc"].invoke "## TOC", %w[one.md two.md]
 
       expect(runner).to have_received(:call).with(
-        Tocer::Configuration::Content[
+        Tocer::Configuration::Model[
           label: "## TOC",
           includes: %w[one.md two.md],
           root_dir: temp_dir

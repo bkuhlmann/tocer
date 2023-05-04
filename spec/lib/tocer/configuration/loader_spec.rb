@@ -5,8 +5,8 @@ require "spec_helper"
 RSpec.describe Tocer::Configuration::Loader do
   subject(:configuration) { described_class.with_defaults }
 
-  let :content do
-    Tocer::Configuration::Content[
+  let :model do
+    Tocer::Configuration::Model[
       includes: %w[README.md],
       label: "## Table of Contents",
       root_dir: "."
@@ -15,19 +15,19 @@ RSpec.describe Tocer::Configuration::Loader do
 
   describe ".call" do
     it "answers default configuration" do
-      expect(described_class.call).to eq(content)
+      expect(described_class.call).to eq(model)
     end
   end
 
   describe ".with_defaults" do
     it "answers default configuration" do
-      expect(described_class.with_defaults.call).to eq(content)
+      expect(described_class.with_defaults.call).to eq(model)
     end
   end
 
   describe "#call" do
     it "answers default configuration" do
-      expect(configuration.call).to eq(content)
+      expect(configuration.call).to eq(model)
     end
   end
 end

@@ -18,16 +18,16 @@ module Tocer
 
       def self.with_defaults = new(client: DEFAULTS)
 
-      def initialize content: Content.new, client: CLIENT
-        @content = content
+      def initialize model: Model.new, client: CLIENT
+        @model = model
         @client = client
       end
 
-      def call = content.merge(**client.to_h)
+      def call = model.merge(**client.to_h)
 
       private
 
-      attr_reader :content, :client
+      attr_reader :model, :client
     end
   end
 end
