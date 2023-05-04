@@ -4,16 +4,19 @@ require "dry/container/stub"
 require "infusible/stub"
 
 RSpec.shared_context "with application dependencies" do
-  using Refinements::Structs
   using Infusible::Stub
 
   include_context "with temporary directory"
 
-  let(:configuration) { Tocer::Configuration::Loader.with_defaults.call.merge root_dir: temp_dir }
+  let :configuration do
+    Etcher.new(Tocer::Container[:defaults]).call(root_dir: temp_dir).bind(&:dup)
+  end
+
+  let(:xdg_config) { Runcom::Config.new Tocer::Container[:defaults_path] }
   let(:kernel) { class_spy Kernel }
   let(:logger) { Cogger.new io: StringIO.new, formatter: :emoji }
 
-  before { Tocer::Import.stub configuration:, kernel:, logger: }
+  before { Tocer::Import.stub configuration:, xdg_config:, kernel:, logger: }
 
-  after { Tocer::Import.unstub :configuration, :kernel, :logger }
+  after { Tocer::Import.unstub :configuration, :xdg_config, :kernel, :logger }
 end
