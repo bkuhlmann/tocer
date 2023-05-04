@@ -19,8 +19,8 @@ module Tocer
       end
 
       def call
-        desc "Insert/Update Table of Contents"
-        task :toc, %i[label includes] do |_task, arguments|
+        desc "Update/Insert Table of Contents"
+        task :toc, %i[label patterns] do |_task, arguments|
           runner.call configuration.merge(arguments.to_h)
         end
       end

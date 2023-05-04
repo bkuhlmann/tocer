@@ -4,35 +4,32 @@ require "spec_helper"
 
 RSpec.describe Tocer::CLI::Shell do
   using Refinements::Pathnames
-  using Refinements::StringIOs
+  using Refinements::Structs
   using Infusible::Stub
 
   subject(:shell) { described_class.new }
 
   include_context "with application dependencies"
 
-  let(:config) { instance_spy Tocer::CLI::Actions::Config }
   let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
-  before { Tocer::CLI::Actions::Import.stub configuration:, kernel:, logger: }
+  before do
+    Tocer::Container[:inputs].merge! Tocer::Container[:configuration].to_h
+    Sod::Import.stub kernel:, logger:
+  end
 
-  after { Tocer::CLI::Actions::Import.unstub :configuration, :kernel, :logger }
+  after { Sod::Import.unstub :kernel, :logger }
 
   describe "#call" do
-    it "edits configuration" do
-      shell.call %w[--config edit]
-      expect(kernel).to have_received(:system).with("$EDITOR ")
+    it "prints configuration usage" do
+      shell.call %w[config]
+      expect(kernel).to have_received(:puts).with(/Manage configuration.+/m)
     end
 
-    it "views configuration" do
-      shell.call %w[--config view]
-      expect(kernel).to have_received(:system).with("cat ")
-    end
-
-    it "inserts with defaults" do
+    it "upserts with defaults" do
       path = temp_dir.join "README.md"
       fixture_path.copy path
-      shell.call ["--insert", temp_dir.to_s]
+      shell.call ["upsert", "--root", temp_dir.to_s]
 
       expect(path.read).to eq(<<~CONTENT)
         <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -49,10 +46,10 @@ RSpec.describe Tocer::CLI::Shell do
       CONTENT
     end
 
-    it "inserts with custom configuration" do
+    it "upserts with custom configuration" do
       path = temp_dir.join "test.md"
       fixture_path.copy path
-      shell.call ["--insert", temp_dir.to_s, "--label", "## Test", "--includes", "*.md"]
+      shell.call ["upsert", "--root", temp_dir.to_s, "--label", "## Test", "--patterns", "*.md"]
 
       expect(path.read).to eq(<<~CONTENT)
         <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -69,10 +66,10 @@ RSpec.describe Tocer::CLI::Shell do
       CONTENT
     end
 
-    it "inserts with nested path" do
+    it "upserts with nested path" do
       path = temp_dir.join("nested/README.md").make_ancestors
       fixture_path.copy path
-      shell.call ["--insert", temp_dir.to_s, "--includes", "**/*.md"]
+      shell.call ["upsert", "--root", temp_dir.to_s, "--patterns", "**/*.md"]
 
       expect(path.read).to eq(<<~CONTENT)
         <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -94,19 +91,9 @@ RSpec.describe Tocer::CLI::Shell do
       expect(kernel).to have_received(:puts).with(/Tocer\s\d+\.\d+\.\d+/)
     end
 
-    it "prints help (usage)" do
+    it "prints help" do
       shell.call %w[--help]
-      expect(kernel).to have_received(:puts).with(/Tocer.+USAGE.+OPTIONS.+/m)
-    end
-
-    it "prints usage when no options are given" do
-      shell.call
-      expect(kernel).to have_received(:puts).with(/Tocer.+USAGE.+OPTIONS.+/m)
-    end
-
-    it "prints error when invalid option is given" do
-      shell.call %w[--bogus]
-      expect(logger.reread).to match(/🛑.+invalid option/)
+      expect(kernel).to have_received(:puts).with(/Tocer.+USAGE.+/m)
     end
   end
 end

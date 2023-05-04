@@ -11,8 +11,6 @@ RSpec.describe Tocer::Runner do
   include_context "with application dependencies"
 
   describe "#call" do
-    let(:kernel) { class_spy Kernel }
-
     it "uses custom label" do
       path = temp_dir.join("README.md").touch.write <<~CONTENT
         <!-- Tocer[start] -->
@@ -38,16 +36,16 @@ RSpec.describe Tocer::Runner do
 
     it "processes files with matching extensions" do
       test_path = temp_dir.join("test.md").touch
-      runner.call(configuration.merge(includes: %w[*.md])) { |path| kernel.print path }
+      runner.call configuration.merge(patterns: %w[*.md])
 
-      expect(kernel).to have_received(:print).with(test_path)
+      expect(kernel).to have_received(:puts).with("  #{test_path}")
     end
 
-    it "processes with files with recursive includes" do
+    it "processes with files with recursive patterns" do
       test_path = temp_dir.join("nested").make_path.join("nested.md").touch
-      runner.call(configuration.merge(includes: %w[**/*.md])) { |path| kernel.print path }
+      runner.call configuration.merge(patterns: %w[**/*.md])
 
-      expect(kernel).to have_received(:print).with(test_path)
+      expect(kernel).to have_received(:puts).with("  #{test_path}")
     end
 
     it "doesn't process files when there are no files" do
@@ -56,13 +54,13 @@ RSpec.describe Tocer::Runner do
     end
 
     it "doesn't process files for invalid path" do
-      runner.call configuration.merge root_dir: "bogus"
+      runner.call configuration.merge(root_dir: Pathname("bogus"))
       expect(kernel).not_to have_received(:print)
     end
 
-    it "doesn't process files with invalid includes" do
+    it "doesn't process files with invalid patterns" do
       temp_dir.join("test.md").touch
-      test_configuration = configuration.merge includes: ["bogus", "~#}*^"]
+      test_configuration = configuration.merge patterns: ["bogus", "~#}*^"]
       runner.call(test_configuration) { |path| kernel.print path }
 
       expect(kernel).not_to have_received(:print)
@@ -70,7 +68,7 @@ RSpec.describe Tocer::Runner do
 
     it "doesn't process files with missing wildcards" do
       temp_dir.join("test.md").touch
-      runner.call(configuration.merge(includes: %w[.md])) { |path| kernel.print path }
+      runner.call(configuration.merge(patterns: %w[.md])) { |path| kernel.print path }
 
       expect(kernel).not_to have_received(:print)
     end

@@ -5,18 +5,23 @@ require "refinements/pathnames"
 module Tocer
   # Generates/updates Table of Contents for files in root path.
   class Runner
+    include Import[:kernel]
+
     using Refinements::Pathnames
 
-    def initialize writer: Writer.new
+    def initialize(writer: Writer.new, **)
+      super(**)
       @writer = writer
     end
 
-    def call configuration = Container[:configuration]
-      Pathname(configuration.root_dir).files(%({#{configuration.includes.join ","}}))
-                                      .each do |path|
-                                        yield path if block_given?
-                                        writer.call path, label: configuration.label
-                                      end
+    # :reek:FeatureEnvy
+    def call configuration
+      configuration.root_dir
+                   .files(%({#{configuration.patterns.join ","}}))
+                   .each do |path|
+                     kernel.puts "  #{path}"
+                     writer.call path, label: configuration.label
+                   end
     end
 
     private

@@ -24,7 +24,7 @@ module Tocer
       @builder = builder
     end
 
-    def call path, label: Configuration::Loader.call.label
+    def call path, label: Container[:configuration].label
       path.rewrite do |body|
         lines = body.each_line.to_a
         builder.prependable?(lines) ? prepend(lines, label) : replace(lines, label)
