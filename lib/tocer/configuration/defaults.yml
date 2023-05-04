@@ -1,4 +1,4 @@
-:label: "## Table of Contents"
-:includes:
+label: "## Table of Contents"
+patterns:
   - "README.md"
-:root_dir: "."
+root_dir: "."
