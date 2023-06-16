@@ -58,15 +58,18 @@ bundle add tocer
 From the command line, run: `tocer --help`
 
 ....
-USAGE:
-  -c, --config ACTION                      Manage gem configuration: edit or view.
-  -h, --help                               Show this message.
-  -i, --insert [PATH]                      Insert/update table of contents. Default: ".".
-  -v, --version                            Show gem version.
+USAGE
+  tocer [OPTIONS]
+  tocer COMMAND [OPTIONS]
 
-OPTIONS:
-      --includes [a,b,c]                   Add include patterns. Default: ["README.md"].
-      --label [LABEL]                      Add label. Default: "## Table of Contents".
+OPTIONS
+  -v, --version            Show version.
+  -h, --help [COMMAND]     Show this message.
+
+COMMANDS
+  config                   Manage configuration.
+                           Path is dynamic per current directory.
+  upsert                   Update/insert table of contents.
 ....
 
 To generate the table of contents at a specific position within your Markdown files, add the
@@ -93,10 +96,10 @@ The default configuration is as follows:
 
 [source,yaml]
 ----
-:label: "## Table of Contents"
-:includes:
+label: "## Table of Contents"
+patterns:
   - "README.md"
-:root_dir: "."
+root_dir: "."
 ----
 
 Feel free to take this default configuration, modify, and save as your own custom
@@ -105,7 +108,7 @@ Feel free to take this default configuration, modify, and save as your own custo
 The `configuration.yml` file can be configured as follows:
 
 * `label`: The header label for the table of contents.
-* `includes`: The list of included files.
+* `patterns`: The list of included files.
 * `root_dir`: The root path to use for processing files.
 
 There are multiple ways the include list can be defined. Here are some examples:
@@ -113,22 +116,22 @@ There are multiple ways the include list can be defined. Here are some examples:
 [source,yaml]
 ----
 # Use an empty array to ignore all files:
-:includes: []
+:patterns: []
 
 # Use an array of wildcards for groups of files with similar extensions:
-:includes:
+:patterns:
   - "*.md"
   - "*.mkd"
   - "*.markdown"
 
 # Use a mix of wild cards and relative names/paths to customized as necessary:
-:includes:
+:patterns:
   - "README.md"
   - "docs/*.md"
   - "*.markdown"
 
 # Use a recursive glob to traverse and update all sub-directories:
-:includes:
+:patterns:
   - "**/*.md"
 ----
 
