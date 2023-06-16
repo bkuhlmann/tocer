@@ -8,7 +8,7 @@ module Tocer
     module Actions
       # Stores table of contents label.
       class Label < Sod::Action
-        include Import[:inputs]
+        include Import[:input]
 
         using Refinements::Structs
 
@@ -18,7 +18,7 @@ module Tocer
 
         default { Container[:configuration].label }
 
-        def call(label = default) = inputs.merge!(label:)
+        def call(label = default) = input.merge!(label:)
       end
     end
   end

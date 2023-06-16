@@ -9,7 +9,7 @@ module Tocer
     module Commands
       # Stores table of contents root path.
       class Upsert < Sod::Command
-        include Import[:inputs, :kernel]
+        include Import[:input, :kernel]
 
         handle "upsert"
 
@@ -24,7 +24,7 @@ module Tocer
           @runner = runner
         end
 
-        def call = runner.call inputs
+        def call = runner.call input
 
         private
 

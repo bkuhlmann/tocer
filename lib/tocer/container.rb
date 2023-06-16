@@ -21,7 +21,7 @@ module Tocer
                       .add_loader(Etcher::Loaders::YAML.new(self[:defaults_path]))
     end
 
-    register(:inputs, memoize: true) { self[:configuration].dup }
+    register(:input, memoize: true) { self[:configuration].dup }
     register(:defaults_path) { Pathname(__dir__).join("configuration/defaults.yml") }
     register(:xdg_config) { Runcom::Config.new "tocer/configuration.yml" }
     register(:specification) { Spek::Loader.call "#{__dir__}/../../tocer.gemspec" }

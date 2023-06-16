@@ -8,7 +8,7 @@ module Tocer
     module Actions
       # Stores table of contents root path.
       class Root < Sod::Action
-        include Import[:inputs]
+        include Import[:input]
 
         using Refinements::Structs
 
@@ -18,7 +18,7 @@ module Tocer
 
         default { Container[:configuration].root_dir }
 
-        def call(path = default) = inputs.merge! root_dir: Pathname(path)
+        def call(path = default) = input.merge! root_dir: Pathname(path)
       end
     end
   end

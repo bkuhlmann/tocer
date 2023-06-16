@@ -13,10 +13,7 @@ RSpec.describe Tocer::CLI::Shell do
 
   let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
-  before do
-    Tocer::Container[:inputs].merge! Tocer::Container[:configuration].to_h
-    Sod::Import.stub kernel:, logger:
-  end
+  before { Sod::Import.stub kernel:, logger: }
 
   after { Sod::Import.unstub :kernel, :logger }
 

@@ -6,11 +6,9 @@ RSpec.describe Tocer::CLI::Commands::Upsert do
   using Refinements::Structs
   using Refinements::Pathnames
 
-  subject(:command) { described_class.new inputs: }
+  subject(:command) { described_class.new }
 
   include_context "with application dependencies"
-
-  let(:inputs) { configuration.dup.merge! root_dir: temp_dir }
 
   describe "#call" do
     it "calls runner with default arguments" do
@@ -20,7 +18,7 @@ RSpec.describe Tocer::CLI::Commands::Upsert do
 
     it "calls runner with custom arguments" do
       path = temp_dir.join("test.md").touch
-      inputs.patterns = %w[*.md]
+      input.patterns = %w[*.md]
       command.call
 
       expect(kernel).to have_received(:puts).with("  #{path}")
