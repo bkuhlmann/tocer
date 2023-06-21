@@ -3,6 +3,11 @@ exclude_paths:
   - vendor
 
 detectors:
+  ControlParameter:
+    exclude:
+      - "Tocer::CLI::Actions::Label#call"
+      - "Tocer::CLI::Actions::Pattern#call"
+      - "Tocer::CLI::Actions::Root#call"
   LongParameterList:
     enabled: false
   TooManyStatements:

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "refinements/structs"
 require "sod"
 
 module Tocer
@@ -10,15 +9,13 @@ module Tocer
       class Label < Sod::Action
         include Import[:input]
 
-        using Refinements::Structs
-
         description "Set label."
 
         on %w[-l --label], argument: "[TEXT]"
 
         default { Container[:configuration].label }
 
-        def call(label = default) = input.merge!(label:)
+        def call(label = nil) = input.label = label || default
       end
     end
   end
