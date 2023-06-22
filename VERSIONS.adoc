@@ -1,5 +1,9 @@
 = Versions
 
+== 16.0.2 (2023-06-21)
+
+* Fixed CLI action optional positional parameters - Brooke Kuhlmann
+
 == 16.0.1 (2023-06-19)
 
 * Fixed input container dependency - Brooke Kuhlmann
