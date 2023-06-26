@@ -3,4 +3,4 @@
 
 require "tocer"
 
-Tocer::CLI::Shell.new.call ARGV
+Tocer::CLI::Shell.new.call
