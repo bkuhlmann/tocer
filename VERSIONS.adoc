@@ -1,5 +1,12 @@
 = Versions
 
+== 16.0.3 (2023-07-23)
+
+* Fixed RuboCop Packaging/BundlerSetupInTests issues - Brooke Kuhlmann
+* Added container memoization - Brooke Kuhlmann
+* Updated Rake RSpec task configuration to not be verbose - Brooke Kuhlmann
+* Removed ARGV argument from CLI executable - Brooke Kuhlmann
+
 == 16.0.2 (2023-06-21)
 
 * Fixed CLI action optional positional parameters - Brooke Kuhlmann
