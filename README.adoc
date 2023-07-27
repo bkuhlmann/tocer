@@ -57,20 +57,7 @@ bundle add tocer
 
 From the command line, run: `tocer --help`
 
-....
-USAGE
-  tocer [OPTIONS]
-  tocer COMMAND [OPTIONS]
-
-OPTIONS
-  -v, --version            Show version.
-  -h, --help [COMMAND]     Show this message.
-
-COMMANDS
-  config                   Manage configuration.
-                           Path is dynamic per current directory.
-  upsert                   Update/insert table of contents.
-....
+image:https://alchemists.io/images/projects/tocer/screenshots/usage.png[Usage,width=581,height=326,role=focal_point]
 
 To generate the table of contents at a specific position within your Markdown files, add the
 following lines to your file(s) prior to generation:
