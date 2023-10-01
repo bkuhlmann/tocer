@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "tocer"
-  spec.version = "16.0.3"
+  spec.version = "16.1.0"
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://alchemists.io/projects/tocer"
