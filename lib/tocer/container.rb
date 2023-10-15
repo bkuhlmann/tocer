@@ -25,7 +25,7 @@ module Tocer
     register(:defaults_path, memoize: true) { Pathname(__dir__).join("configuration/defaults.yml") }
     register(:xdg_config, memoize: true) { Runcom::Config.new "tocer/configuration.yml" }
     register(:specification, memoize: true) { Spek::Loader.call "#{__dir__}/../../tocer.gemspec" }
-    register(:logger, memoize: true) { Cogger.new formatter: :emoji }
+    register(:logger, memoize: true) { Cogger.new id: :tocer }
     register :kernel, Kernel
   end
 end
