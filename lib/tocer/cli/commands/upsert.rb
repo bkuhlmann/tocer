@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "pathname"
-require "refinements/structs"
+require "refinements/struct"
 require "sod"
 
 module Tocer

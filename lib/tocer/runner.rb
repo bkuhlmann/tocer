@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "refinements/pathnames"
+require "refinements/pathname"
 
 module Tocer
   # Generates/updates Table of Contents for files in root path.
   class Runner
     include Import[:kernel]
 
-    using Refinements::Pathnames
+    using Refinements::Pathname
 
     def initialize(writer: Writer.new, **)
       super(**)

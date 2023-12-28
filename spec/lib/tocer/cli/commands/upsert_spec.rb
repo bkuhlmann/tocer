@@ -3,8 +3,8 @@
 require "spec_helper"
 
 RSpec.describe Tocer::CLI::Commands::Upsert do
-  using Refinements::Structs
-  using Refinements::Pathnames
+  using Refinements::Struct
+  using Refinements::Pathname
 
   subject(:command) { described_class.new }
 

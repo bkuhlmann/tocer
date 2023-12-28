@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "rake"
-require "refinements/structs"
+require "refinements/struct"
 require "tocer"
 
 module Tocer
@@ -9,7 +9,7 @@ module Tocer
     # Registers Rake tasks for use.
     class Register
       include ::Rake::DSL
-      using Refinements::Structs
+      using Refinements::Struct
 
       def self.call = new.call
 

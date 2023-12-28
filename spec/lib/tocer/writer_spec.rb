@@ -3,7 +3,7 @@
 require "spec_helper"
 
 RSpec.describe Tocer::Writer do
-  using Refinements::Pathnames
+  using Refinements::Pathname
 
   subject(:writer) { described_class.new }
 

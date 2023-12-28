@@ -5,8 +5,8 @@ require "spec_helper"
 RSpec.describe Tocer::Runner do
   subject(:runner) { described_class.new }
 
-  using Refinements::Pathnames
-  using Refinements::Structs
+  using Refinements::Pathname
+  using Refinements::Struct
 
   include_context "with application dependencies"
 

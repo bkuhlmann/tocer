@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "refinements/arrays"
-require "refinements/pathnames"
+require "refinements/array"
+require "refinements/pathname"
 
 module Tocer
   # Writes table of contents to a Markdown document.
   # :reek:DataClump
   class Writer
-    using Refinements::Arrays
-    using Refinements::Pathnames
+    using Refinements::Array
+    using Refinements::Pathname
 
     def self.add start_index:, old_lines:, new_lines:
       computed_new_lines = start_index.zero? ? new_lines : new_lines + "\n"
