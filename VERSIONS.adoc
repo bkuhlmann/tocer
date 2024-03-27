@@ -1,5 +1,11 @@
 = Versions
 
+== 17.2.0 (2024-03-26)
+
+* 🔼 Updated setup script as a Ruby script - Brooke Kuhlmann
+* 🔼 Updated to Amazing Print 1.6.0 - Brooke Kuhlmann
+* 🔼 Updated to Infusible 3.4.0 - Brooke Kuhlmann
+
 == 17.1.0 (2024-03-03)
 
 * 🟢 Added repl_type_completor gem - Brooke Kuhlmann
