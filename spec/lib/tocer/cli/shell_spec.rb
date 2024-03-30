@@ -5,7 +5,6 @@ require "spec_helper"
 RSpec.describe Tocer::CLI::Shell do
   using Refinements::Pathname
   using Refinements::Struct
-  using Infusible::Stub
 
   subject(:shell) { described_class.new }
 
@@ -13,9 +12,9 @@ RSpec.describe Tocer::CLI::Shell do
 
   let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
-  before { Sod::Import.stub kernel:, logger: }
+  before { Sod::Container.stub! kernel:, logger: }
 
-  after { Sod::Import.unstub :kernel, :logger }
+  after { Sod::Container.restore }
 
   describe "#call" do
     it "prints configuration usage" do

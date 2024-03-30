@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-require "dry/container/stub"
-require "infusible/stub"
-
 RSpec.shared_context "with application dependencies" do
-  using Infusible::Stub
-
   include_context "with temporary directory"
 
   let :configuration do
@@ -17,7 +12,7 @@ RSpec.shared_context "with application dependencies" do
   let(:kernel) { class_spy Kernel }
   let(:logger) { Cogger.new id: :tocer, io: StringIO.new }
 
-  before { Tocer::Import.stub configuration:, input:, xdg_config:, kernel:, logger: }
+  before { Tocer::Container.stub! configuration:, input:, xdg_config:, kernel:, logger: }
 
-  after { Tocer::Import.unstub :configuration, :input, :xdg_config, :kernel, :logger }
+  after { Tocer::Container.restore }
 end
