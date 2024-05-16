@@ -1,5 +1,12 @@
 = Versions
 
+== 17.4.0 (2024-05-16)
+
+* 🔼 Updated RSpec configuration to ignore backtraces in pending specs - Brooke Kuhlmann
+* 🔼 Updated to Git Lint 7.3.0 - Brooke Kuhlmann
+* 🔼 Updated to Rake 13.2.0 - Brooke Kuhlmann
+* 🔼 Updated to Ruby 3.3.1 - Brooke Kuhlmann
+
 == 17.3.0 (2024-04-03)
 
 * 🟢 Added Containable gem - Brooke Kuhlmann
