@@ -12,13 +12,13 @@ module Tocer
     extend Containable
 
     register :configuration do
-      self[:defaults].add_loader(Etcher::Loaders::YAML.new(self[:xdg_config].active))
+      self[:defaults].add_loader(:yaml, self[:xdg_config].active)
                      .then { |registry| Etcher.call registry }
     end
 
     register :defaults do
       Etcher::Registry.new(contract: Configuration::Contract, model: Configuration::Model)
-                      .add_loader(Etcher::Loaders::YAML.new(self[:defaults_path]))
+                      .add_loader(:yaml, self[:defaults_path])
     end
 
     register(:input) { self[:configuration].dup }
