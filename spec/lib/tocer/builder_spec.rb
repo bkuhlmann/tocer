@@ -5,6 +5,8 @@ require "spec_helper"
 RSpec.describe Tocer::Builder do
   subject(:builder) { described_class.new }
 
+  include_context "with application dependencies"
+
   let :lines do
     [
       "# Overview\n",

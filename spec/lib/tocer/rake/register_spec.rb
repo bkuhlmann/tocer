@@ -4,7 +4,7 @@ require "spec_helper"
 require "tocer/rake/register"
 
 RSpec.describe Tocer::Rake::Register do
-  subject(:tasks) { described_class.new configuration, runner: }
+  subject(:tasks) { described_class.new runner: }
 
   include_context "with application dependencies"
 
@@ -24,19 +24,21 @@ RSpec.describe Tocer::Rake::Register do
 
     it "calls runner with default arguments" do
       Rake::Task["toc"].invoke
-
-      expect(runner).to have_received(:call).with(configuration)
+      expect(runner).to have_received(:call)
     end
 
     it "calls runner with custom arguments" do
       Rake::Task["toc"].invoke "## TOC", %w[one.md two.md]
+      expect(runner).to have_received(:call)
+    end
 
-      expect(runner).to have_received(:call).with(
-        Tocer::Configuration::Model[
-          label: "## TOC",
-          root_dir: temp_dir,
-          patterns: %w[one.md two.md]
-        ]
+    it "modifies settings with custom arguments" do
+      Rake::Task["toc"].invoke "## TOC", %w[one.md two.md]
+
+      expect(settings).to have_attributes(
+        label: "## TOC",
+        root_dir: temp_dir,
+        patterns: %w[one.md two.md]
       )
     end
   end

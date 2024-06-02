@@ -3,7 +3,6 @@
 require "spec_helper"
 
 RSpec.describe Tocer::CLI::Commands::Upsert do
-  using Refinements::Struct
   using Refinements::Pathname
 
   subject(:command) { described_class.new }
@@ -18,7 +17,7 @@ RSpec.describe Tocer::CLI::Commands::Upsert do
 
     it "calls runner with custom arguments" do
       path = temp_dir.join("test.md").touch
-      input.patterns = %w[*.md]
+      settings.patterns = %w[*.md]
       command.call
 
       expect(kernel).to have_received(:puts).with("  #{path}")

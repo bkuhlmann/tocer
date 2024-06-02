@@ -4,11 +4,13 @@ ruby file: ".ruby-version"
 
 source "https://rubygems.org"
 
+gem "sod", path: "~/Engineering/OSS/sod"
+
 gemspec
 
 group :quality do
   gem "caliber", "~> 0.58"
-  gem "git-lint", "~> 7.3"
+  # gem "git-lint", "~> 7.3"
   gem "reek", "~> 6.3", require: false
   gem "simplecov", "~> 0.22", require: false
 end

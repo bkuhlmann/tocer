@@ -6,7 +6,6 @@ RSpec.describe Tocer::Runner do
   subject(:runner) { described_class.new }
 
   using Refinements::Pathname
-  using Refinements::Struct
 
   include_context "with application dependencies"
 
@@ -19,7 +18,7 @@ RSpec.describe Tocer::Runner do
         ## One
       CONTENT
 
-      runner.call configuration
+      runner.call
 
       expect(path.read).to eq(<<~CONTENT)
         <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -36,39 +35,44 @@ RSpec.describe Tocer::Runner do
 
     it "processes files with matching extensions" do
       test_path = temp_dir.join("test.md").touch
-      runner.call configuration.merge(patterns: %w[*.md])
+      settings.patterns = %w[*.md]
+      runner.call
 
       expect(kernel).to have_received(:puts).with("  #{test_path}")
     end
 
     it "processes with files with recursive patterns" do
       test_path = temp_dir.join("nested").make_path.join("nested.md").touch
-      runner.call configuration.merge(patterns: %w[**/*.md])
+      settings.patterns = %w[**/*.md]
+      runner.call
 
       expect(kernel).to have_received(:puts).with("  #{test_path}")
     end
 
     it "doesn't process files when there are no files" do
-      runner.call(configuration) { |path| kernel.print path }
+      runner.call { |path| kernel.print path }
       expect(kernel).not_to have_received(:print)
     end
 
     it "doesn't process files for invalid path" do
-      runner.call configuration.merge(root_dir: Pathname("bogus"))
+      settings.root_dir = Pathname "bogus"
+      runner.call
+
       expect(kernel).not_to have_received(:print)
     end
 
     it "doesn't process files with invalid patterns" do
       temp_dir.join("test.md").touch
-      test_configuration = configuration.merge patterns: ["bogus", "~#}*^"]
-      runner.call(test_configuration) { |path| kernel.print path }
+      settings.patterns = ["bogus", "~#}*^"]
+      runner.call { |path| kernel.print path }
 
       expect(kernel).not_to have_received(:print)
     end
 
     it "doesn't process files with missing wildcards" do
       temp_dir.join("test.md").touch
-      runner.call(configuration.merge(patterns: %w[.md])) { |path| kernel.print path }
+      settings.patterns = %w[.md]
+      runner.call { |path| kernel.print path }
 
       expect(kernel).not_to have_received(:print)
     end

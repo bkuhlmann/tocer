@@ -10,12 +10,12 @@ RSpec.describe Tocer::CLI::Actions::Label do
   describe "#call" do
     it "sets default label" do
       action.call
-      expect(input.label).to eq("## Table of Contents")
+      expect(settings.label).to eq("## Table of Contents")
     end
 
     it "sets custom label" do
       action.call "# A Test"
-      expect(input.label).to eq("# A Test")
+      expect(settings.label).to eq("# A Test")
     end
   end
 end

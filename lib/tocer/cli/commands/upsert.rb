@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "pathname"
-require "refinements/struct"
 require "sod"
 
 module Tocer
@@ -9,8 +7,6 @@ module Tocer
     module Commands
       # Stores table of contents root path.
       class Upsert < Sod::Command
-        include Import[:input, :kernel]
-
         handle "upsert"
 
         description "Update/insert table of contents."
@@ -20,11 +16,11 @@ module Tocer
         on Actions::Pattern
 
         def initialize(runner: Runner.new, **)
-          super(**)
           @runner = runner
+          super(**)
         end
 
-        def call = runner.call input
+        def call = runner.call
 
         private
 

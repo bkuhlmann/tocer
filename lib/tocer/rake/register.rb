@@ -9,25 +9,28 @@ module Tocer
     # Registers Rake tasks for use.
     class Register
       include ::Rake::DSL
+      include Import[:settings]
+
       using Refinements::Struct
 
       def self.call = new.call
 
-      def initialize configuration = Container[:configuration], runner: Runner.new
-        @configuration = configuration
+      def initialize(runner: Runner.new, **)
         @runner = runner
+        super(**)
       end
 
       def call
         desc "Update/Insert Table of Contents"
         task :toc, %i[label patterns] do |_task, arguments|
-          runner.call configuration.merge(arguments.to_h)
+          settings.merge! arguments
+          runner.call
         end
       end
 
       private
 
-      attr_reader :configuration, :runner
+      attr_reader :runner
     end
   end
 end

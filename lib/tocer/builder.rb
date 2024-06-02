@@ -20,7 +20,7 @@ module Tocer
 
     def unbuildable?(lines) = comment_block.empty?(lines) && headers(lines).empty?
 
-    def call lines, label: Container[:configuration].label
+    def call lines, label: Container[:settings].label
       return "" if headers(lines).empty?
 
       url_count.clear

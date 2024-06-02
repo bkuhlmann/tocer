@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.shared_context "with application dependencies" do
+  using Refinements::Struct
+
   include_context "with temporary directory"
 
-  let :configuration do
-    Etcher.new(Tocer::Container[:defaults]).call(root_dir: temp_dir).bind(&:dup)
-  end
-
-  let(:input) { configuration.dup }
-  let(:xdg_config) { Runcom::Config.new Tocer::Container[:defaults_path] }
+  let(:settings) { Tocer::Container[:settings] }
   let(:kernel) { class_spy Kernel }
   let(:logger) { Cogger.new id: :tocer, io: StringIO.new }
 
-  before { Tocer::Container.stub! configuration:, input:, xdg_config:, kernel:, logger: }
+  before do
+    settings.merge! Etcher.call(Tocer::Container[:registry].remove_loader(1), root_dir: temp_dir)
+    Tocer::Container.stub! kernel:, logger:
+  end
 
   after { Tocer::Container.restore }
 end

@@ -10,17 +10,17 @@ RSpec.describe Tocer::CLI::Actions::Pattern do
   describe "#call" do
     it "sets default patterns" do
       action.call
-      expect(input.patterns).to eq(["README.md"])
+      expect(settings.patterns).to eq(["README.md"])
     end
 
     it "sets custom pattern" do
       action.call [".md"]
-      expect(input.patterns).to eq([".md"])
+      expect(settings.patterns).to eq([".md"])
     end
 
     it "sets custom patterns" do
       action.call [".md", "**/*.md"]
-      expect(input.patterns).to eq([".md", "**/*.md"])
+      expect(settings.patterns).to eq([".md", "**/*.md"])
     end
   end
 end

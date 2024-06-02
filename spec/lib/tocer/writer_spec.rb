@@ -7,6 +7,7 @@ RSpec.describe Tocer::Writer do
 
   subject(:writer) { described_class.new }
 
+  include_context "with application dependencies"
   include_context "with temporary directory"
 
   describe ".add" do
