@@ -6,6 +6,7 @@ RSpec.describe Tocer::Runner do
   subject(:runner) { described_class.new }
 
   using Refinements::Pathname
+  using Refinements::StringIO
 
   include_context "with application dependencies"
 
@@ -38,7 +39,7 @@ RSpec.describe Tocer::Runner do
       settings.patterns = %w[*.md]
       runner.call
 
-      expect(kernel).to have_received(:puts).with("  #{test_path}")
+      expect(io.reread).to eq("  #{test_path}\n")
     end
 
     it "processes with files with recursive patterns" do
@@ -46,35 +47,35 @@ RSpec.describe Tocer::Runner do
       settings.patterns = %w[**/*.md]
       runner.call
 
-      expect(kernel).to have_received(:puts).with("  #{test_path}")
+      expect(io.reread).to eq("  #{test_path}\n")
     end
 
     it "doesn't process files when there are no files" do
-      runner.call { |path| kernel.print path }
-      expect(kernel).not_to have_received(:print)
+      runner.call { |path| io.print path }
+      expect(io.reread).to eq("")
     end
 
     it "doesn't process files for invalid path" do
       settings.root_dir = Pathname "bogus"
       runner.call
 
-      expect(kernel).not_to have_received(:print)
+      expect(io.reread).to eq("")
     end
 
     it "doesn't process files with invalid patterns" do
       temp_dir.join("test.md").touch
       settings.patterns = ["bogus", "~#}*^"]
-      runner.call { |path| kernel.print path }
+      runner.call { |path| io.print path }
 
-      expect(kernel).not_to have_received(:print)
+      expect(io.reread).to eq("")
     end
 
     it "doesn't process files with missing wildcards" do
       temp_dir.join("test.md").touch
       settings.patterns = %w[.md]
-      runner.call { |path| kernel.print path }
+      runner.call { |path| io.print path }
 
-      expect(kernel).not_to have_received(:print)
+      expect(io.reread).to eq("")
     end
   end
 end

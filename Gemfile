@@ -4,8 +4,6 @@ ruby file: ".ruby-version"
 
 source "https://rubygems.org"
 
-gem "sod", path: "~/Engineering/OSS/sod"
-
 gemspec
 
 group :quality do

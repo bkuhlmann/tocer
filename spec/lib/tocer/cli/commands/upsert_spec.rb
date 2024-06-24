@@ -4,6 +4,7 @@ require "spec_helper"
 
 RSpec.describe Tocer::CLI::Commands::Upsert do
   using Refinements::Pathname
+  using Refinements::StringIO
 
   subject(:command) { described_class.new }
 
@@ -20,7 +21,7 @@ RSpec.describe Tocer::CLI::Commands::Upsert do
       settings.patterns = %w[*.md]
       command.call
 
-      expect(kernel).to have_received(:puts).with("  #{path}")
+      expect(io.reread).to eq("  #{path}\n")
     end
   end
 end

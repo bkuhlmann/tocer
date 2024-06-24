@@ -6,12 +6,12 @@ RSpec.shared_context "with application dependencies" do
   include_context "with temporary directory"
 
   let(:settings) { Tocer::Container[:settings] }
-  let(:kernel) { class_spy Kernel }
   let(:logger) { Cogger.new id: :tocer, io: StringIO.new }
+  let(:io) { StringIO.new }
 
   before do
     settings.merge! Etcher.call(Tocer::Container[:registry].remove_loader(1), root_dir: temp_dir)
-    Tocer::Container.stub! kernel:, logger:
+    Tocer::Container.stub! logger:, io:
   end
 
   after { Tocer::Container.restore }

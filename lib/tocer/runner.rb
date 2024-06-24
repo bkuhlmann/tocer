@@ -5,7 +5,7 @@ require "refinements/pathname"
 module Tocer
   # Generates/updates Table of Contents for files in root path.
   class Runner
-    include Import[:settings, :kernel]
+    include Import[:settings, :io]
 
     using Refinements::Pathname
 
@@ -18,7 +18,7 @@ module Tocer
       settings.root_dir
               .files(%({#{settings.patterns.join ","}}))
               .each do |path|
-                kernel.puts "  #{path}"
+                io.puts "  #{path}"
                 writer.call path, label: settings.label
               end
     end

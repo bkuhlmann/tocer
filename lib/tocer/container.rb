@@ -22,6 +22,6 @@ module Tocer
     register(:xdg_config) { Runcom::Config.new "tocer/configuration.yml" }
     register(:specification) { Spek::Loader.call "#{__dir__}/../../tocer.gemspec" }
     register(:logger) { Cogger.new id: :tocer }
-    register :kernel, Kernel
+    register :io, STDOUT
   end
 end

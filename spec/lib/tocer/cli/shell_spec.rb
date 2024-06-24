@@ -5,6 +5,7 @@ require "spec_helper"
 RSpec.describe Tocer::CLI::Shell do
   using Refinements::Pathname
   using Refinements::Struct
+  using Refinements::StringIO
 
   subject(:shell) { described_class.new }
 
@@ -12,14 +13,14 @@ RSpec.describe Tocer::CLI::Shell do
 
   let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
-  before { Sod::Container.stub! kernel:, logger: }
+  before { Sod::Container.stub! logger:, io: }
 
   after { Sod::Container.restore }
 
   describe "#call" do
     it "prints configuration usage" do
       shell.call %w[config]
-      expect(kernel).to have_received(:puts).with(/Manage configuration.+/m)
+      expect(io.reread).to match(/Manage configuration.+/m)
     end
 
     it "upserts with defaults" do
@@ -84,12 +85,12 @@ RSpec.describe Tocer::CLI::Shell do
 
     it "prints version" do
       shell.call %w[--version]
-      expect(kernel).to have_received(:puts).with(/Tocer\s\d+\.\d+\.\d+/)
+      expect(io.reread).to match(/Tocer\s\d+\.\d+\.\d+/)
     end
 
     it "prints help" do
       shell.call %w[--help]
-      expect(kernel).to have_received(:puts).with(/Tocer.+USAGE.+/m)
+      expect(io.reread).to match(/Tocer.+USAGE.+/m)
     end
   end
 end
