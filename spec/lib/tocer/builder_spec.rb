@@ -67,7 +67,9 @@ RSpec.describe Tocer::Builder do
       let(:lines) { ["# Section 1\n", "# Section 2\n"] }
 
       it "builds customized table of contents" do
-        expect(builder.call(lines, label: "# Overview")).to eq(<<~TOC)
+        settings.label = "# Overview"
+
+        expect(builder.call(lines)).to eq(<<~TOC)
           <!-- Tocer[start]: Auto-generated, don't remove. -->
 
           # Overview
