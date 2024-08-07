@@ -24,10 +24,10 @@ module Tocer
       @builder = builder
     end
 
-    def call path, label: Container[:settings].label
+    def call path
       path.rewrite do |body|
         lines = body.each_line.to_a
-        builder.prependable?(lines) ? prepend(lines, label) : replace(lines, label)
+        builder.prependable?(lines) ? prepend(lines) : replace(lines)
       end
     end
 
@@ -35,7 +35,7 @@ module Tocer
 
     attr_reader :builder
 
-    def replace lines, label
+    def replace lines
       start_index = builder.start_index lines
       finish_index = builder.finish_index lines
       klass = self.class
@@ -43,20 +43,20 @@ module Tocer
       klass.add(
         start_index:,
         old_lines: klass.remove(start_index, finish_index, lines),
-        new_lines: new_lines(lines, label, finish_index)
+        new_lines: new_lines(lines, finish_index)
       ).join
     end
 
-    def new_lines lines, label, finish_index
+    def new_lines lines, finish_index
       if builder.unbuildable? lines
         builder.comments
       else
-        content lines[finish_index, lines.length], label
+        content lines[finish_index, lines.length]
       end
     end
 
-    def prepend(lines, label) = [content(lines, label), lines.join].compress.join("\n")
+    def prepend(lines) = [content(lines), lines.join].compress.join("\n")
 
-    def content(lines, label) = builder.call(lines, label:)
+    def content(lines) = builder.call lines
   end
 end
