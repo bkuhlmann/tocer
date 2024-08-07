@@ -6,25 +6,31 @@ module Tocer
   # Builds table of contents for a Markdown document.
   class Builder
     extend Forwardable
+    include Import[:settings]
 
     CODE_BLOCK_PUNCTUATION = "```"
 
     def_delegators :comment_block, :start_index, :finish_index, :comments, :prependable?
 
-    def initialize comment_block: Elements::CommentBlock.new, transformer: Transformers::Finder.new
+    def initialize(
+      comment_block: Elements::CommentBlock.new,
+      transformer: Transformers::Finder.new,
+      **
+    )
       @comment_block = comment_block
       @transformer = transformer
       @url_count = Hash.new 0
       @code_block = false
+      super(**)
     end
 
     def unbuildable?(lines) = comment_block.empty?(lines) && headers(lines).empty?
 
-    def call lines, label: Container[:settings].label
+    def call lines
       return "" if headers(lines).empty?
 
       url_count.clear
-      assemble(lines, label).join
+      assemble(lines).join
     end
 
     private
@@ -32,10 +38,10 @@ module Tocer
     attr_reader :comment_block, :transformer, :url_count
     attr_accessor :code_block
 
-    def assemble lines, label
+    def assemble lines
       [
         "#{comment_block.start_tag}\n\n",
-        "#{label}\n\n",
+        "#{settings.label}\n\n",
         links(lines).join("\n"),
         "\n\n#{comment_block.finish_tag}\n"
       ]

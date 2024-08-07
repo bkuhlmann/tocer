@@ -79,7 +79,8 @@ RSpec.describe Tocer::Writer do
       let(:fixture_path) { SPEC_ROOT.join "support/fixtures/missing.md" }
 
       it "uses custom label for table of contents" do
-        writer.call test_path, label: "# Index"
+        settings.label = "# Index"
+        writer.call test_path
 
         expect(test_path.read).to eq(<<~BODY)
           <!-- Tocer[start]: Auto-generated, don't remove. -->

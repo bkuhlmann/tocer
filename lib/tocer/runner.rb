@@ -19,7 +19,7 @@ module Tocer
               .files(%({#{settings.patterns.join ","}}))
               .each do |path|
                 io.puts "  #{path}"
-                writer.call path, label: settings.label
+                writer.call path
               end
     end
 
