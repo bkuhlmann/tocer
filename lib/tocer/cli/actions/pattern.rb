@@ -15,7 +15,7 @@ module Tocer
 
         default { Container[:settings].patterns }
 
-        def call(patterns = nil) = settings.patterns = Array(patterns || default)
+        def call(patterns = default) = settings.patterns = Array(patterns)
       end
     end
   end

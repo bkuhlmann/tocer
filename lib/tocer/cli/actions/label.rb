@@ -15,7 +15,7 @@ module Tocer
 
         default { Container[:settings].label }
 
-        def call(label = nil) = settings.label = label || default
+        def call(label = default) = settings.label = label
       end
     end
   end

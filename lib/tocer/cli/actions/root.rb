@@ -15,7 +15,7 @@ module Tocer
 
         default { Container[:settings].root_dir }
 
-        def call(path = nil) = settings.root_dir = Pathname(path || default)
+        def call(path = default) = settings.root_dir = Pathname(path)
       end
     end
   end
