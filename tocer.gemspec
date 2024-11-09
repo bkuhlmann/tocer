@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "containable", "~> 0.2"
   spec.add_dependency "core", "~> 1.10"
   spec.add_dependency "dry-schema", "~> 1.13"
-  spec.add_dependency "etcher", "~> 2.1"
+  spec.add_dependency "etcher", "~> 2.7"
   spec.add_dependency "infusible", "~> 3.12"
   spec.add_dependency "refinements", "~> 12.10"
   spec.add_dependency "runcom", "~> 11.10"
