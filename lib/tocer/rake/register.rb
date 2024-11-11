@@ -9,7 +9,7 @@ module Tocer
     # Registers Rake tasks for use.
     class Register
       include ::Rake::DSL
-      include Import[:settings]
+      include Dependencies[:settings]
 
       using Refinements::Struct
 

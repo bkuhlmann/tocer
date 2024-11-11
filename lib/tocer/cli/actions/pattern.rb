@@ -7,7 +7,7 @@ module Tocer
     module Actions
       # Stores table of contents file patterns.
       class Pattern < Sod::Action
-        include Import[:settings]
+        include Dependencies[:settings]
 
         description "Set file patterns."
 

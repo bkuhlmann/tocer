@@ -5,7 +5,7 @@ require "refinements/pathname"
 module Tocer
   # Generates/updates Table of Contents for files in root path.
   class Runner
-    include Import[:settings, :io]
+    include Dependencies[:settings, :io]
 
     using Refinements::Pathname
 

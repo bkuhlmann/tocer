@@ -7,7 +7,7 @@ module Tocer
     module Actions
       # Stores table of contents label.
       class Label < Sod::Action
-        include Import[:settings]
+        include Dependencies[:settings]
 
         description "Set label."
 

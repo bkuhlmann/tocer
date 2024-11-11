@@ -6,7 +6,7 @@ module Tocer
   # Builds table of contents for a Markdown document.
   class Builder
     extend Forwardable
-    include Import[:settings]
+    include Dependencies[:settings]
 
     CODE_BLOCK_PUNCTUATION = "```"
 

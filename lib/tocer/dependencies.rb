@@ -3,5 +3,5 @@
 require "infusible"
 
 module Tocer
-  Import = Infusible[Container]
+  Dependencies = Infusible[Container]
 end
