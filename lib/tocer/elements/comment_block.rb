@@ -11,7 +11,6 @@ module Tocer
       def initialize start_id: "Tocer[start]",
                      finish_id: "Tocer[finish]",
                      message: "Auto-generated, don't remove."
-
         @start_id = start_id
         @finish_id = finish_id
         @message = message
