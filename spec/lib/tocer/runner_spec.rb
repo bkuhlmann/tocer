@@ -43,7 +43,7 @@ RSpec.describe Tocer::Runner do
     end
 
     it "processes with files with recursive patterns" do
-      test_path = temp_dir.join("nested").make_path.join("nested.md").touch
+      test_path = temp_dir.join("nested").mkpath.join("nested.md").touch
       settings.patterns = %w[**/*.md]
       runner.call
 
