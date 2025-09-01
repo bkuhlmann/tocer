@@ -10,7 +10,7 @@ RSpec.shared_context "with application dependencies" do
   let(:io) { StringIO.new }
 
   before do
-    settings.merge! Etcher.call(Tocer::Container[:registry].remove_loader(1), root_dir: temp_dir)
+    settings.with! Etcher.call(Tocer::Container[:registry].remove_loader(1), root_dir: temp_dir)
     Tocer::Container.stub! logger:, io:
   end
 

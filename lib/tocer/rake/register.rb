@@ -23,7 +23,7 @@ module Tocer
       def call
         desc "Update/Insert Table of Contents"
         task :toc, %i[label patterns] do |_task, arguments|
-          settings.merge! arguments
+          settings.with! arguments
           runner.call
         end
       end
