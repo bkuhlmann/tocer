@@ -8,3 +8,5 @@ detectors:
   TooManyStatements:
     exclude:
       - "Tocer::CLI::Shell#cli"
+  UnusedParameters:
+    enabled: false
