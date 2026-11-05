@@ -5,10 +5,10 @@ require "forwardable"
 module Tocer
   # Builds table of contents for a Markdown document.
   class Builder
+    CODE_BLOCK_PUNCTUATION = "```"
+
     extend Forwardable
     include Dependencies[:settings]
-
-    CODE_BLOCK_PUNCTUATION = "```"
 
     def_delegators :comment_block, :start_index, :finish_index, :comments, :prependable?
 
